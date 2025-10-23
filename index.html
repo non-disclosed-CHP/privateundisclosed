@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lc2V-sqAAAAADvO6F8Bw51sFbjjJuzDhKHLweHu" async defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMU/APU SVA Chapter</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    
+<!-- Modal Popup Content -->
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
+    <div class="flex justify-center items-center h-full">
+        <div class="bg-white rounded-lg w-3/4 md:w-1/2 p-6 shadow-lg max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+            <!-- Close Button -->
+            <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none transition duration-200">
+                <span class="text-2xl font-semibold">&times;</span>
+            </button>
+
+            <!-- Modal Title -->
+            <h3 class="text-lg font-bold text-gray-800 mb-6">Resources and Links</h3>
+
+            <div class="space-y-6">
+                <!-- Links Section -->
+                <ul class="space-y-2">
+                    <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
+                    <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
+            
+
+
+                    <!-- New Links -->
+                    
+                    <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
+                    <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
+                    <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
+                    <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
+                    <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
+                    <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
+                    <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
+                    <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
+                    <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700">Join SVA</a></li>
+                    <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700">Join Our Facebook</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Solid Square Banner -->
+<div class="relative w-full bg-gray-900 text-white shadow-lg">
+    <!-- Container for logos and content -->
+    <div class="flex flex-wrap items-center justify-between w-full px-6 py-4">
+        <!-- Left Logo -->
+        <img src="250.png" alt="Left Logo" class="w-20 sm:w-24 md:w-28 lg:w-32 h-auto">
+
+<!-- Center Content (Navigation Button) -->
+<div class="flex justify-center">
+    <button id="openModalBtn"
+      class="bg-blue-900/70 text-white/90 px-6 py-3 rounded-lg shadow-xl text-lg md:text-xl font-semibold tracking-wide uppercase border border-blue-400 hover:bg-blue-800/80 hover:text-white transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-300">
+      ★★★ AMU APU SVA Resources & Links ★★★
+    </button>
+  </div>
+
+        <!-- Right Logo -->
+        <img src="svaa.png" alt="Right Logo" class="w-20 sm:w-24 md:w-28 lg:w-32 h-auto">
+    </div>
+</div>
+
+
+    <style>
+        .text-shadow-md {
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    
+    <style>
+        .button-frame {
+            border-radius: 12px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .button-frame:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+
+    <style>
+        /* Container for image */
+        .image-container {
+            position: fixed; /* Fixes the position to the viewport */
+            top: calc(50% - 3in + 0.6in + 0.6in + 3in + 1in); /* Top position remains unchanged */
+            right: calc(0 + 2in + 1.5in + 0.3in + 0.3in + 0.5in + 0.5in); /* Move 0.5 inches further to the right */
+            transform: translateY(-50%); /* Keep the image centered vertically with the new offset */
+            z-index: 10; /* Keeps it above other content */
+            width: auto;
+            height: auto;
+        }
+
+        /* Image Styling */
+        .blacksva-image {
+            opacity: 0.75; /* 30% opacity, so 70% transparent */
+            object-fit: cover; /* Ensures the image covers the area */
+            height: 70%; /* Image takes 70% of the viewport height */
+            width: auto; /* Maintain aspect ratio */
+        }
+    </style>
+
+
+    <script>
+    // JavaScript to toggle the visibility of resources tab
+    function toggleResourcesTab() {
+        const resourcesTab = document.getElementById('resources-tab');
+        const button = document.getElementById('toggle-resources');
+        if (resourcesTab.style.display === 'none' || resourcesTab.style.display === '') {
+            resourcesTab.style.display = 'block';
+            button.textContent = '−'; // Change button to close symbol
+        } else {
+            resourcesTab.style.display = 'none';
+            button.textContent = '+'; // Change button to open symbol
+        }
+    }
+
+    // JavaScript to toggle the subgroups within the resources tab
+    function toggleGroup(groupId, buttonId) {
+        const group = document.getElementById(groupId);
+        const button = document.getElementById(buttonId);
+        if (group.style.display === 'none' || group.style.display === '') {
+            group.style.display = 'block';
+            button.textContent = '−'; // Change button to close symbol
+        } else {
+            group.style.display = 'none';
+            button.textContent = '+'; // Change button to open symbol
+        }
+    }
+</script>
+
+<!-- About Section -->
+<section class="relative py-12 px-6 flex justify-between items-center" style="background-color: rgb(45, 32, 142);">
+    <!-- Content Box with Dark Professional Ruby Red Background -->
+    <div class="relative z-10 max-w-3xl p-8 mx-auto rounded-lg shadow-lg overflow-auto"
+        style="background: rgba(245, 247, 246, 0);">
+
+        <!-- Tommy Image - Centered at the top inside the box -->
+        <div class="flex justify-center mb-6">
+            <img src="nav.png" alt="Tommy Image" class="w-32 h-32 object-cover rounded-full">
+        </div>
+
+        <!-- Text Content -->
+        <p class="relative z-10 text-lg text-white leading-relaxed">
+           You may Navigate our AMU-APU Student Veteran's of America website by clicking the Website Navigation, Links and Resources button at the top of the page, or by clicking the links below to navigate our website. You will find this button at the top of each page in Blue, and this box available to help you navigate throughour our website. Thank you for visiting
+        </p>
+
+<!-- Scrollable Links Box -->
+<div class="relative mt-6 p-4 bg-white rounded-lg max-h-60 overflow-y-scroll space-y-4">
+    <!-- Links Inside Scrollable Box -->
+    <ul class="space-y-2 text-sm">
+        <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
+        <li><a href="https://www.veteranscrisisline.net/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Crisis Line</a></li>
+        <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-blue-600 hover:text-blue-700" target="_blank">Veteran and Military Suicide Prevention Resources</a></li>
+        <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-blue-600 hover:text-blue-700" target="_blank">VA Suicide Prevention</a></li>
+        <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Tuition Assistance</a></li>
+        <li><a href="https://www.va.gov/benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Benefits</a></li>
+        <li><a href="https://www.va.gov/education/" class="text-blue-600 hover:text-blue-700" target="_blank">Education Resources</a></li>
+        <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-blue-600 hover:text-blue-700" target="_blank">Career Services</a></li>
+        <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Counseling and Support</a></li>
+        <!-- New Links -->
+        <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
+        <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
+        <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
+        <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
+        <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
+        <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
+        <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
+        <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
+        <li><a href="blog.html" class="text-blue-600 hover:text-blue-700">Blog</a></li>
+        <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700">Join SVA</a></li>
+        <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700">Join Our Facebook</a></li>
+
+
+
+        
+        <!-- PMI Training Tabs for Each Branch -->
+        <li><a href="https://www.pmi.org/military/pmi-certifications-military" class="text-blue-600 hover:text-blue-700" target="_blank">PMI Training Scholarship Information</a></li>
+    </ul>
+</div>
+    </div>
+</section>
+
+
+<!-- About Section -->
+<section class="relative py-12 px-6 flex justify-between items-center" style="background-color: rgb(45, 32, 142);">
+    <!-- Content Box with Dark Professional Ruby Red Background -->
+    <div class="relative z-10 max-w-3xl p-8 mx-auto rounded-lg shadow-lg overflow-auto"
+        style="background: hsla(0, 76%, 39%, 0.775);">
+
+        <!-- Tommy Image - Centered at the top inside the box -->
+        <div class="flex justify-center mb-6">
+            <img src="pic.tommy.png" alt="Tommy Image" class="w-32 h-32 object-cover rounded-full">
+        </div>
+
+        <!-- Text Content -->
+        <p class="relative z-10 text-lg text-white leading-relaxed">
+            The AMU Student Veterans of America Chapter provides essential leadership and support for active duty, transitioning service members, and AMU APU students. We foster a strong community that helps veterans adjust to academic life, providing mentorship, resources, and a supportive environment. Our chapter serves as a vital connection for veterans, offering leadership opportunities, advocacy for student veterans' needs, and guidance for navigating academic challenges. Through a combination of peer support and collaboration with AMU administration, we ensure veterans have the tools and encouragement they need to thrive in their educational journeys.
+        </p>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="relative py-12 px-6 flex justify-between items-center" style="background-color: rgb(128, 124, 124);">
+    <!-- Content Box with Professional Gray Background -->
+    <div class="relative z-10 max-w-3xl p-8 mx-auto rounded-lg shadow-lg overflow-auto"
+        style="background-color: #128e26;">
+
+        <!-- Tommy Image - Centered at the top inside the box -->
+        <div class="flex justify-center mb-6">
+            <img src="student.png" alt="Tommy Image" class="w-32 h-32 object-cover rounded-full">
+        </div>
+
+        <!-- Text Content -->
+        <p class="relative z-10 text-lg text-white leading-relaxed">
+            AMU/APU SVA Chapter Leadership & Support offers comprehensive support for veterans in navigating the GI Bill, other benefits, and educational resources. Our team collaborates with veterans to ensure they fully understand and access the educational opportunities available to them. From application assistance to ensuring benefits are used effectively, AMU SVA guides veterans through the complexities of educational funding and resources. Our community thrives on collaboration, as veterans share their experiences and knowledge to help one another succeed. Through our dedicated efforts, we ensure veterans can focus on their studies without the stress of navigating the paperwork and logistics of their benefits.
+        </p>
+    </div> 
+</section>
+<!-- Close -->
+
+<!-- About Section -->
+<section class="relative py-12 px-6 flex justify-between items-center" style="background-color: rgb(210, 207, 211);">
+    <!-- Content Box with Dark Professional Ruby Red Background -->
+    <div class="relative z-10 max-w-3xl p-8 mx-auto rounded-lg shadow-lg overflow-auto"
+        style="background: hwb(238 4% 11% / 0.775);">
+
+        <!-- Tommy Image - Centered at the top inside the box -->
+        <div class="flex justify-center mb-6">
+            <img src="svalead.png" alt="Tommy Image" class="w-32 h-32 object-cover rounded-full">
+        </div>
+
+        <!-- Text Content -->
+        <p class="relative z-10 text-lg text-white leading-relaxed">
+            AMU/APU SVA Chapter Leadership & Support works closely with the VA and other health services to ensure veterans receive the care and resources they need to succeed both academically and personally. We offer support for accessing VA health services, including mental health resources and physical health programs, ensuring that veterans’ well-being is prioritized. Our meetings and collaborations with the veteran community provide a platform for discussing issues, sharing resources, and planning initiatives that support veterans. Whether it's connecting with other veterans, seeking assistance, or engaging in wellness activities, AMU/APU SVA Chapter Leadership & Support is committed to fostering a healthy, supportive, and inclusive environment for all veterans.
+        </p>
+    </div>
+</section>
+
+<script>
+    // Toggle the display of the leadership content
+    document.getElementById('toggleButton').addEventListener('click', function() {
+        const content = document.getElementById('content');
+        content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
+    });
+
+    // Toggle individual leader bios
+    function toggleBio(bioId) {
+        const bio = document.getElementById(bioId);
+        bio.style.display = bio.style.display === 'none' || bio.style.display === '' ? 'block' : 'none';
+    }
+
+    // Initial setup: hide all bios and the expandable content on load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('content').style.display = 'none';
+        const bios = document.querySelectorAll('.leader-bio');
+        bios.forEach(bio => bio.style.display = 'none');
+    });
+</script>
+
+
+<script>
+    // Toggle the display of the leadership content
+    document.getElementById('toggleButton').addEventListener('click', function() {
+        const content = document.getElementById('content');
+        content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
+    });
+
+    // Toggle individual leader bios
+    function toggleBio(bioId) {
+        const bio = document.getElementById(bioId);
+        bio.style.display = bio.style.display === 'none' || bio.style.display === '' ? 'block' : 'none';
+    }
+
+    // Initial setup: hide all bios and the expandable content on load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('content').style.display = 'none';
+        const bios = document.querySelectorAll('.leader-bio');
+        bios.forEach(bio => bio.style.display = 'none');
+    });
+</script>
+
+<!-- Centered Background Image -->
+<div class="fixed inset-0 flex items-center justify-center pointer-events-none">
+    <img src="amu9.png" alt="Background Logo" class="opacity-30 w-auto h-3/4 sm:h-2/3 md:h-1/2 lg:h-1/2" />
+  </div>
+
+  
+  <!-- Modal Popup Content -->
+  <div id="resourcesModal" class="fixed bottom-20 right-6 z-50 bg-white rounded-lg w-80 max-h-[70vh] p-4 shadow-xl overflow-y-auto hidden transition-all duration-300 ease-in-out border border-gray-300">
+    <!-- Close Button -->
+    <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none" aria-label="Close Resources Modal">
+      <span class="text-2xl font-bold">&times;</span>
+    </button>
+  
+    <!-- Modal Title -->
+    <h3 class="text-lg font-semibold text-gray-800 mb-3">Resources and Links</h3>
+  
+    <!-- Links Section -->
+    <ul class="space-y-1 text-sm">
+      <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
+      <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
+      <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
+      <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
+      <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
+      <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
+      <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
+      <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
+      <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
+      <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
+      <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
+      <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
+    </ul>
+  </div>
+  
+  <!-- Modal Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const openModalBtn = document.getElementById("openModalBtn");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const modal = document.getElementById("resourcesModal");
+  
+      openModalBtn.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+      });
+  
+      closeModalBtn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+      });
+  
+      // Optional: Close modal when clicking outside of it
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.add("hidden");
+        }
+      });
+    });
+  </script>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 mt-8">
+        <div class="max-w-screen-xl mx-auto text-center">
+            <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
+        </div>
+    </footer>
+  
+  </html>

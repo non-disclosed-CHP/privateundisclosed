@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Members</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            /* Set the background to a gradient, with a centered flag */
+            background: linear-gradient(to bottom, #1E2A47, #7F1D1D, #ffffff);
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            font-family: Arial, sans-serif;
+        }
+
+        /* To center the flag image and avoid stretching */
+        .flag-background {
+            background-image: url('flag2.png');
+            background-size: contain; /* Prevent stretching */
+            background-position: center;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%; /* Adjust size as necessary */
+            height: auto;
+            z-index: -1; /* Ensure it doesn't cover other content */
+        }
+
+        .floating-logo {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        header {
+            background: linear-gradient(to right, #7F1D1D, #374151, #1E2A47); /* Darker colors */
+            color: white;
+            padding: 24px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        /* Links at the top */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-size: 1.125rem;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            background-color: rgba(59, 130, 246, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        /* Board Members Section */
+        .board-member {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .board-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .board-member h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1D4ED8;
+        }
+
+        .board-member p {
+            font-size: 1rem;
+            color: #4B5563;
+        }
+
+        .board-member .title {
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .board-member .email {
+            color: #6B7280;
+        }
+
+        /* Add this CSS to your stylesheet */
+
+#svatry-image {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: auto;
+  height: auto;
+  max-width: 20%; /* You can adjust the width as needed */
+  max-height: 20%; /* Adjust height accordingly */
+  opacity: 0.6; /* 40% transparency */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+/* Adjusting user element for better placement */
+#user {
+  position: relative;
+}
+    </style>
+</head>
+<body>
+
+
+<!-- Board Members Section -->
+<main class="container mx-auto py-12 px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    
+<!-- Nick Rinell -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="nick.png" alt="Nick Rinell" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+    <h2 class="text-xl font-bold text-center mb-1">Nick Rinell</h2>
+    <p class="text-center text-blue-600 font-medium">President</p>
+    <p class="text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+        <p>
+            I enlisted in the Marine Corps in September 2003 as an Air Traffic Control Maintenance
+            Radar Technician. Since my enlistment, I have spent eight years in Okinawa, Japan,
+            and 13 months in Al-Taqqadum, Iraq. Over my career, I have attended multiple Enlisted
+            Professional Military Education Courses and was honored to graduate from the Sergeant’s
+            Course as a Distinguished Graduate. In addition to these courses, I also graduated from the
+            Weapons and Tactics Instructor course at Marine Aviation Weapons and Tactics
+            Squadron 1. Finally, I completed a B.S. in Cybersecurity Management and Policy with a
+            certificate in Project Management, and I am pursuing an MBA in Accounting with a diploma
+            in Executive Coaching.
+        </p>
+        <p class="mt-2">
+            I have been married for almost 13 years and have a seven-year-old daughter. We love
+            to travel, cook, bake, and read together.
+        </p>
+        <p class="mt-2">
+            I wish to volunteer with SVA at AMU to create a mutually supportive community for
+            other military-associated students—a society where we all help each other. Additionally,
+            I have always found pleasure in volunteer work, which has included volunteer
+            firefighting, opening a coffee house at the MCAS Futenma Chapel, and serving as a
+            Board Member for the Kinser Elementary School Parent Teacher Organization.
+        </p>
+    </div>
+</div>
+
+<!-- Tommy Hendler Bio -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="TH.png" alt="Tommy Hendler" class="w-20 h-20 rounded-full mx-auto mb-4">
+    <h2 class="text-xl font-bold text-center mb-1">Tommy Hendler</h2>
+    <p class="text-center text-blue-600 font-medium">Vice President</p>
+    <p class="text-center text-gray-600 text-sm mb-4">Thomas.Hendler@mycampus.apus.edu</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+        <p>
+            Tommy Hendler is a dedicated and experienced AMU/APU Student Veterans of America (SVA) Chapter leader. He earned his MBA from American Military University and has served as Vice President of the SVA Chapter since August 2023, playing a pivotal role in supporting and advancing its mission. Before this, he was the chapter’s Secretary from June 2023 to August 2023, where he excelled in managing chapter records and communications.
+        </p>
+        <p class="mt-2">
+            In addition to his SVA leadership, Tommy brings extensive experience from his involvement in the Masonic community. He is the Chapter Operations Officer for the AMU/APU Dr. Wallace Boston Ancient Order of the Craft Chapter and holds several prominent positions in various Masonic lodges. Since June 2024, he has served as Worshipful Master (Lodge President) at Iowa Park Masonic Lodge #713 and as Lodge Secretary for the Burkburnett Masonic Lodge #1027. He is also active in the Scottish Rite, Shriners, and the American Legion and is a lifetime member of the VFW.
+        </p>
+        <p class="mt-2">
+            Tommy’s commitment to service extends to his military career. A Master Sergeant with 17 years of service in the Army Reserve, he serves as an AGR Reserve Component Career Counselor. In this role, he assists soldiers transitioning out of the Active Army to explore opportunities in the Army Reserve and Army National Guard.
+        </p>
+    </div>
+</div>
+
+
+<!-- Sergeant First Class Steven Miller -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="steven.png" alt="Sergeant First Class Steven Miller" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+    <h2 class="text-xl font-bold text-center mb-1">Steven Miller</h2>
+    <p class="text-center text-blue-600 font-medium">Secretary</p>
+    <p class="text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+        <p>
+            Steven D. Miller, a Sergeant First Class (SFC) in the U.S. Army Reserve, is applying for the Secretary of the 
+            Student Veterans of America chapter position. With 16 years of distinguished service, SFC Miller currently serves 
+            as an Army Reserve Career Counselor (ARCC), where he has honed invaluable administrative, organizational, and 
+            leadership skills. His role as an ARCC involves extensive administrative work, from managing soldier career transitions, 
+            reenlistments, and transfers to maintaining detailed records and preparing reports—all of which require high precision 
+            and organizational expertise. These responsibilities and his experience in various leadership positions during deployments 
+            to Iraq, Afghanistan, and Guantanamo Bay have equipped him with a strong foundation in operational management and 
+            administrative efficiency.
+        </p>
+        <p class="mt-2">
+            SFC Miller’s military accomplishments are further demonstrated by completing the Senior Leadership Course, Army Reserve 
+            Career Counselor Course, and other advanced military training programs. His civilian education includes a bachelor’s degree 
+            from Liberty University, and he is currently pursuing an MBA from American Military University, adding a strong academic 
+            background to his practical experience. His multiple awards, such as the Army Commendation Medal (2nd Award) and Army Achievement 
+            Medal (3rd Award), reflect his commitment to excellence.
+        </p>
+        <p class="mt-2">
+            SFC Miller’s extensive administrative experience as an Army Reserve Career Counselor, strong leadership skills, and attention 
+            to detail make him exceptionally well-qualified for the role of SVA Secretary. His leadership skills, honed during his various 
+            deployments to Iraq, Afghanistan, and Guantanamo Bay, will be an asset to the chapter's efficient operation and success.
+        </p>
+    </div>
+</div>
+
+<!-- Kelly-Anne Pitchers -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="kelly.png" alt="Kelly-Anne Pitchers" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+    <h2 class="text-xl font-bold text-center mb-1">Kelly-Anne Pitchers</h2>
+    <p class="text-center text-blue-600 font-medium">Treasurer</p>
+    <p class="text-center text-gray-600 text-sm mb-4">Email: apussva@gmail.com</p>
+    <div class="overflow-y-scroll max-h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+        <p>
+            Kelly-Anne Pitchers is a highly organized and detail-oriented individual with a strong background in customer service, operations, and leadership. She is currently pursuing a Bachelor’s degree in Business Administration at American Public University, maintaining an impressive GPA of 3.97.
+        </p>
+        <p class="mt-2">
+            Kelly's diverse work experience demonstrates her ability to manage financial and operational tasks efficiently. Most recently, she worked as a City Carrier Assistant for USPS in Wichita Falls, where she adhered to strict regulations and guidelines while providing excellent customer service. Prior to that, she worked as a Personal Shopper with Instacart, optimizing processes and resolving customer issues promptly.
+        </p>
+        <p class="mt-2">
+            With extensive experience as a Customer Service Agent at Harte Hanks, Kelly supported the Blue Cross and Blue Shield federal employee program, managing customer inquiries and utilizing CRM tools for case resolution. Her leadership experience includes serving as a Shift Supervisor at Empire Eats in Raleigh, NC, where she managed staff and ensured a positive work environment.
+        </p>
+        <p class="mt-2">
+            With her strong business acumen, leadership experience, and commitment to accuracy, Kelly is well-equipped to serve as Treasurer for the Student Veterans of America (SVA), managing financial records with the same attention to detail and professionalism she has demonstrated throughout her career.
+        </p>
+    </div>
+</div>
+
+<!-- David Payne -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="dpayne.png" alt="David Payne" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+    <h2 class="text-xl font-bold text-center mb-1">David Payne</h2>
+    <p class="text-center text-blue-600 font-medium">Chief Information Officer</p>
+    <p class="text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+    <div class="overflow-y-auto max-h-72 p-2 text-gray-700 text-sm border-t border-gray-200">
+        <p>
+            My name is David Payne, and I am honored to serve as the Chief Information Officer for AMU/APUS Student Veterans of America. As a veteran of the 82nd Airborne Division with two deployments to Iraq, I bring a deep passion for supporting student veterans and leveraging technology to enhance their educational and professional opportunities.
+        </p>
+        <p class="mt-2">
+            After my military service, I earned a Bachelor’s Degree in Business Management from American Military University, graduating in 2019. Currently, I work as an Operations Manager at Sutphen Corporation, where we manufacture custom fire trucks for fire departments across the nation. My professional experience has sharpened my leadership and organizational skills, which I now apply to advancing the mission of our chapter.
+        </p>
+        <p class="mt-2">
+            Beyond my career, I am committed to giving back to the community. I actively assist individuals overcoming substance abuse, guiding them toward recovery and sobriety. My involvement also includes supporting my church, participating in local initiatives like the VFW, and volunteering on political campaigns. I’ve managed websites and social media platforms for small businesses in Columbus, Ohio, emphasizing digital strategy and community engagement.
+        </p>
+        <p class="mt-2">
+            On a personal note, I am married with two wonderful children, and their future inspires my dedication to improving the lives of veterans and their families.
+        </p>
+        <p class="mt-2">
+            As CIO, I am committed to using my expertise to further SVA’s mission and create impactful opportunities for our student veteran community.
+        </p>
+    </div>
+</div>
+
+<!-- William -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="william.png" alt="William Copper" class="w-16 h-16 rounded-full mx-auto mb-4">
+    <h2 class="text-xl font-bold text-center">William C.</h2>
+    <p class="title text-center text-blue-600">Webmaster</p>
+    <p class="email text-center text-gray-600">https://www.linkedin.com/in/wcjc/</p>
+    <div class="overflow-y-auto h-64 p-2 text-sm text-gray-700 mt-4">
+        <p>
+            As a US Air Force Veteran and US Coast Guard Auxiliary Search and Rescue (S&R) Volunteer, I bring a unique combination of technical expertise and humanitarian service. My involvement in *S&R operations* and providing *USMC DEP training support* has honed my leadership, adaptability, and critical-thinking skills—traits that I will use to contribute to the *AMU Student Veterans Association (SVA)*.
+        </p>
+        <p class="mt-2">
+            In addition to my technical experience, I volunteered at the Philadelphia VA Emergency Department (ED), where I specialized sourcing *mental health resources* and *job support services* for fellow veterans. This role has deepened my commitment to serving the veteran community, providing valuable support during times of need and assisting veterans in navigating their career transitions and mental health challenges.
+        </p>
+        <p class="mt-2">
+            With a Master of Public Health (MPH), I am passionate about applying technology and data science to improve public health systems, particularly in disaster management and crisis response. My ongoing focus on *Full-Stack Development* and *Machine Learning (ML)* empowers me to create accessible, AI-driven solutions to assist vulnerable populations—aligning with *AMU SVA*’s mission to support student veterans through innovative approaches.
+        </p>
+        <p class="mt-2">
+            I am also expanding my expertise in Google Project Management and gaining a deeper understanding of PM KSAs (Knowledge, Skills, and Abilities) to ensure successful project management. By leveraging my technical expertise and leadership skills, I aim to drive impactful projects—whether through machine learning initiatives or leading cross-functional teams. Through my involvement with *AMU SVA*, I hope to apply my diverse background to create meaningful, user-centered solutions that contribute to both the AMU and veteran's community and broader humanitarian goals.
+        </p>
+    </div>
+</div>
+
+<!-- David Terry -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="dterry.png" alt="David Terry" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+    <h2 class="text-xl font-bold text-center mb-1">David Terry</h2>
+    <p class="text-center text-blue-600 font-medium">Chapter Ambassador</p>
+    <p class="text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+        <p>
+            My name is David Terry, and like my father, I am a Marine. I have been active duty for 15 years and am currently stationed at the 4th Marine Aircraft Wing in New Orleans, LA. My trade is aviation electrician, and I also serve as the 4th MAW class desk while awaiting the results of the Warrant Officer Board.
+        </p>
+        <p class="mt-2">
+            I have been married for 13 years and have two sons. We have relocated often, and we look forward to returning to Japan at some point. I am currently pursuing my bachelor’s degree in business management and plan to pursue my master’s degree afterward.
+        </p>
+        <p class="mt-2">
+            As a Regional Ambassador, I am excited to support our Chapter locally, fostering a strong community for student veterans and their families.
+        </p>
+    </div>
+</div>
+
+
+<!-- Loren Rovere -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="lrovere.png" alt="Loren Rovere" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+    <h2 class="text-xl font-bold text-center mb-1">Loren Rovere</h2>
+    <p class="text-center text-blue-600 font-medium">Chapter Advisor</p>
+    <p class="text-center text-gray-600 text-sm mb-4">lrovere@apus.edu</p>
+    <div class="overflow-y-auto max-h-40 p-2 text-gray-700 text-sm border-t border-gray-200">
+        Loren Rovere has worked as a Military Education Senior Manager for American Military University since 2020. In September 2022, Loren relocated to Pensacola, FL, to continue working with AMU students. After Loren relocated to Pensacola, she became the Secretary for FL ACME in hopes of better connecting with the military community in Florida and serving military students.<br><br>
+        She is a student-centric leader with over 10 years of experience working in higher education and with the military. Loren has a passion for education and is doing what she can to help others and give back to the community.<br><br>
+        Loren earned her B.A. from Arizona State University in Business with a Concentration in Communications and her M.A. in Education with a Concentration in Higher Education from Ashford University.<br><br>
+        Outside of work, Loren enjoys spending time with her dog Gunnar, is an ASU Sun Devil football fan, and is exploring the south while living in Pensacola.
+    </div>
+</div>
+
+<!-- Chuck Alsleben -->
+<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
+    <img src="chucka.png" alt="Chuck Alsleben" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+    <h2 class="text-xl font-bold text-center mb-1">Chuck Alsleben</h2>
+    <p class="text-center text-blue-600 font-medium">Chapter Advisor</p>
+    <p class="text-center text-blue-600 font-medium">Director, Team Central & International Military Outreach</p>
+    <p class="text-center text-gray-600 text-sm mb-4">calsleben@apus.edu</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+        <p>
+            Chuck Alsleben has been with the American Public University System (APUS) for over six years, holding various leadership roles focused on supporting military students. Since July 2024, he has served as the Director of Team Central & International Military Outreach, managing initiatives to enhance outreach and support for military students both within the United States and abroad.
+        </p>
+        <p class="mt-2">
+            Prior to this, Chuck held the position of Director of National Guard/Reserves & International Outreach, contributing to the expansion of APUS’s services for military members in the National Guard and Reserves, as well as international military personnel.
+        </p>
+        <p class="mt-2">
+            Chuck’s career at APUS began in 2018, when he started as a Senior Manager of Military Education, overseeing the educational needs of military students in South Texas and Louisiana. Throughout his tenure, he has played a crucial role in facilitating access to higher education for service members.
+        </p>
+        <p class="mt-2">
+            His extensive experience in military education and outreach has been instrumental in the continued growth and success of APUS’s military student programs.
+        </p>
+    </div>
+</div>
+    
+
+  </div>
+  </div>
+  
+  <script>
+  // JavaScript to toggle the visibility of resources tab
+  function toggleResourcesTab() {
+  const resourcesTab = document.getElementById('resources-tab');
+  const button = document.getElementById('toggle-resources');
+  if (resourcesTab.style.display === 'none' || resourcesTab.style.display === '') {
+      resourcesTab.style.display = 'block';
+      button.textContent = '−'; // Change button to close symbol
+  } else {
+      resourcesTab.style.display = 'none';
+      button.textContent = '+'; // Change button to open symbol
+  }
+  }
+  
+  // JavaScript to toggle the subgroups within the resources tab
+  function toggleGroup(groupId, buttonId) {
+  const group = document.getElementById(groupId);
+  const button = document.getElementById(buttonId);
+  if (group.style.display === 'none' || group.style.display === '') {
+      group.style.display = 'block';
+      button.textContent = '−'; // Change button to close symbol
+  } else {
+      group.style.display = 'none';
+      button.textContent = '+'; // Change button to open symbol
+  }
+  }
+  </script>
+
+</script>
+<!-- Toggle Button Fixed to Bottom Center -->
+<button id="openModalBtn" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
+    View Resources
+  </button>
+
+<!-- Modal Popup Content -->
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
+  <div class="flex justify-center items-start mt-20 md:mt-32">
+      <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+          <!-- Close Button -->
+          <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
+              <span class="text-2xl font-bold">&times;</span>
+          </button>
+
+          <!-- Modal Title -->
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
+
+          <!-- Links Section -->
+          <ul class="space-y-2 text-sm">
+              <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
+              <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
+              <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
+              <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
+              <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
+              <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
+              <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
+              <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
+              <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
+              <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
+              <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
+              <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
+          </ul>
+      </div>
+  </div>
+</div>
+
+<!-- Modal Script -->
+<script>
+  const openBtn = document.getElementById('openModalBtn');
+  const closeBtn = document.getElementById('closeModalBtn');
+  const modal = document.getElementById('resourcesModal');
+
+  openBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+  });
+
+  closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+  });
+
+  // Optional: close on outside click
+  window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+          modal.classList.add('hidden');
+      }
+  });
+</script>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 mt-8">
+        <div class="max-w-screen-xl mx-auto text-center">
+            <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
+        </div>
+    </footer>
+</body>
+</html>
