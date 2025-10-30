@@ -3,145 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Board Members</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <title>SVA Board Members and Leadership</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            /* Set the background to a gradient, with a centered flag */
-            background: linear-gradient(to bottom, #1E2A47, #7F1D1D, #ffffff);
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-blend-mode: overlay;
-            font-family: Arial, sans-serif;
+        /* ---------------------------------------------------------------------- */
+        /* 1. PROFESSIONAL THEME & WCAG STYLES (Navy Blue, Gold, White) */
+        /* ---------------------------------------------------------------------- */
+        :root {
+            --primary-blue: #0A1931; /* Deep Navy Blue (AMU/APUS dark) */
+            --secondary-gold: #FFC300; /* Bright Gold/Yellow (Accent) */
+            --accent-gray: #E0E0E0;   /* Light Gray for background */
+            --link-blue: #0077B6;     /* Accessible Blue for links */
         }
 
-        /* To center the flag image and avoid stretching */
-        .flag-background {
-            background-image: url('flag2.png');
-            background-size: contain; /* Prevent stretching */
-            background-position: center;
-            background-repeat: no-repeat;
+        /* WCAG IMPROVEMENT: Custom Focus Outline for Keyboard Users (2.4.7 Focus Visible) */
+        a:focus, button:focus, [tabindex="0"]:focus, .access-scroll-btn:focus {
+            outline: 3px solid var(--secondary-gold); 
+            outline-offset: 4px;
+            border-radius: 4px; 
+        }
+
+        /* Skip Link Styling (2.4.1 Bypass Blocks) */
+        .sr-only:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%; /* Adjust size as necessary */
-            height: auto;
-            z-index: -1; /* Ensure it doesn't cover other content */
+            white-space: nowrap;
+            width: 1px;
+            z-index: 1000;
         }
 
+        /* THEME & BASE STYLES */
+        body {
+            background: var(--accent-gray);
+            color: var(--primary-blue);
+            min-height: 150vh; 
+            /* Incorporate original gradient and flag, but enhance contrast */
+            background-image: linear-gradient(to bottom, rgba(10, 25, 49, 0.9), rgba(10, 25, 49, 0.7)), url('flag2.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .bg-navy { background-color: var(--primary-blue); }
+        .text-gold { color: var(--secondary-gold); }
+        .bg-gold { background-color: var(--secondary-gold); }
+        .hover\:bg-gold-dark:hover { background-color: #DAA520; }
+        .bg-card { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(2px); }
+
+        header {
+            background-color: var(--primary-blue); /* Simplified to Navy for contrast */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Board Member Card Styles */
+        .board-member h2 {
+            color: var(--primary-blue); /* Navy for primary text */
+        }
+        .board-member .title, .board-member .email {
+            color: var(--link-blue); /* Accessible blue for titles */
+        }
+
+        /* Floating Logo */
         .floating-logo {
             position: fixed;
-            bottom: 0;
-            right: 0;
-            opacity: 0.6;
+            bottom: 1rem;
+            right: 1rem;
+            opacity: 0.2; /* Reduced opacity for better WCAG 1.4.3 focus */
             pointer-events: none;
             z-index: 10;
         }
-
-        header {
-            background: linear-gradient(to right, #7F1D1D, #374151, #1E2A47); /* Darker colors */
+        
+        /* ---------------------------------------------------------------------- */
+        /* 2. ACCESSIBILITY BUTTONS (Scroll & Contrast) */
+        /* ---------------------------------------------------------------------- */
+        .access-scroll-btn {
+            position: fixed; right: 1rem; width: 50px; height: 50px;
+            background-color: rgba(10, 25, 49, 0.8); 
             color: white;
-            padding: 24px 0;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 50%; font-size: 1.5rem; text-align: center;
+            line-height: 50px; cursor: pointer; z-index: 1000; user-select: none;
+            border: 2px solid var(--secondary-gold); 
+            transition: background-color 0.2s, color 0.2s;
         }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
+        #scrollUp { top: 40%; }
+        #scrollDown { top: 50%; }
+        
+        /* Tooltip Bubbles Styles */
+        .a11y-bubble, .scroll-bubble {
+            position: fixed; background: var(--secondary-gold); color: var(--primary-blue);
+            padding: 8px 12px; border-radius: 8px; font-size: 0.875rem;
+            z-index: 1050; opacity: 0; transition: opacity 0.5s;
+            pointer-events: none; 
+            white-space: nowrap;
         }
-
-        /* Links at the top */
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            font-size: 1.125rem;
-            transition: color 0.3s ease, background-color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: white;
-            background-color: rgba(59, 130, 246, 0.7);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        /* Board Members Section */
-        .board-member {
-            background-color: white;
+        
+        /* Accessibility Button position (Top Right) */
+        #a11yToggle {
+            position: fixed; 
+            top: 13rem; 
+            right: 1.5rem; 
+            background-color: var(--secondary-gold);
+            color: var(--primary-blue);
+            padding: 10px 15px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 24px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .board-member:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .board-member h2 {
-            font-size: 1.5rem;
             font-weight: bold;
-            color: #1D4ED8;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 50;
         }
+        #a11yBubble { top: 13rem; right: 12rem; } 
+        #scrollUpBubble { top: 41%; right: 4.5rem; } 
+        #scrollDownBubble { top: 51%; right: 4.5rem; }
 
-        .board-member p {
-            font-size: 1rem;
-            color: #4B5563;
+        /* ---------------------------------------------------------------------- */
+        /* 3. HIGH CONTRAST MODE (WCAG 1.4.3 Contrast, 2.3.3 Animation) */
+        /* ---------------------------------------------------------------------- */
+        body.high-contrast {
+            background-color: #000 !important;
+            background-image: none !important;
+            color: #FFD700 !important; /* Gold text */
         }
-
-        .board-member .title {
-            font-weight: 600;
-            color: #1F2937;
+        body.high-contrast .bg-navy { background-color: #111 !important; }
+        body.high-contrast .text-gold, body.high-contrast .board-member h2 { color: #00FFFF !important; }
+        body.high-contrast a, body.high-contrast .title, body.high-contrast .email { color: #00FFFF !important; }
+        body.high-contrast .bg-card {
+            background-color: #111 !important; 
+            border-color: #00FFFF !important;
         }
-
-        .board-member .email {
-            color: #6B7280;
+        body.high-contrast .text-gray-700, body.high-contrast .text-gray-600 { color: #FFD700 !important; }
+        body.high-contrast .floating-logo { opacity: 0 !important; } /* Hide non-essential visual */
+        
+        /* Disable animation in high contrast or reduced motion mode (WCAG 2.3.3) */
+        body.motion-reduced * {
+            animation: none !important;
+            transition: none !important;
         }
-
-        /* Add this CSS to your stylesheet */
-
-#svatry-image {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: auto;
-  height: auto;
-  max-width: 20%; /* You can adjust the width as needed */
-  max-height: 20%; /* Adjust height accordingly */
-  opacity: 0.6; /* 40% transparency */
-  z-index: 1000; /* Ensure it's above other content */
-}
-
-/* Adjusting user element for better placement */
-#user {
-  position: relative;
-}
     </style>
 </head>
-<body>
+<body id="top-of-page">
 
+<a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-navy text-gold font-bold rounded fixed top-0 left-0 z-50">
+    Skip to Main Content
+</a>
 
-<!-- Board Members Section -->
-<main class="container mx-auto py-12 px-6">
+<button id="openModalBtn" 
+    class="fixed top-4 right-4 z-50 bg-gold text-navy px-5 py-2.5 rounded-lg shadow-xl font-semibold 
+           hover:bg-gold-dark transition focus:outline-none focus:ring-4 focus:ring-navy"
+    aria-label="Open full Resources and Links menu">
+    View Resources
+</button>
+
+<button id="a11yToggle"
+    aria-label="Toggle high contrast mode"
+    class="bg-gold text-primary-blue px-6 py-2 rounded-lg font-bold shadow-xl hover:bg-gold-dark transition focus:outline-none focus:ring-4 focus:ring-primary-blue z-50"
+    onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
+    ♿ Accessibility
+</button>
+<div id="a11yBubble" class="a11y-bubble">Click here to toggle high-contrast mode!</div>
+
+<header class="bg-navy text-white py-12 shadow-2xl relative">
+    <div class="max-w-screen-xl mx-auto px-6">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gold">
+            Meet Our Leadership Board
+        </h1>
+        </div>
+</header>
+
+<main id="main-content" class="container mx-auto py-12 px-6" tabindex="-1">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     
-<!-- Nick Rinell -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="nick.png" alt="Nick Rinell" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="nick.png" alt="Nick Rinell, President" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center mb-1">Nick Rinell</h2>
-    <p class="text-center text-blue-600 font-medium">President</p>
-    <p class="text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+    <p class="title text-center text-gold font-medium">President</p>
+    <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
         <p>
             I enlisted in the Marine Corps in September 2003 as an Air Traffic Control Maintenance
             Radar Technician. Since my enlistment, I have spent eight years in Okinawa, Japan,
@@ -167,13 +206,12 @@
     </div>
 </div>
 
-<!-- Tommy Hendler Bio -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="TH.png" alt="Tommy Hendler" class="w-20 h-20 rounded-full mx-auto mb-4">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="TH.png" alt="Tommy Hendler, Vice President" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center mb-1">Tommy Hendler</h2>
-    <p class="text-center text-blue-600 font-medium">Vice President</p>
-    <p class="text-center text-gray-600 text-sm mb-4">Thomas.Hendler@mycampus.apus.edu</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+    <p class="title text-center text-gold font-medium">Vice President</p>
+    <p class="email text-center text-gray-600 text-sm mb-4">Thomas.Hendler@mycampus.apus.edu</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
         <p>
             Tommy Hendler is a dedicated and experienced AMU/APU Student Veterans of America (SVA) Chapter leader. He earned his MBA from American Military University and has served as Vice President of the SVA Chapter since August 2023, playing a pivotal role in supporting and advancing its mission. Before this, he was the chapter’s Secretary from June 2023 to August 2023, where he excelled in managing chapter records and communications.
         </p>
@@ -186,14 +224,12 @@
     </div>
 </div>
 
-
-<!-- Sergeant First Class Steven Miller -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="steven.png" alt="Sergeant First Class Steven Miller" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="steven.png" alt="Sergeant First Class Steven Miller, Secretary" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center mb-1">Steven Miller</h2>
-    <p class="text-center text-blue-600 font-medium">Secretary</p>
-    <p class="text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+    <p class="title text-center text-gold font-medium">Secretary</p>
+    <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
         <p>
             Steven D. Miller, a Sergeant First Class (SFC) in the U.S. Army Reserve, is applying for the Secretary of the 
             Student Veterans of America chapter position. With 16 years of distinguished service, SFC Miller currently serves 
@@ -219,13 +255,12 @@
     </div>
 </div>
 
-<!-- Kelly-Anne Pitchers -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="kelly.png" alt="Kelly-Anne Pitchers" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="kelly.png" alt="Kelly-Anne Pitchers, Treasurer" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center mb-1">Kelly-Anne Pitchers</h2>
-    <p class="text-center text-blue-600 font-medium">Treasurer</p>
-    <p class="text-center text-gray-600 text-sm mb-4">Email: apussva@gmail.com</p>
-    <div class="overflow-y-scroll max-h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+    <p class="title text-center text-gold font-medium">Treasurer</p>
+    <p class="email text-center text-gray-600 text-sm mb-4">Email: apussva@gmail.com</p>
+    <div class="overflow-y-auto max-h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
         <p>
             Kelly-Anne Pitchers is a highly organized and detail-oriented individual with a strong background in customer service, operations, and leadership. She is currently pursuing a Bachelor’s degree in Business Administration at American Public University, maintaining an impressive GPA of 3.97.
         </p>
@@ -241,13 +276,12 @@
     </div>
 </div>
 
-<!-- David Payne -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="dpayne.png" alt="David Payne" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="dpayne.png" alt="David Payne, Social Media Manager" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center mb-1">David Payne</h2>
-    <p class="text-center text-blue-600 font-medium">Chief Information Officer</p>
-    <p class="text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
-    <div class="overflow-y-auto max-h-72 p-2 text-gray-700 text-sm border-t border-gray-200">
+    <p class="title text-center text-gold font-medium">Social Media Manager / CIO</p>
+    <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+    <div class="overflow-y-auto max-h-72 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
         <p>
             My name is David Payne, and I am honored to serve as the Chief Information Officer for AMU/APUS Student Veterans of America. As a veteran of the 82nd Airborne Division with two deployments to Iraq, I bring a deep passion for supporting student veterans and leveraging technology to enhance their educational and professional opportunities.
         </p>
@@ -266,13 +300,14 @@
     </div>
 </div>
 
-<!-- William -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="william.png" alt="William Copper" class="w-16 h-16 rounded-full mx-auto mb-4">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="william.png" alt="William C., Webmaster" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center">William C.</h2>
-    <p class="title text-center text-blue-600">Webmaster</p>
-    <p class="email text-center text-gray-600">https://www.linkedin.com/in/wcjc/</p>
-    <div class="overflow-y-auto h-64 p-2 text-sm text-gray-700 mt-4">
+    <p class="title text-center text-gold">Webmaster</p>
+    <p class="email text-center text-gray-600">
+        <a href="https://www.linkedin.com/in/wcjc/" target="_blank" class="text-link-blue hover:text-navy">LinkedIn Profile <span class="sr-only">(opens in new tab)</span></a>
+    </p>
+    <div class="overflow-y-auto h-64 p-2 text-sm text-gray-700 mt-4" tabindex="0">
         <p>
             As a US Air Force Veteran and US Coast Guard Auxiliary Search and Rescue (S&R) Volunteer, I bring a unique combination of technical expertise and humanitarian service. My involvement in *S&R operations* and providing *USMC DEP training support* has honed my leadership, adaptability, and critical-thinking skills—traits that I will use to contribute to the *AMU Student Veterans Association (SVA)*.
         </p>
@@ -288,13 +323,12 @@
     </div>
 </div>
 
-<!-- David Terry -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="dterry.png" alt="David Terry" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="dterry.png" alt="David Terry, Chapter Ambassador" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center mb-1">David Terry</h2>
-    <p class="text-center text-blue-600 font-medium">Chapter Ambassador</p>
-    <p class="text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+    <p class="title text-center text-gold font-medium">Chapter Ambassador</p>
+    <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
         <p>
             My name is David Terry, and like my father, I am a Marine. I have been active duty for 15 years and am currently stationed at the 4th Marine Aircraft Wing in New Orleans, LA. My trade is aviation electrician, and I also serve as the 4th MAW class desk while awaiting the results of the Warrant Officer Board.
         </p>
@@ -308,13 +342,12 @@
 </div>
 
 
-<!-- Loren Rovere -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="lrovere.png" alt="Loren Rovere" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="lrovere.png" alt="Loren Rovere, Chapter Advisor" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center mb-1">Loren Rovere</h2>
-    <p class="text-center text-blue-600 font-medium">Chapter Advisor</p>
-    <p class="text-center text-gray-600 text-sm mb-4">lrovere@apus.edu</p>
-    <div class="overflow-y-auto max-h-40 p-2 text-gray-700 text-sm border-t border-gray-200">
+    <p class="title text-center text-gold font-medium">Chapter Advisor</p>
+    <p class="email text-center text-gray-600 text-sm mb-4">lrovere@apus.edu</p>
+    <div class="overflow-y-auto max-h-40 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
         Loren Rovere has worked as a Military Education Senior Manager for American Military University since 2020. In September 2022, Loren relocated to Pensacola, FL, to continue working with AMU students. After Loren relocated to Pensacola, she became the Secretary for FL ACME in hopes of better connecting with the military community in Florida and serving military students.<br><br>
         She is a student-centric leader with over 10 years of experience working in higher education and with the military. Loren has a passion for education and is doing what she can to help others and give back to the community.<br><br>
         Loren earned her B.A. from Arizona State University in Business with a Concentration in Communications and her M.A. in Education with a Concentration in Higher Education from Ashford University.<br><br>
@@ -322,14 +355,13 @@
     </div>
 </div>
 
-<!-- Chuck Alsleben -->
-<div class="bg-white bg-opacity-80 border-2 border-gray-400 p-4">
-    <img src="chucka.png" alt="Chuck Alsleben" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+<div class="board-member bg-card border-2 border-gray-400 p-4">
+    <img src="chucka.png" alt="Chuck Alsleben, Chapter Advisor" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
     <h2 class="text-xl font-bold text-center mb-1">Chuck Alsleben</h2>
-    <p class="text-center text-blue-600 font-medium">Chapter Advisor</p>
-    <p class="text-center text-blue-600 font-medium">Director, Team Central & International Military Outreach</p>
-    <p class="text-center text-gray-600 text-sm mb-4">calsleben@apus.edu</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200">
+    <p class="title text-center text-gold font-medium">Chapter Advisor</p>
+    <p class="title text-center text-gold font-medium">Director, Team Central & International Military Outreach</p>
+    <p class="email text-center text-gray-600 text-sm mb-4">calsleben@apus.edu</p>
+    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
         <p>
             Chuck Alsleben has been with the American Public University System (APUS) for over six years, holding various leadership roles focused on supporting military students. Since July 2024, he has served as the Director of Team Central & International Military Outreach, managing initiatives to enhance outreach and support for military students both within the United States and abroad.
         </p>
@@ -347,99 +379,206 @@
     
 
   </div>
-  </div>
-  
-  <script>
-  // JavaScript to toggle the visibility of resources tab
-  function toggleResourcesTab() {
-  const resourcesTab = document.getElementById('resources-tab');
-  const button = document.getElementById('toggle-resources');
-  if (resourcesTab.style.display === 'none' || resourcesTab.style.display === '') {
-      resourcesTab.style.display = 'block';
-      button.textContent = '−'; // Change button to close symbol
-  } else {
-      resourcesTab.style.display = 'none';
-      button.textContent = '+'; // Change button to open symbol
-  }
-  }
-  
-  // JavaScript to toggle the subgroups within the resources tab
-  function toggleGroup(groupId, buttonId) {
-  const group = document.getElementById(groupId);
-  const button = document.getElementById(buttonId);
-  if (group.style.display === 'none' || group.style.display === '') {
-      group.style.display = 'block';
-      button.textContent = '−'; // Change button to close symbol
-  } else {
-      group.style.display = 'none';
-      button.textContent = '+'; // Change button to open symbol
-  }
-  }
-  </script>
+</main>
 
-</script>
-<!-- Toggle Button Fixed to Bottom Center -->
-<button id="openModalBtn" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
-    View Resources
-  </button>
 
-<!-- Modal Popup Content -->
-<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-  <div class="flex justify-center items-start mt-20 md:mt-32">
-      <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
-          <!-- Close Button -->
-          <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
-              <span class="text-2xl font-bold">&times;</span>
-          </button>
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+            
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-navy focus:outline-none transition duration-200"
+                    aria-label="Close Resources and Links dialog" data-autofocus>
+                <span class="text-3xl font-bold text-navy">&times;</span>
+            </button>
 
-          <!-- Modal Title -->
-          <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
+            <h3 id="modalTitle" class="text-2xl font-bold text-navy border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
 
-          <!-- Links Section -->
-          <ul class="space-y-2 text-sm">
-              <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-              <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
-              <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-              <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-              <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-              <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-              <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-              <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-              <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-              <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-              <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
-              <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
-          </ul>
-      </div>
-  </div>
+            <ul class="space-y-3 text-lg">
+                <li><a href="index.html" class="text-link-blue hover:text-navy transition">Home</a></li>
+                <li class="font-bold text-navy mt-4">CRITICAL SUPPORT:</li>
+                <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-link-blue hover:text-navy transition" target="_blank">Veteran/Military Suicide Prevention <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-link-blue hover:text-navy transition" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+                <li class="font-bold text-navy mt-4">CHAPTER LINKS:</li>
+                <li><a href="history.html" class="text-link-blue hover:text-navy transition">History</a></li>
+                <li><a href="board.html" class="text-link-blue hover:text-navy transition">Board</a></li>
+                <li><a href="legacy.html" class="text-link-blue hover:text-navy transition">Legacy</a></li>
+                <li><a href="careers.html" class="text-link-blue hover:text-navy transition">Careers</a></li>
+                <li><a href="news.html" class="text-link-blue hover:text-navy transition">News</a></li>
+                <li><a href="events.html" class="text-link-blue hover:text-navy transition">Events</a></li>
+                <li><a href="contactus.html" class="text-link-blue hover:text-navy transition">Contact Us</a></li>
+                <li><a href="honors.html" class="text-link-blue hover:text-navy transition">Honors</a></li>
+                <li><a href="https://studentveterans.my.site.com/login" class="text-link-blue hover:text-navy transition" target="_blank">Join SVA (External) <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-link-blue hover:text-navy transition" target="_blank">Join Our Facebook (External) <span class="sr-only">(opens in new tab)</span></a></li>
+                </ul>
+        </div>
+    </div>
 </div>
 
-<!-- Modal Script -->
+<div class="floating-logo">
+    <img src="svatry.png" alt="SVA Logo, Chapter Branding" class="w-40 h-auto">
+</div>
+
+
+<footer class="bg-navy text-gold py-6 mt-12">
+    <div class="max-w-screen-xl mx-auto text-center">
+        <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
+    </div>
+</footer>
+
+<button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0"
+    onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
+<button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0"
+    onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
+
+<div id="scrollUpBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way up.</div>
+<div id="scrollDownBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way down.</div>
+
+<div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-600 opacity-80" id="a11yStatus">
+    High-contrast mode: OFF
+</div>
+
 <script>
-  const openBtn = document.getElementById('openModalBtn');
-  const closeBtn = document.getElementById('closeModalBtn');
-  const modal = document.getElementById('resourcesModal');
+    const resourcesModal = document.getElementById('resourcesModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const firstFocusableElement = closeModalBtn; 
+    let lastFocusableElement;
+    let previousActiveElement = null;
+    let scrollInterval; 
+    let hideBubbleTimeout; 
 
-  openBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-  });
+    // --- Tooltip Bubble Functions ---
+    function showBubble(id, duration = 0) {
+        clearTimeout(hideBubbleTimeout);
+        document.getElementById(id).style.opacity = '1';
+        if (duration > 0) {
+            hideBubbleTimeout = setTimeout(() => {
+                hideBubble(id);
+            }, duration);
+        }
+    }
+    function hideBubble(id) {
+        document.getElementById(id).style.opacity = '0';
+    }
 
-  closeBtn.addEventListener('click', () => {
-      modal.classList.add('hidden');
-  });
+    // --- WCAG Modal Focus Management (Traps focus, closes on Escape) ---
+    function trapFocus(e) {
+        if (resourcesModal.classList.contains('hidden')) return;
+        
+        const focusableElements = resourcesModal.querySelectorAll('a, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-  // Optional: close on outside click
-  window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-          modal.classList.add('hidden');
-      }
-  });
+        if (e.key === 'Tab') {
+            if (e.shiftKey) { 
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else { 
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        previousActiveElement = document.activeElement; 
+        modal.classList.remove('hidden');
+        
+        const firstFocus = modal.querySelector('[data-autofocus]') || modal.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
+        if (firstFocus) {
+            firstFocus.focus();
+        }
+        document.addEventListener('keydown', trapFocus);
+    }
+
+    function closeModal() {
+        resourcesModal.classList.add('hidden');
+        document.removeEventListener('keydown', trapFocus);
+        if (previousActiveElement) {
+            previousActiveElement.focus();
+        }
+    }
+
+    // Modal Triggers
+    openModalBtn.addEventListener('click', () => openModal('resourcesModal'));
+    closeModalBtn.addEventListener('click', closeModal);
+
+    resourcesModal.addEventListener('click', function(e) {
+        if (e.target === resourcesModal) {
+            closeModal();
+        }
+    });
+
+    // --- WCAG High Contrast & Motion Reduction ---
+    const a11yToggle = document.getElementById('a11yToggle');
+    const a11yStatus = document.getElementById('a11yStatus');
+
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        a11yStatus.textContent = isHighContrast ? 'High-contrast mode: ON' : 'High-contrast mode: OFF';
+        localStorage.setItem('high-contrast', isHighContrast);
+        // Automatically add motion-reduced class in high contrast mode to meet WCAG 2.3.3
+        document.body.classList.toggle('motion-reduced', isHighContrast); 
+    }
+    
+    a11yToggle.addEventListener('click', toggleHighContrast);
+
+    // Initial check for stored preference or system preference
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+        a11yStatus.textContent = 'High-contrast mode: ON';
+    } else if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Only apply motion-reduced if no high-contrast preference is set
+        document.body.classList.add('motion-reduced');
+    }
+
+    // --- WCAG Custom Scroll Buttons (for users without scroll wheels/trackpads) ---
+    function startScroll(direction) {
+        stopScroll(); 
+        const scrollAmount = direction === 'up' ? -50 : 50;
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, scrollAmount);
+        }, 50); 
+    }
+    function stopScroll() {
+        clearInterval(scrollInterval);
+    }
+
+    const scrollUpBtn = document.getElementById('scrollUp');
+    const scrollDownBtn = document.getElementById('scrollDown');
+
+    // Mouse events for continuous scroll (hold function)
+    scrollUpBtn.addEventListener('mousedown', () => startScroll('up'));
+    scrollUpBtn.addEventListener('mouseup', stopScroll);
+    scrollUpBtn.addEventListener('mouseleave', stopScroll);
+
+    scrollDownBtn.addEventListener('mousedown', () => startScroll('down'));
+    scrollDownBtn.addEventListener('mouseup', stopScroll);
+    scrollDownBtn.addEventListener('mouseleave', stopScroll);
+    
+    // Keyboard events for single-step scroll (Enter/Space) and bubble visibility (Focus/Blur)
+    document.querySelectorAll('.access-scroll-btn').forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault(); // Prevent default action (like form submission)
+                const direction = btn.id === 'scrollUp' ? 'up' : 'down';
+                window.scrollBy(0, direction === 'up' ? -200 : 200); // Quick step scroll
+            }
+        });
+        // Show bubbles on focus for keyboard users (permanent until blur)
+        btn.addEventListener('focus', () => showBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble', 0));
+        btn.addEventListener('blur', () => hideBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble'));
+    });
 </script>
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4 mt-8">
-        <div class="max-w-screen-xl mx-auto text-center">
-            <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
-        </div>
-    </footer>
 </body>
 </html>

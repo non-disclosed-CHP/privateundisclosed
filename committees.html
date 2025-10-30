@@ -3,232 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMU SVA Committees</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>AMU SVA Chapter Committees</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* ---------------------------------------------------------------------- */
+        /* 1. PROFESSIONAL THEME & WCAG STYLES (Navy Blue, Gold, White) */
+        /* ---------------------------------------------------------------------- */
+        :root {
+            --primary-blue: #0A1931; /* Deep Navy Blue (Primary) */
+            --secondary-gold: #FFC300; /* Bright Gold/Yellow (Accent) */
+            --accent-gray: #E0E0E0;   /* Light Gray for background */
+            --link-blue: #0077B6;     /* Accessible Blue for links */
+        }
+
+        /* WCAG IMPROVEMENT: Custom Focus Outline for Keyboard Users (2.4.7 Focus Visible) */
+        a:focus, button:focus, [tabindex="0"]:focus, .access-scroll-btn:focus {
+            outline: 3px solid var(--secondary-gold); 
+            outline-offset: 4px;
+            border-radius: 4px; 
+        }
+
+        /* Skip Link Styling (2.4.1 Bypass Blocks) */
+        .sr-only:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
+            z-index: 1000;
+        }
+
+        /* THEME & BASE STYLES */
         body {
-            background-image: url('flag2.png');
+            background: var(--accent-gray);
+            color: var(--primary-blue);
+            min-height: 150vh; 
+            /* Enhanced Background: Navy overlay on flag for contrast/theme */
+            background-image: linear-gradient(to bottom, rgba(10, 25, 49, 0.9), rgba(10, 25, 49, 0.7)), url('flag2.png');
             background-size: cover;
-            background-position: center;
             background-attachment: fixed;
-            overflow-x: hidden;
+            background-repeat: no-repeat;
             position: relative;
         }
+        body::before { content: none; } /* Remove redundant opacity overlay from original CSS */
 
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.25);
-            z-index: -1;
-        }
+        .bg-navy { background-color: var(--primary-blue); }
+        .text-gold { color: var(--secondary-gold); }
+        .bg-gold { background-color: var(--secondary-gold); }
+        .hover\:bg-gold-dark:hover { background-color: #DAA520; }
+        .bg-card { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(2px); }
 
-        header,
-        footer {
-            background-color: rgba(255, 255, 255, 0.95);
+        /* HEADER & FOOTER */
+        header {
+            background-color: var(--primary-blue);
             backdrop-filter: blur(5px);
-            padding: 16px 0;
-            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
-
+        header a, footer a {
+            color: var(--secondary-gold);
+            font-weight: bold;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+        header a:hover, footer a:hover {
+            color: var(--primary-blue);
+            background-color: var(--secondary-gold);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        
+        /* SECTION STYLES (Enhanced Appearance) */
         section {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 40px 0;
-            text-align: center;
-            margin: 40px 0;
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            margin: 40px auto;
+            border-radius: 12px;
+            max-width: 1200px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+            border-left: 8px solid var(--secondary-gold); 
+        }
+        section h2 {
+            color: var(--primary-blue); 
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--secondary-gold);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-weight: 800;
         }
 
+        /* COMMITTEE CARD ENHANCEMENT */
         .committee-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            background-color: #f7f7f7; /* Slightly off-white for visual pop */
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            padding: 30px;
             text-align: center;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+            border-top: 5px solid var(--primary-blue);
         }
-
         .committee-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            border-top-color: var(--secondary-gold);
         }
-
         .committee-card img {
             border-radius: 50%;
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
-            margin: 0 auto;
+            margin: 0 auto 15px;
+            border: 4px solid var(--secondary-gold);
         }
-
-        /* Scrollable Links Box Style */
-        .scrollable-links {
-            max-height: 60vh;
-            overflow-y: auto;
-            background-color: white;
-            padding: 20px;
+        .committee-card h3 {
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        .committee-card p {
+            color: #444;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        /* Fixed Quick Links Panel for large screens */
+        .quick-links-panel {
+            position: sticky;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: var(--primary-blue);
+            border: 2px solid var(--secondary-gold);
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+        .quick-links-panel a {
+            color: var(--secondary-gold);
+            font-weight: 500;
+            display: block;
+            padding: 4px 0;
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .quick-links-panel a:hover {
+            color: var(--primary-blue);
+            background-color: var(--secondary-gold);
+            padding-left: 5px;
         }
 
-        .scrollable-links ul {
-            list-style: none;
-            padding-left: 0;
+        /* ---------------------------------------------------------------------- */
+        /* 2. ACCESSIBILITY BUTTONS (Scroll & Contrast) */
+        /* ---------------------------------------------------------------------- */
+        .access-scroll-btn {
+            position: fixed; right: 1rem; width: 50px; height: 50px;
+            background-color: rgba(10, 25, 49, 0.8); 
+            color: white;
+            border-radius: 50%; font-size: 1.5rem; text-align: center;
+            line-height: 50px; cursor: pointer; z-index: 1000; user-select: none;
+            border: 2px solid var(--secondary-gold); 
+            transition: background-color 0.2s, color 0.2s;
+        }
+        #scrollUp { top: 40%; }
+        #scrollDown { top: 50%; }
+        
+        /* Tooltip Bubbles Styles */
+        .a11y-bubble, .scroll-bubble {
+            position: fixed; background: var(--secondary-gold); color: var(--primary-blue);
+            padding: 8px 12px; border-radius: 8px; font-size: 0.875rem;
+            z-index: 1050; opacity: 0; transition: opacity 0.5s;
+            pointer-events: none; 
+            white-space: nowrap;
+        }
+        
+        /* Accessibility Button position (Top Right) */
+        #a11yToggle {
+            position: fixed; 
+            top: 13rem; 
+            right: 1.5rem; 
+            background-color: var(--secondary-gold);
+            color: var(--primary-blue);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+        }
+        #a11yBubble { top: 13rem; right: 12rem; } 
+        #scrollUpBubble { top: 41%; right: 4.5rem; } 
+        #scrollDownBubble { top: 51%; right: 4.5rem; }
+
+        /* Resources Button (Repositioned to Top Right) */
+        #openModalBtn {
+            top: 4rem;
+            right: 4rem;
+            position: fixed; 
+            z-index: 50;
         }
 
-        .scrollable-links li {
-            margin-bottom: 10px;
+        /* ---------------------------------------------------------------------- */
+        /* 3. HIGH CONTRAST MODE (WCAG 1.4.3 Contrast) */
+        /* ---------------------------------------------------------------------- */
+        body.high-contrast {
+            background-color: #000 !important;
+            background-image: none !important;
+            color: #FFD700 !important; /* Gold text */
         }
-
-        .scrollable-links a {
-            text-decoration: none;
-            color: #1D4ED8;
-            font-size: 14px;
+        body.high-contrast .bg-navy { background-color: #111 !important; }
+        body.high-contrast .text-gold, body.high-contrast section h2 { color: #00FFFF !important; }
+        body.high-contrast a, body.high-contrast .title, body.high-contrast .email { color: #00FFFF !important; }
+        body.high-contrast .bg-card, body.high-contrast section, body.high-contrast .committee-card, body.high-contrast .quick-links-panel {
+            background-color: #111 !important; 
+            border-color: #00FFFF !important;
+            color: #FFD700 !important;
         }
-
-        .scrollable-links a:hover {
-            color: #2563EB;
+        body.high-contrast .committee-card:hover {
+            transform: none !important; /* Disable non-essential animation */
+            box-shadow: none !important;
+        }
+        body.high-contrast .cta-button, body.high-contrast .access-scroll-btn {
+            background-color: #000 !important;
+            border: 2px solid #00FFFF !important;
+            color: #00FFFF !important;
+        }
+        body.high-contrast .quick-links-panel a {
+            color: #00FFFF !important;
         }
     </style>
 </head>
+<body id="top-of-page">
 
-<body>
+<a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-navy text-gold font-bold rounded fixed top-0 left-0 z-50">
+    Skip to Main Content
+</a>
 
-    <!-- Resources and Links Banner -->
-    <div class="text-center text-white bg-blue-700 py-3 text-xl font-bold">
-        Resources and Links
-    </div>
-
-    <!-- Scrollable Links Box -->
-    <div class="scrollable-links relative mt-2 p-4 mx-auto w-11/12">
-        <ul>
-            <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-        <li><a href="https://www.veteranscrisisline.net/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Crisis Line</a></li>
-        <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-blue-600 hover:text-blue-700" target="_blank">Veteran and Military Suicide Prevention Resources</a></li>
-        <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-blue-600 hover:text-blue-700" target="_blank">VA Suicide Prevention</a></li>
-        <li><a href="https://www.va.gov/education/other-va-education-benefits/tuition-assistance/" class="text-blue-600 hover:text-blue-700" target="_blank">Tuition Assistance</a></li>
-        <li><a href="https://www.va.gov/benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Benefits</a></li>
-        <li><a href="https://www.va.gov/education/" class="text-blue-600 hover:text-blue-700" target="_blank">Education Resources</a></li>
-        <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-blue-600 hover:text-blue-700" target="_blank">Career Services</a></li>
-        <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Counseling and Support</a></li>
-        <!-- New Links -->
-        <li><a href="committees.html" class="text-blue-600 hover:text-blue-700">Committees</a></li>
-        <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-        <li><a href="vetstories.html" class="text-blue-600 hover:text-blue-700">Veteran Stories (Coming Soon!)</a></li>
-        <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-        <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-        <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-        <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-        <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-        <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-        <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-        <li><a href="blog.html" class="text-blue-600 hover:text-blue-700">Blog</a></li>
-        <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700">Join SVA</a></li>
-        <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700">Join Our Facebook</a></li>
-        </ul>
-    </div>
-
-    <!-- Main Content Section for AMU SVA Committees -->
-    <section>
-        <h2 class="text-3xl font-bold mb-8">AMU SVA Committees</h2>
-
-        <!-- Example Committee Card 1 -->
-        <div class="committee-card mb-6 mx-auto max-w-xs">
-            <img src="committee1.jpg" alt="Committee 1 Image">
-            <h3 class="text-xl font-semibold mt-4">Veterans Outreach</h3>
-            <p class="text-sm mt-2">Focused on improving outreach to local veterans and organizing community events.</p>
-        </div>
-
-        <!-- Example Committee Card 2 -->
-        <div class="committee-card mb-6 mx-auto max-w-xs">
-            <img src="committee2.jpg" alt="Committee 2 Image">
-            <h3 class="text-xl font-semibold mt-4">Student Support</h3>
-            <p class="text-sm mt-2">Supports student veterans with academic resources, mental health support, and more.</p>
-        </div>
-
-        <!-- Example Committee Card 3 -->
-        <div class="committee-card mb-6 mx-auto max-w-xs">
-            <img src="committee3.jpg" alt="Committee 3 Image">
-            <h3 class="text-xl font-semibold mt-4">Networking</h3>
-            <p class="text-sm mt-2">Builds connections with industry professionals for career development and job opportunities.</p>
-        </div>
-
-        <!-- Example Committee Card 4 -->
-        <div class="committee-card mb-6 mx-auto max-w-xs">
-            <img src="committee4.jpg" alt="Committee 4 Image">
-            <h3 class="text-xl font-semibold mt-4">Events Coordination</h3>
-            <p class="text-sm mt-2">Plans and organizes community events, including charity fundraisers and veteran support events.</p>
-        </div>
-    </section>
-
-    <footer>
-        <p class="text-sm text-gray-600">&copy; 2025 AMU APU SVA Chapter | Designed by William C.</p>
-    </footer>
-
-</body>
-<!-- Resources Popup Button (Fixed Bottom-Right) -->
-<button id="openModalBtn" class="fixed bottom-4 right-4 bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-800 transition">
+<button id="openModalBtn" 
+    class="bg-gold text-navy px-5 py-2.5 rounded-lg shadow-xl font-semibold 
+           hover:bg-gold-dark transition focus:outline-none focus:ring-4 focus:ring-navy"
+    aria-label="Open full Resources and Links menu">
     Resources & Links
 </button>
 
-<!-- Bottom-Right Popup Modal -->
-<div id="resourcesModal" class="fixed bottom-4 right-4 w-11/12 md:w-96 bg-white rounded-lg shadow-xl p-4 transform transition-all duration-300 ease-in-out opacity-0 scale-95 hidden">
-    <!-- Close Button -->
-    <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none transition duration-200">
-        <span class="text-2xl font-semibold">&times;</span>
-    </button>
+<button id="a11yToggle"
+    aria-label="Toggle high contrast mode"
+    class="bg-gold text-primary-blue px-6 py-2 rounded-lg font-bold shadow-xl hover:bg-gold-dark transition focus:outline-none focus:ring-4 focus:ring-primary-blue"
+    onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
+    ♿ Accessibility
+</button>
+<div id="a11yBubble" class="a11y-bubble">Click here to toggle high-contrast mode!</div>
 
-    <!-- Modal Title -->
-    <h2 class="text-xl font-bold text-gray-800 mb-4">Resources and Links</h2>
+<header class="bg-navy text-white py-4 shadow-2xl relative">
+    <div class="max-w-screen-xl mx-auto px-6 flex justify-between items-center">
+        <h1 class="text-2xl font-extrabold tracking-tight text-gold">SVA Committees</h1>
+        <nav>
+            <a href="index.html" class="px-3 py-2 text-sm rounded">Home</a>
+            <a href="board.html" class="px-3 py-2 text-sm rounded">Board</a>
+            <a href="contactus.html" class="px-3 py-2 text-sm rounded">Contact</a>
+        </nav>
+    </div>
+</header>
 
-    <!-- Links Section -->
-    <ul class="space-y-2">
-        <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-        <li><a href="committees.html" class="text-blue-600 hover:text-blue-700">Committees</a></li>
-                    <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-                    <li><a href="vetstories.html" class="text-blue-600 hover:text-blue-700">Veteran Stories (Coming Soon!)</a></li>
-                    <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-                    <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-                    <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-                    <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-                    <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-                    <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-                    <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-                    <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700">Join SVA</a></li>
-                    <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700">Join Our Facebook</a></li>
+<main id="main-content" tabindex="-1" class="max-w-screen-xl mx-auto px-6">
+    <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+        
+        <div class="lg:col-span-3">
+            <section class="mt-8 mb-8 border-none p-0 bg-transparent shadow-none">
+                <h2 class="text-white text-center text-4xl mb-4 p-4 rounded-lg bg-navy shadow-lg border-b-0 border-l-0">AMU SVA Committees</h2>
+                <p class="text-white text-center mb-8 text-lg font-medium">Committees are the core engine of our chapter, driving change and providing targeted support. Join one today!</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
-    </ul>
+                    <div class="committee-card">
+                        <img src="committee1.jpg" alt="Image representing community outreach" aria-hidden="true">
+                        <h3 class="text-xl font-semibold">Veterans Outreach</h3>
+                        <p>Focused on improving **outreach** to local veterans, connecting with community partners, and organizing support events to welcome new members.</p>
+                        <a href="contactus.html?committee=outreach" class="text-gold bg-navy cta-button px-4 py-1.5 rounded-full mt-4 text-sm inline-block hover:bg-gray-800 transition">Learn More / Join</a>
+                    </div>
+            
+                    <div class="committee-card">
+                        <img src="committee2.jpg" alt="Image representing student support and mentorship" aria-hidden="true">
+                        <h3 class="text-xl font-semibold">Student Support</h3>
+                        <p>Provides personalized support to student veterans, focusing on **academic resources**, financial aid guidance, and access to mental health referrals.</p>
+                        <a href="contactus.html?committee=support" class="text-gold bg-navy cta-button px-4 py-1.5 rounded-full mt-4 text-sm inline-block hover:bg-gray-800 transition">Learn More / Join</a>
+                    </div>
+            
+                    <div class="committee-card">
+                        <img src="committee3.jpg" alt="Image representing professional networking and career development" aria-hidden="true">
+                        <h3 class="text-xl font-semibold">Professional Networking</h3>
+                        <p>Builds connections with **industry professionals**, organizes mock interviews, hosts career panels, and shares job opportunities tailored for veterans.</p>
+                        <a href="contactus.html?committee=networking" class="text-gold bg-navy cta-button px-4 py-1.5 rounded-full mt-4 text-sm inline-block hover:bg-gray-800 transition">Learn More / Join</a>
+                    </div>
+            
+                    <div class="committee-card">
+                        <img src="committee4.jpg" alt="Image representing event planning and coordination" aria-hidden="true">
+                        <h3 class="text-xl font-semibold">Events Coordination</h3>
+                        <p>Plans and executes all chapter **social and fundraising events**, including charity drives, holiday gatherings, and professional development workshops.</p>
+                        <a href="contactus.html?committee=events" class="text-gold bg-navy cta-button px-4 py-1.5 rounded-full mt-4 text-sm inline-block hover:bg-gray-800 transition">Learn More / Join</a>
+                    </div>
+                    
+                </div>
+                
+            </section>
+        </div>
+
+        <div class="lg:col-span-1 hidden lg:block mt-8">
+            <div class="quick-links-panel" tabindex="0">
+                <h3 class="text-xl font-bold text-gold mb-3 border-b border-gold pb-2">Chapter Quick Links</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="board.html">Board</a></li>
+                    <li><a href="legacy.html">Legacy</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="contactus.html">Contact Us</a></li>
+                    <li><a href="honors.html">Honors</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="vetstories.html">Veteran Stories (Coming Soon!)</a></li>
+                    <li class="pt-3 border-t border-gold mt-3"><a href="https://studentveterans.my.site.com/login" target="_blank">Join SVA <span class="sr-only">(opens in new tab)</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+            
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-navy focus:outline-none transition duration-200"
+                    aria-label="Close Resources and Links dialog" data-autofocus>
+                <span class="text-3xl font-bold text-navy">&times;</span>
+            </button>
+
+            <h3 id="modalTitle" class="text-2xl font-bold text-navy border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
+
+            <ul class="space-y-3 text-lg">
+                <li><a href="index.html" class="text-link-blue hover:text-navy transition">Home</a></li>
+                <li class="font-bold text-navy mt-4">CRITICAL SUPPORT:</li>
+                <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-link-blue hover:text-navy transition" target="_blank">Suicide Prevention Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-link-blue hover:text-navy transition" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+                <li class="font-bold text-navy mt-4">BENEFITS & EDUCATION:</li>
+                <li><a href="https://www.va.gov/education/other-va-education-benefits/tuition-assistance/" class="text-link-blue hover:text-navy transition" target="_blank">Tuition Assistance <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.va.gov/benefits/" class="text-link-blue hover:text-navy transition" target="_blank">Veterans Benefits <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.va.gov/education/" class="text-link-blue hover:text-navy transition" target="_blank">Education Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-link-blue hover:text-navy transition" target="_blank">Career Services <span class="sr-only">(opens in new tab)</span></a></li>
+                <li class="font-bold text-navy mt-4">CHAPTER PAGES:</li>
+                <li><a href="committees.html" class="text-link-blue hover:text-navy transition">Committees</a></li>
+                <li><a href="board.html" class="text-link-blue hover:text-navy transition">Board</a></li>
+                <li><a href="contactus.html" class="text-link-blue hover:text-navy transition">Contact Us</a></li>
+                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-link-blue hover:text-navy transition" target="_blank">Join Our Facebook (External) <span class="sr-only">(opens in new tab)</span></a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
-<!-- JavaScript for Modal Toggle -->
+<div class="fixed bottom-6 left-6 opacity-20 z-10">
+    <img src="svatry.png" alt="SVA Logo, Chapter Branding" class="w-40 h-auto">
+</div>
+
+
+<footer class="bg-navy text-gold py-6 mt-12">
+    <div class="max-w-screen-xl mx-auto text-center">
+        <p class="text-sm font-medium">&copy; 2025 AMU APU SVA Chapter | Designed by <a href="#" class="text-gold hover:text-navy">William C.</a></p>
+    </div>
+</footer>
+
+<button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0"
+    onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
+<button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0"
+    onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
+
+<div id="scrollUpBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way up.</div>
+<div id="scrollDownBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way down.</div>
+
+<div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-600 opacity-80" id="a11yStatus">
+    High-contrast mode: OFF
+</div>
+
 <script>
-    document.getElementById("openModalBtn").addEventListener("click", function () {
-        let modal = document.getElementById("resourcesModal");
-        modal.classList.remove("hidden");
+    const resourcesModal = document.getElementById('resourcesModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    let lastFocusableElement;
+    let previousActiveElement = null;
+    let scrollInterval; 
+    let hideBubbleTimeout; 
+
+    // --- Tooltip Bubble Functions ---
+    function showBubble(id, duration = 0) {
+        clearTimeout(hideBubbleTimeout);
+        document.getElementById(id).style.opacity = '1';
+        if (duration > 0) {
+            hideBubbleTimeout = setTimeout(() => {
+                hideBubble(id);
+            }, duration);
+        }
+    }
+    function hideBubble(id) {
+        document.getElementById(id).style.opacity = '0';
+    }
+
+    // --- WCAG Modal Focus Management (Traps focus, closes on Escape) ---
+    function trapFocus(e) {
+        if (resourcesModal.classList.contains('hidden')) return;
+        
+        const focusableElements = resourcesModal.querySelectorAll('a, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length === 0) return;
+
+        const firstFocusableElement = closeModalBtn; // Close button is a good initial focus point
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === 'Tab') {
+            if (e.shiftKey) { 
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else { 
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        previousActiveElement = document.activeElement; 
+        modal.classList.remove('hidden');
+        
+        // Use CSS transitions for smooth entry
         setTimeout(() => {
             modal.classList.remove("opacity-0", "scale-95");
             modal.classList.add("opacity-100", "scale-100");
         }, 10);
-    });
+        
+        const firstFocus = modal.querySelector('[data-autofocus]') || modal.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
+        if (firstFocus) {
+            firstFocus.focus();
+        }
+        document.addEventListener('keydown', trapFocus);
+    }
 
-    document.getElementById("closeModalBtn").addEventListener("click", function () {
-        let modal = document.getElementById("resourcesModal");
-        modal.classList.remove("opacity-100", "scale-100");
-        modal.classList.add("opacity-0", "scale-95");
-        setTimeout(() => modal.classList.add("hidden"), 300);
-    });
+    function closeModal() {
+        resourcesModal.classList.remove("opacity-100", "scale-100");
+        resourcesModal.classList.add("opacity-0", "scale-95");
+        setTimeout(() => resourcesModal.classList.add("hidden"), 300); // Wait for transition
+        
+        document.removeEventListener('keydown', trapFocus);
+        if (previousActiveElement) {
+            previousActiveElement.focus();
+        }
+    }
 
-    // Close if clicking outside the modal
-    window.addEventListener("click", function (event) {
-        let modal = document.getElementById("resourcesModal");
-        if (!modal.contains(event.target) && !document.getElementById("openModalBtn").contains(event.target)) {
-            modal.classList.remove("opacity-100", "scale-100");
-            modal.classList.add("opacity-0", "scale-95");
-            setTimeout(() => modal.classList.add("hidden"), 300);
+    // Modal Triggers
+    openModalBtn.addEventListener('click', () => openModal('resourcesModal'));
+    closeModalBtn.addEventListener('click', closeModal);
+
+    resourcesModal.addEventListener('click', function(e) {
+        if (e.target === resourcesModal) {
+            closeModal();
         }
     });
+
+    // --- WCAG High Contrast & Motion Reduction ---
+    const a11yToggle = document.getElementById('a11yToggle');
+    const a11yStatus = document.getElementById('a11yStatus');
+
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        a11yStatus.textContent = isHighContrast ? 'High-contrast mode: ON' : 'High-contrast mode: OFF';
+        localStorage.setItem('high-contrast', isHighContrast);
+        // Automatically add motion-reduced class in high contrast mode to meet WCAG 2.3.3
+        document.body.classList.toggle('motion-reduced', isHighContrast); 
+    }
+    
+    a11yToggle.addEventListener('click', toggleHighContrast);
+
+    // Initial check for stored preference or system preference
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+        a11yStatus.textContent = 'High-contrast mode: ON';
+    } 
+    // We can omit the prefers-reduced-motion check here as it was in the previous file's CSS, 
+    // and the high-contrast toggle already manages motion reduction in the new styles.
+
+    // --- WCAG Custom Scroll Buttons (for users without scroll wheels/trackpads) ---
+    function startScroll(direction) {
+        stopScroll(); 
+        const scrollAmount = direction === 'up' ? -50 : 50;
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, scrollAmount);
+        }, 50); 
+    }
+    function stopScroll() {
+        clearInterval(scrollInterval);
+    }
+
+    const scrollUpBtn = document.getElementById('scrollUp');
+    const scrollDownBtn = document.getElementById('scrollDown');
+
+    // Mouse events for continuous scroll (hold function)
+    scrollUpBtn.addEventListener('mousedown', () => startScroll('up'));
+    scrollUpBtn.addEventListener('mouseup', stopScroll);
+    scrollUpBtn.addEventListener('mouseleave', stopScroll);
+
+    scrollDownBtn.addEventListener('mousedown', () => startScroll('down'));
+    scrollDownBtn.addEventListener('mouseup', stopScroll);
+    scrollDownBtn.addEventListener('mouseleave', stopScroll);
+    
+    // Keyboard events for single-step scroll (Enter/Space) and bubble visibility (Focus/Blur)
+    document.querySelectorAll('.access-scroll-btn').forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault(); // Prevent default action (like form submission)
+                const direction = btn.id === 'scrollUp' ? 'up' : 'down';
+                window.scrollBy(0, direction === 'up' ? -200 : 200); // Quick step scroll
+            }
+        });
+        // Show bubbles on focus for keyboard users (permanent until blur)
+        btn.addEventListener('focus', () => showBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble', 0));
+        btn.addEventListener('blur', () => hideBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble'));
+    });
 </script>
+</body>
 </html>

@@ -1,320 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Scrollable Links Box -->
-<div class="relative mt-6 p-4 bg-white rounded-lg max-h-60 overflow-y-scroll space-y-4">
-    <!-- Links Inside Scrollable Box -->
-    <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-        <li><a href="https://www.veteranscrisisline.net/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Crisis Line</a></li>
-        <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-blue-600 hover:text-blue-700" target="_blank">Veteran and Military Suicide Prevention Resources</a></li>
-        <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-blue-600 hover:text-blue-700" target="_blank">VA Suicide Prevention</a></li>
-        <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Tuition Assistance</a></li>
-        <li><a href="https://www.va.gov/benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Benefits</a></li>
-        <li><a href="https://www.va.gov/education/" class="text-blue-600 hover:text-blue-700" target="_blank">Education Resources</a></li>
-        <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-blue-600 hover:text-blue-700" target="_blank">Career Services</a></li>
-        <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Counseling and Support</a></li>
-        <!-- New Links -->
-        <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-        <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-        <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-        <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-        <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-        <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-        <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-        <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-        <li><a href="blog.html" class="text-blue-600 hover:text-blue-700">Blog</a></li>
-        <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700">Join SVA</a></li>
-        <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700">Join Our Facebook</a></li>
-
-
-
-        
-        <!-- PMI Training Tabs for Each Branch -->
-        <li><a href="https://www.pmi.org/military/pmi-certifications-military" class="text-blue-600 hover:text-blue-700" target="_blank">PMI Training Scholarship Information</a></li>
-    </ul>
-</div>
-    </div>
-</section>
-    </div>
-</section>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SVA Career and Social Development</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Expandable Box Styles */
-        .expandable-box {
-            background-color: rgba(255, 255, 255, 0.54); /* Updated opacity to 0.54 */
-            border: 1px solid rgba(229, 231, 235, 0.54); /* Updated opacity to 0.54 */
-            border-radius: 8px;
-            padding: 16px;
+        /* ---------------------------------------------------------------------- */
+        /* 1. PROFESSIONAL THEME & WCAG STYLES (Navy Blue, Gold, White) */
+        /* ---------------------------------------------------------------------- */
+        :root {
+            --primary-blue: #0A1931; /* Deep Navy Blue (Primary) */
+            --secondary-gold: #FFC300; /* Bright Gold/Yellow (Accent) */
+            --accent-gray: #E0E0E0;   /* Light Gray for background */
+            --link-blue: #0077B6;     /* Accessible Blue for links */
         }
 
-        .expandable-button {
-            background-color: rgba(59, 130, 246, 0.9); /* Updated opacity to 0.9 */
-            color: white;
-            font-size: 1rem;
-            padding: 14px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 16px;
-            transition: background-color 0.3s ease;
+        /* WCAG IMPROVEMENT: Custom Focus Outline for Keyboard Users (2.4.7 Focus Visible) */
+        a:focus, button:focus, [tabindex="0"]:focus, .access-scroll-btn:focus {
+            outline: 3px solid var(--secondary-gold); 
+            outline-offset: 4px;
+            border-radius: 4px; 
         }
 
-        .expandable-button:hover {
-            background-color: rgba(59, 130, 246, 1); /* Updated opacity to 1 */
-        }
-
-        .leader-name {
-            color: rgba(59, 130, 246, 0.9); /* Updated opacity to 0.9 */
-            font-size: 1.125rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .leader-name:hover {
-            color: rgba(29, 78, 216, 1); /* Updated opacity to 1 */
-        }
-
-        .leader-bio {
-            display: none;
-            color: rgba(107, 114, 128, 1); /* Updated opacity to 1 */
-            font-size: 1rem;
-            padding: 10px 0;
-        }
-
-        /* Background Settings */
-        body {
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            background-image: url('flag2.png');
-            background-attachment: fixed;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: "";
+        /* Skip Link Styling (2.4.1 Bypass Blocks) */
+        .sr-only:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.25); /* Updated opacity to 0.25 */
-            z-index: -1;
-        }
-
-        /* SVA Logo */
-        .sva-logo {
-            position: fixed;
-            right: 10px;
-            bottom: 10px;
-            opacity: 0.54; /* Updated opacity to 0.54 */
+            white-space: nowrap;
+            width: 1px;
             z-index: 1000;
         }
 
+        /* THEME & BASE STYLES */
+        body {
+            background: var(--accent-gray);
+            color: var(--primary-blue);
+            min-height: 150vh; 
+            /* Enhanced Background: Navy overlay on flag for contrast/theme */
+            background-image: linear-gradient(to bottom, rgba(10, 25, 49, 0.9), rgba(10, 25, 49, 0.7)), url('flag2.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        body::before {
+            content: none; /* Remove redundant opacity overlay from original CSS */
+        }
+
+        .bg-navy { background-color: var(--primary-blue); }
+        .text-gold { color: var(--secondary-gold); }
+        .bg-gold { background-color: var(--secondary-gold); }
+        .hover\:bg-gold-dark:hover { background-color: #DAA520; }
+        .bg-card { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(2px); }
+
+        /* HEADER & FOOTER */
         header {
-            background-color: rgba(255, 255, 255, 0.95); /* Updated opacity to 0.95 */
+            background-color: var(--primary-blue);
             backdrop-filter: blur(5px);
-            padding: 16px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
-
-        header a {
-            color: rgba(59, 130, 246, 0.95); /* Updated opacity to 0.95 */
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #ffffff;
-            background-color: rgba(59, 130, 246, 0.7); /* Updated opacity to 0.7 */
-        }
-
-        /* Section Styles */
-        section {
-            background-color: rgba(255, 255, 255, 0.9); /* Updated opacity to 0.9 */
-            backdrop-filter: blur(10px);
-            padding: 60px 0;
-            text-align: center;
-            margin: 40px 0;
-            border-radius: 8px;
-        }
-
-        section h2 {
-            color: rgba(59, 130, 246, 0.9); /* Updated opacity to 0.9 */
-            font-size: 2.5rem;
+        header a, footer a {
+            color: var(--secondary-gold);
             font-weight: bold;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+        header a:hover, footer a:hover {
+            color: var(--primary-blue);
+            background-color: var(--secondary-gold);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        
+        /* SECTION STYLES (Enhanced Appearance) */
+        section {
+            background-color: rgba(255, 255, 255, 0.95); /* High contrast white card on dark background */
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            text-align: center;
+            margin: 40px auto;
+            border-radius: 12px;
+            max-width: 900px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            border-left: 8px solid var(--secondary-gold); /* Gold accent stripe */
+        }
+        section h2 {
+            color: var(--primary-blue); 
+            font-size: 2.25rem;
+            border-bottom: 2px solid var(--secondary-gold);
+            padding-bottom: 10px;
             margin-bottom: 20px;
         }
-
-        section p {
-            color: rgba(107, 114, 128, 1); /* Updated opacity to 1 */
-            font-size: 1.125rem;
+        section p, .expandable-box {
+            color: #333; /* Darker gray for better readability (WCAG 1.4.3) */
+            line-height: 1.7;
+        }
+        
+        /* Scrollable Links Box (Fixed Positioning/Styling for links list) */
+        .scrollable-links-box {
+            background-color: var(--primary-blue);
+            border: 3px solid var(--secondary-gold);
+            padding: 20px;
+            border-radius: 12px;
+            max-height: 300px; /* Increased height */
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+        }
+        .scrollable-links-box a {
+            color: var(--secondary-gold);
+            font-weight: 500;
+            display: block;
+            padding: 4px 0;
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .scrollable-links-box a:hover {
+            color: var(--primary-blue);
+            background-color: var(--secondary-gold);
+            padding-left: 8px;
         }
 
-        /* Footer Styles */
-        footer {
-            background-color: rgba(255, 255, 255, 0.95); /* Updated opacity to 0.95 */
-            backdrop-filter: blur(5px);
-            padding: 30px 0;
-            text-align: center;
+        /* Floating Logo */
+        .sva-logo {
+            position: fixed;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            opacity: 0.2; 
+            z-index: 10;
         }
-
-        footer a {
-            color: rgba(59, 130, 246, 0.9); /* Updated opacity to 0.9 */
-            transition: color 0.3s ease;
-        }
-
-        footer a:hover {
-            color: rgba(59, 130, 246, 1);
-        }
-
-        footer .join-button {
-            background-color: rgba(59, 130, 246, 0.9); /* Updated opacity to 0.9 */
+        /* Buttons */
+        .cta-button {
+            background-color: var(--primary-blue);
             color: white;
-            padding: 12px 24px;
+            padding: 12px 28px;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        .cta-button:hover {
+            background-color: #1F3050; /* Slightly lighter navy */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        footer .join-button:hover {
-            background-color: rgba(59, 130, 246, 1); /* Updated opacity to 1 */
+        /* ---------------------------------------------------------------------- */
+        /* 2. ACCESSIBILITY BUTTONS (Scroll & Contrast) */
+        /* ---------------------------------------------------------------------- */
+        .access-scroll-btn {
+            position: fixed; right: 1rem; width: 50px; height: 50px;
+            background-color: rgba(10, 25, 49, 0.8); 
+            color: white;
+            border-radius: 50%; font-size: 1.5rem; text-align: center;
+            line-height: 50px; cursor: pointer; z-index: 1000; user-select: none;
+            border: 2px solid var(--secondary-gold); 
+            transition: background-color 0.2s, color 0.2s;
+        }
+        #scrollUp { top: 40%; }
+        #scrollDown { top: 50%; }
+        
+        /* Tooltip Bubbles Styles */
+        .a11y-bubble, .scroll-bubble {
+            position: fixed; background: var(--secondary-gold); color: var(--primary-blue);
+            padding: 8px 12px; border-radius: 8px; font-size: 0.875rem;
+            z-index: 1050; opacity: 0; transition: opacity 0.5s;
+            pointer-events: none; 
+            white-space: nowrap;
+        }
+        
+        /* Accessibility Button position (Top Right) */
+        #a11yToggle {
+            position: fixed; 
+            top: 13rem; 
+            right: 1.5rem; 
+            background-color: var(--secondary-gold);
+            color: var(--primary-blue);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+        }
+        #a11yBubble { top: 13rem; right: 12rem; } 
+        #scrollUpBubble { top: 41%; right: 4.5rem; } 
+        #scrollDownBubble { top: 51%; right: 4.5rem; }
+
+        /* ---------------------------------------------------------------------- */
+        /* 3. HIGH CONTRAST MODE (WCAG 1.4.3 Contrast, 2.3.3 Animation) */
+        /* ---------------------------------------------------------------------- */
+        body.high-contrast {
+            background-color: #000 !important;
+            background-image: none !important;
+            color: #FFD700 !important; /* Gold text */
+        }
+        body.high-contrast .bg-navy { background-color: #111 !important; }
+        body.high-contrast .text-gold, body.high-contrast section h2 { color: #00FFFF !important; }
+        body.high-contrast a, body.high-contrast .title, body.high-contrast .email { color: #00FFFF !important; }
+        body.high-contrast .bg-card, body.high-contrast section {
+            background-color: #111 !important; 
+            border-color: #00FFFF !important;
+            color: #FFD700 !important;
+        }
+        body.high-contrast .cta-button, body.high-contrast .scrollable-links-box {
+            background-color: #000 !important;
+            border: 2px solid #00FFFF !important;
+            color: #00FFFF !important;
+        }
+        body.high-contrast .scrollable-links-box a {
+            color: #00FFFF !important;
+        }
+        body.high-contrast .floating-logo { opacity: 0 !important; } 
+        
+        /* Disable animation in high contrast or reduced motion mode (WCAG 2.3.3) */
+        body.motion-reduced * {
+            animation: none !important;
+            transition: none !important;
         }
     </style>
 </head>
-<body>
+<body id="top-of-page">
 
+<a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-navy text-gold font-bold rounded fixed top-0 left-0 z-50">
+    Skip to Main Content
+</a>
 
-
-
-
-
-
-
-
-    <!-- Career and Social Development Content -->
-    <section class="bg-blue-700 bg-opacity-70 text-white">
-        <h1 class="text-5xl font-bold text-white">SVA Career and Social Development</h1>
-        <p class="mt-4 text-lg text-white">Empowering student veterans through career readiness, project management training, and social networking opportunities.</p>
-    </section>
-
-    <section>
-        <h2>PMI Training Overview</h2>
-        <p>PMI Training offers courses that are best suited for your training needs, both in-person and virtual. PMI’s core offerings have always been dedicated to your professional development in project management and building your PMI Talent Triangle® – a combination of expertise in Ways of Working, Power Skills, and Business Acumen, as well as digital skills. PMI Training continues to enhance its learning portfolio to address the needs of our ever-changing environment.</p>
-    </section>
-
-    <section>
-        <h2>Why Should You Attend PMI Training?</h2>
-        <p>Whether you’re looking to build your leadership expertise, gain valuable skills to drive project success, or learn the basics of agile, it’s time to immerse yourself in our dynamic instructor-led training. These trainings are specifically developed for project managers by project management experts. PMI Training provides a highly interactive small-group experience in two formats: in-person and virtual. Choose from more than 100 trainings across a variety of subject areas that range in duration from 1-hour to 1-4 days, instructed in English (unless otherwise indicated).</p>
-        <p>Search through the list of upcoming opportunities in the PMI Training Catalog. Check back often as they continue to expand their programming.</p>
-    </section>
-
-    <section>
-        <h2>Quick Guide – PM & Agile Upskilling Opportunities</h2>
-        <p>In an increasingly projectized world, Project Management Institute (PMI) professional certifications ensure you’re ready to meet the demands of projects and employers across the globe.</p>
-        <p>This is a LinkedIn overview and opportunity to get started on courses for knowledge-based skills. If you are interested in learning and want more information about PMI, you can also follow this link for a quick guide of upskilling opportunities.</p>
-        <p>MORE INFORMATION</p>
-    </section>
-
-
-    <section>
-        <h2>DAV (Disabled American Veterans) Virtual Career Fair</h2>
-        <p><strong>VIRTUAL VETERAN CAREER FAIR!</strong> Veterans, active duty and transitioning service members, and military spouses, be sure to register for the upcoming DAV and RecruitMilitary virtual job fair at 11 a.m. (Pacific) on Tuesday, January 23. Meet virtually with dozens of employers actively looking to fill roles in various industries. Once you register, you’ll be able to view a full list of companies who will be attending so that you can begin prepping your resume.</p>
-        <p><strong>Note:</strong> A virtual job fair includes both remote and in-person positions. For more info on upcoming DAV/RecruitMilitary Job Fairs and resources for veterans, spouses, and employers, visit <a href="https://jobs.dav.org" class="text-blue-500 hover:underline">jobs.dav.org</a>.</p>
-        <a href="#" class="text-blue-500 hover:underline">REGISTER</a>
-    </section>
-
-<script>
-// JavaScript to toggle the visibility of resources tab
-function toggleResourcesTab() {
-const resourcesTab = document.getElementById('resources-tab');
-const button = document.getElementById('toggle-resources');
-if (resourcesTab.style.display === 'none' || resourcesTab.style.display === '') {
-    resourcesTab.style.display = 'block';
-    button.textContent = '−'; // Change button to close symbol
-} else {
-    resourcesTab.style.display = 'none';
-    button.textContent = '+'; // Change button to open symbol
-}
-}
-
-// JavaScript to toggle the subgroups within the resources tab
-function toggleGroup(groupId, buttonId) {
-const group = document.getElementById(groupId);
-const button = document.getElementById(buttonId);
-if (group.style.display === 'none' || group.style.display === '') {
-    group.style.display = 'block';
-    button.textContent = '−'; // Change button to close symbol
-} else {
-    group.style.display = 'none';
-    button.textContent = '+'; // Change button to open symbol
-}
-}
-</script>
-  <!-- Toggle Button at Top of Page -->
-  <button id="openModalBtn" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
+<button id="openModalBtn" 
+    class="fixed top-4 right-4 z-50 bg-gold text-navy px-5 py-2.5 rounded-lg shadow-xl font-semibold 
+           hover:bg-gold-dark transition focus:outline-none focus:ring-4 focus:ring-navy"
+    aria-label="Open full Resources and Links menu">
     View Resources
 </button>
 
-<!-- Modal Popup Content -->
-<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-    <div class="flex justify-center items-start mt-20 md:mt-32">
-        <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
-            <!-- Close Button -->
-            <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
-                <span class="text-2xl font-bold">&times;</span>
+<button id="a11yToggle"
+    aria-label="Toggle high contrast mode"
+    class="bg-gold text-primary-blue px-6 py-2 rounded-lg font-bold shadow-xl hover:bg-gold-dark transition focus:outline-none focus:ring-4 focus:ring-primary-blue z-50"
+    onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
+    ♿ Accessibility
+</button>
+<div id="a11yBubble" class="a11y-bubble">Click here to toggle high-contrast mode!</div>
+
+<header class="bg-navy text-white py-4 shadow-2xl relative">
+    <div class="max-w-screen-xl mx-auto px-6 flex justify-between items-center">
+        <h1 class="text-2xl font-extrabold tracking-tight text-gold">SVA Development</h1>
+        <nav>
+            <a href="index.html" class="px-3 py-2 text-sm rounded">Home</a>
+            <a href="board.html" class="px-3 py-2 text-sm rounded">Board</a>
+            <a href="contactus.html" class="px-3 py-2 text-sm rounded">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+    <section class="bg-card py-12 px-6 border-none text-center rounded-none shadow-none mt-0 mb-0">
+        <h1 class="text-5xl font-bold text-navy border-b-0 pb-0">Career and Social Development</h1>
+        <p class="mt-4 text-lg text-gray-700">Empowering student veterans through career readiness, project management training, and social networking opportunities.</p>
+    </section>
+
+    <div class="max-w-screen-xl mx-auto px-6 py-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <section>
+                    <h2>PMI Training Overview</h2>
+                    <p>PMI Training offers courses best suited for your training needs, both in-person and virtual. PMI’s core offerings have always been dedicated to your professional development in project management and building your **PMI Talent Triangle** – a combination of expertise in Ways of Working, Power Skills, and Business Acumen, as well as digital skills. PMI Training continues to enhance its learning portfolio to address the needs of our ever-changing environment.</p>
+                    <a href="https://www.pmi.org/military/pmi-certifications-military" class="cta-button bg-gold text-navy hover:bg-gold-dark" target="_blank">PMI Scholarship Info <span class="sr-only">(opens in new tab)</span></a>
+                </section>
+            
+                <section>
+                    <h2>Why Should You Attend PMI Training?</h2>
+                    <p>Whether you’re looking to build your leadership expertise, gain valuable skills to drive project success, or learn the basics of agile, it’s time to immerse yourself in our dynamic instructor-led training. These trainings are specifically developed for project managers by project management experts.</p>
+                    <p>PMI Training provides a highly interactive small-group experience in two formats: in-person and virtual. Choose from more than 100 trainings across a variety of subject areas that range in duration from 1-hour to 1-4 days. Search through the list of upcoming opportunities in the **PMI Training Catalog**.</p>
+                </section>
+            
+                <section>
+                    <h2>DAV (Disabled American Veterans) Virtual Career Fair</h2>
+                    <p><strong>VIRTUAL VETERAN CAREER FAIR!</strong> Veterans, active duty and transitioning service members, and military spouses, be sure to register for the upcoming DAV and RecruitMilitary virtual job fair at 11 a.m. (Pacific) on **Tuesday, January 23**.</p>
+                    <p>Meet virtually with dozens of employers actively looking to fill roles in various industries. Once you register, you’ll be able to view a full list of companies who will be attending so that you can begin prepping your resume.</p>
+                    <p><strong>Note:</strong> A virtual job fair includes both remote and in-person positions. For more info on upcoming DAV/RecruitMilitary Job Fairs and resources for veterans, spouses, and employers, visit <a href="https://jobs.dav.org" class="text-link-blue hover:underline" target="_blank">jobs.dav.org <span class="sr-only">(opens in new tab)</span></a>.</p>
+                    <a href="https://jobs.dav.org/veterans" class="cta-button" target="_blank">REGISTER FOR DAV FAIR <span class="sr-only">(opens in new tab)</span></a>
+                </section>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="scrollable-links-box">
+                    <h3 class="text-xl font-bold text-gold mb-3 border-b border-gold pb-2">Quick Resources</h3>
+                    <ul class="space-y-2 text-sm" tabindex="0">
+                        <li class="font-bold text-red-500 pt-2">CRITICAL SUPPORT:</li>
+                        <li><a href="https://www.veteranscrisisline.net/" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+                        <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" target="_blank">Suicide Prevention Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                        <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" target="_blank">VA Suicide Prevention <span class="sr-only">(opens in new tab)</span></a></li>
+                        
+                        <li class="font-bold text-gold pt-2">EDUCATION & BENEFITS:</li>
+                        <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" target="_blank">Tuition Assistance / GI Bill <span class="sr-only">(opens in new tab)</span></a></li>
+                        <li><a href="https://www.va.gov/benefits/" target="_blank">Veterans Benefits <span class="sr-only">(opens in new tab)</span></a></li>
+                        <li><a href="https://www.va.gov/education/" target="_blank">Education Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                        <li><a href="https://www.careeronestop.org/Veterans/default.aspx" target="_blank">Career Services <span class="sr-only">(opens in new tab)</span></a></li>
+                        <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+                        
+                        <li class="font-bold text-gold pt-2">CHAPTER PAGES:</li>
+                        <li><a href="history.html">History</a></li>
+                        <li><a href="board.html">Board</a></li>
+                        <li><a href="legacy.html">Legacy</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                        <li><a href="honors.html">Honors</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+
+                        <li class="font-bold text-gold pt-2">CONNECT:</li>
+                        <li><a href="https://studentveterans.my.site.com/login" target="_blank">Join SVA (External) <span class="sr-only">(opens in new tab)</span></a></li>
+                        <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" target="_blank">Join Our Facebook (External) <span class="sr-only">(opens in new tab)</span></a></li>
+                        <li><a href="https://www.pmi.org/military/pmi-certifications-military" target="_blank">PMI Training Scholarship Info <span class="sr-only">(opens in new tab)</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+            
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-navy focus:outline-none transition duration-200"
+                    aria-label="Close Resources and Links dialog" data-autofocus>
+                <span class="text-3xl font-bold text-navy">&times;</span>
             </button>
 
-            <!-- Modal Title -->
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
+            <h3 id="modalTitle" class="text-2xl font-bold text-navy border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
 
-            <!-- Links Section -->
-            <ul class="space-y-2 text-sm">
-                <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
-                <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-                <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-                <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-                <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-                <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-                <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-                <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-                <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-                <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
-                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
+            <ul class="space-y-3 text-lg">
+                <li><a href="index.html" class="text-link-blue hover:text-navy transition">Home</a></li>
+                <li class="font-bold text-navy mt-4">CRITICAL SUPPORT:</li>
+                <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-link-blue hover:text-navy transition" target="_blank">Veteran/Military Suicide Prevention <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-link-blue hover:text-navy transition" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+                <li class="font-bold text-navy mt-4">CHAPTER LINKS:</li>
+                <li><a href="history.html" class="text-link-blue hover:text-navy transition">History</a></li>
+                <li><a href="board.html" class="text-link-blue hover:text-navy transition">Board</a></li>
+                <li><a href="legacy.html" class="text-link-blue hover:text-navy transition">Legacy</a></li>
+                <li><a href="careers.html" class="text-link-blue hover:text-navy transition">Careers</a></li>
+                <li><a href="news.html" class="text-link-blue hover:text-navy transition">News</a></li>
+                <li><a href="events.html" class="text-link-blue hover:text-navy transition">Events</a></li>
+                <li><a href="contactus.html" class="text-link-blue hover:text-navy transition">Contact Us</a></li>
+                <li><a href="honors.html" class="text-link-blue hover:text-navy transition">Honors</a></li>
+                <li><a href="https://studentveterans.my.site.com/login" class="text-link-blue hover:text-navy transition" target="_blank">Join SVA (External) <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-link-blue hover:text-navy transition" target="_blank">Join Our Facebook (External) <span class="sr-only">(opens in new tab)</span></a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<!-- Modal Script -->
+<div class="sva-logo">
+    <img src="svatry.png" alt="SVA Logo, Chapter Branding" class="w-40 h-auto">
+</div>
+
+
+<footer class="bg-navy text-gold py-6 mt-12">
+    <div class="max-w-screen-xl mx-auto text-center">
+        <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by <a href="#" class="text-gold hover:text-navy">William C.</a></p>
+    </div>
+</footer>
+
+<button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0"
+    onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
+<button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0"
+    onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
+
+<div id="scrollUpBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way up.</div>
+<div id="scrollDownBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way down.</div>
+
+<div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-600 opacity-80" id="a11yStatus">
+    High-contrast mode: OFF
+</div>
+
 <script>
-    const openBtn = document.getElementById('openModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const modal = document.getElementById('resourcesModal');
+    const resourcesModal = document.getElementById('resourcesModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const firstFocusableElement = closeModalBtn; 
+    let lastFocusableElement;
+    let previousActiveElement = null;
+    let scrollInterval; 
+    let hideBubbleTimeout; 
 
-    openBtn.addEventListener('click', () => {
+    // --- Tooltip Bubble Functions ---
+    function showBubble(id, duration = 0) {
+        clearTimeout(hideBubbleTimeout);
+        document.getElementById(id).style.opacity = '1';
+        if (duration > 0) {
+            hideBubbleTimeout = setTimeout(() => {
+                hideBubble(id);
+            }, duration);
+        }
+    }
+    function hideBubble(id) {
+        document.getElementById(id).style.opacity = '0';
+    }
+
+    // --- WCAG Modal Focus Management (Traps focus, closes on Escape) ---
+    function trapFocus(e) {
+        if (resourcesModal.classList.contains('hidden')) return;
+        
+        const focusableElements = resourcesModal.querySelectorAll('a, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === 'Tab') {
+            if (e.shiftKey) { 
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else { 
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        previousActiveElement = document.activeElement; 
         modal.classList.remove('hidden');
-    });
+        
+        const firstFocus = modal.querySelector('[data-autofocus]') || modal.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
+        if (firstFocus) {
+            firstFocus.focus();
+        }
+        document.addEventListener('keydown', trapFocus);
+    }
 
-    closeBtn.addEventListener('click', () => {
-        modal.classList.add('hidden');
-    });
+    function closeModal() {
+        resourcesModal.classList.add('hidden');
+        document.removeEventListener('keydown', trapFocus);
+        if (previousActiveElement) {
+            previousActiveElement.focus();
+        }
+    }
 
-    // Optional: close on outside click
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.add('hidden');
+    // Modal Triggers
+    openModalBtn.addEventListener('click', () => openModal('resourcesModal'));
+    closeModalBtn.addEventListener('click', closeModal);
+
+    resourcesModal.addEventListener('click', function(e) {
+        if (e.target === resourcesModal) {
+            closeModal();
         }
     });
+
+    // --- WCAG High Contrast & Motion Reduction ---
+    const a11yToggle = document.getElementById('a11yToggle');
+    const a11yStatus = document.getElementById('a11yStatus');
+
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        a11yStatus.textContent = isHighContrast ? 'High-contrast mode: ON' : 'High-contrast mode: OFF';
+        localStorage.setItem('high-contrast', isHighContrast);
+        // Automatically add motion-reduced class in high contrast mode to meet WCAG 2.3.3
+        document.body.classList.toggle('motion-reduced', isHighContrast); 
+    }
+    
+    a11yToggle.addEventListener('click', toggleHighContrast);
+
+    // Initial check for stored preference or system preference
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+        a11yStatus.textContent = 'High-contrast mode: ON';
+    } else if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Only apply motion-reduced if no high-contrast preference is set
+        document.body.classList.add('motion-reduced');
+    }
+
+    // --- WCAG Custom Scroll Buttons (for users without scroll wheels/trackpads) ---
+    function startScroll(direction) {
+        stopScroll(); 
+        const scrollAmount = direction === 'up' ? -50 : 50;
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, scrollAmount);
+        }, 50); 
+    }
+    function stopScroll() {
+        clearInterval(scrollInterval);
+    }
+
+    const scrollUpBtn = document.getElementById('scrollUp');
+    const scrollDownBtn = document.getElementById('scrollDown');
+
+    // Mouse events for continuous scroll (hold function)
+    scrollUpBtn.addEventListener('mousedown', () => startScroll('up'));
+    scrollUpBtn.addEventListener('mouseup', stopScroll);
+    scrollUpBtn.addEventListener('mouseleave', stopScroll);
+
+    scrollDownBtn.addEventListener('mousedown', () => startScroll('down'));
+    scrollDownBtn.addEventListener('mouseup', stopScroll);
+    scrollDownBtn.addEventListener('mouseleave', stopScroll);
+    
+    // Keyboard events for single-step scroll (Enter/Space) and bubble visibility (Focus/Blur)
+    document.querySelectorAll('.access-scroll-btn').forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault(); // Prevent default action (like form submission)
+                const direction = btn.id === 'scrollUp' ? 'up' : 'down';
+                window.scrollBy(0, direction === 'up' ? -200 : 200); // Quick step scroll
+            }
+        });
+        // Show bubbles on focus for keyboard users (permanent until blur)
+        btn.addEventListener('focus', () => showBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble', 0));
+        btn.addEventListener('blur', () => hideBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble'));
+    });
 </script>
-<footer style="text-align: center; padding: 1rem 0; font-size: 0.9rem; color: #888; background-color: #f8f9fa;">
-    © 2025 AMU APU SVA Chapter | Designed by <a href="https://yourwebsite.com" target="_blank" style="color: #555; text-decoration: none;">William C.</a>
-  </footer>
 </body>
 </html>

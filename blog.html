@@ -1,89 +1,403 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog</title>
-  <!-- Tailwind CSS CDN (required for styles to work) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVA Chapter Blog Preview & Link</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* ---------------------------------------------------------------------- */
+        /* 1. PROFESSIONAL THEME & CONTRAST STYLES (Navy Blue, Gold, White) */
+        /* ---------------------------------------------------------------------- */
+        :root {
+            --primary-blue: #0A1931; /* Deep Navy Blue (AMU/APUS dark) */
+            --secondary-gold: #FFC300; /* Bright Gold/Yellow (Accent) */
+            --accent-gray: #E0E0E0;   /* Light Gray for background */
+            --link-blue: #0077B6;     /* Accessible Blue for links */
+        }
+
+        body {
+            background-color: var(--accent-gray);
+            color: var(--primary-blue);
+        }
+
+        /* Footer and dark sections */
+        .bg-navy {
+            background-color: var(--primary-blue);
+        }
+        .text-gold {
+            color: var(--secondary-gold);
+        }
+        .bg-gold {
+            background-color: var(--secondary-gold);
+        }
+        .bg-gold-hover:hover {
+            background-color: #DAA520; /* Slightly darker gold on hover */
+        }
+        
+        /* WCAG IMPROVEMENT: Custom Focus Outline for Keyboard Users (2.4.7 Focus Visible) */
+        a:focus, button:focus, [tabindex="0"]:focus, .access-scroll-btn:focus {
+            outline: 3px solid var(--secondary-gold); 
+            outline-offset: 4px;
+            border-radius: 4px; 
+        }
+
+        /* Skip Link Styling (2.4.1 Bypass Blocks) */
+        .sr-only:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
+            z-index: 1000;
+        }
+
+        /* ---------------------------------------------------------------------- */
+        /* 2. ACCESSIBILITY BUTTONS (Scroll & Contrast) */
+        /* ---------------------------------------------------------------------- */
+        .access-scroll-btn {
+            position: fixed; right: 1rem; width: 50px; height: 50px;
+            background-color: rgba(10, 25, 49, 0.8); 
+            color: white;
+            border-radius: 50%; font-size: 1.5rem; text-align: center;
+            line-height: 50px; cursor: pointer; z-index: 1000; user-select: none;
+            border: 2px solid var(--secondary-gold); 
+            transition: background-color 0.2s, color 0.2s;
+        }
+        #scrollUp { top: 40%; }
+        #scrollDown { top: 50%; }
+        .access-scroll-btn:active { background-color: var(--secondary-gold); color: var(--primary-blue); }
+        
+        /* Tooltip Bubbles Styles (Hidden by default, fixed position relative to buttons) */
+        .a11y-bubble, .scroll-bubble {
+            position: fixed; background: var(--secondary-gold); color: var(--primary-blue);
+            padding: 8px 12px; border-radius: 8px; font-size: 0.875rem;
+            z-index: 1050; opacity: 0; transition: opacity 0.5s;
+            pointer-events: none; 
+            white-space: nowrap;
+        }
+        
+        /* Scroll Bubble Placement */
+        #scrollUpBubble { top: 41%; right: 4.5rem; } 
+        #scrollDownBubble { top: 51%; right: 4.5rem; }
+
+        /* Accessibility Button position (Top Right) */
+        #a11yToggle {
+            position: fixed; 
+            top: 13rem; 
+            right: 1.5rem; 
+            background-color: var(--secondary-gold);
+            color: var(--primary-blue);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+        }
+        
+        /* Adjust bubble position for the new button location */
+        #a11yBubble { 
+            top: 13rem; 
+            right: 12rem; 
+        }
+
+        /* PULSE EFFECT for Forefront Attraction */
+        .animate-pulse-strong {
+            animation: pulse-strong 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-strong {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 195, 0, 0.7); }
+            50% { opacity: 0.9; box-shadow: 0 0 0 10px rgba(255, 195, 0, 0); }
+        }
+
+        /* ---------------------------------------------------------------------- */
+        /* 3. HIGH CONTRAST MODE (WCAG 1.4.3 Contrast, 2.3.3 Animation) */
+        /* ---------------------------------------------------------------------- */
+        body.high-contrast {
+            background-color: #000 !important;
+            color: #FFD700 !important; /* Gold text */
+        }
+        body.high-contrast .bg-navy {
+            background-color: #111 !important;
+        }
+        body.high-contrast .text-gold {
+             color: #00FFFF !important; /* Cyan for highlight */
+        }
+        body.high-contrast a, body.high-contrast .text-link-blue {
+            color: #00FFFF !important; /* Cyan links */
+        }
+        body.high-contrast .bg-white, body.high-contrast .bg-gray-100, body.high-contrast .bg-gold {
+            background-color: #111 !important; /* Dark background for elements */
+            border-color: #00FFFF !important;
+        }
+        body.high-contrast .cta-text { /* Specific high-contrast text for CTA */
+            color: #FFD700 !important; 
+        }
+        /* Disable animation in high contrast or reduced motion mode (WCAG 2.3.3) */
+        body.motion-reduced .animate-pulse-strong {
+            animation: none !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+        }
+        body.motion-reduced * {
+            transition: none !important;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-100" id="top-of-page">
 
-  <!-- Top-left button that scrolls with the page -->
-  <button id="openModalBtn" class="absolute top-4 left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
-    View Resources
-  </button>
+<a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-navy text-gold font-bold rounded absolute top-0 left-0 z-50">
+    Skip to Main Content
+</a>
 
-  <!-- Modal Popup Content -->
-  <div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-    <div class="flex justify-center items-start mt-20 md:mt-32">
-      <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
-        <!-- Close Button -->
-        <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
-          <span class="text-2xl font-bold">&times;</span>
-        </button>
-
-        <!-- Modal Title -->
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
-
-        <!-- Links Section -->
-        <ul class="space-y-2 text-sm">
-          <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-          <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
-          <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-          <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-          <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-          <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-          <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-          <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-          <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-          <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-          <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
-          <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
-        </ul>
-      </div>
+<header class="bg-navy text-white py-12 shadow-2xl relative">
+    <div class="max-w-screen-xl mx-auto px-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-gold">
+                AMU APU SVA Chapter Blog Access
+            </h1>
+        </div>
+        <p class="mt-2 text-lg text-gray-300">Access our official Substack for news, stories, and veteran resources.</p>
     </div>
-  </div>
+</header>
 
-  <h1 class="text-2xl font-bold mt-20 ml-4">Our Blog</h1>
-  <p class="ml-4">Stay updated with our latest posts:</p>
+<button id="a11yToggle"
+    aria-label="Toggle high contrast mode"
+    class="bg-gold text-primary-blue px-6 py-2 rounded-lg font-bold shadow-xl hover:bg-gold-hover transition focus:outline-none focus:ring-4 focus:ring-primary-blue z-50"
+    onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
+    ♿ Accessibility
+</button>
+<div id="a11yBubble" class="a11y-bubble">Click here to toggle high-contrast mode!</div>
 
-  <!-- Substack Embed -->
-  <iframe src="https://amusva.substack.com/embed"
-          width="100%"
-          height="600"
-          style="border:none; background:white;"
-          frameborder="0"
-          scrolling="no">
-  </iframe>
 
-  <footer class="bg-gray-800 text-white py-4 mt-8">
+<main id="main-content" class="max-w-screen-xl mx-auto px-6 py-16 flex flex-col items-center" tabindex="-1">
+
+    <button id="openModalBtn" 
+        class="bg-primary-blue text-gold px-6 py-3 rounded-lg shadow-md hover:bg-opacity-90 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gold mb-12">
+        View Resources and Links
+    </button>
+    
+    <div class="mb-12 w-full max-w-lg">
+        <h2 class="text-3xl font-bold text-center text-navy mb-6">Read Our Latest Stories Now</h2>
+        <a href="https://amusva.substack.com" target="_blank"
+            class="cta-link block w-full text-center p-6 rounded-xl shadow-2xl transition duration-300 ease-in-out 
+                   bg-gold hover:bg-gold-hover focus:ring-4 focus:ring-primary-blue 
+                   animate-pulse-strong" 
+            aria-label="Go to the AMU SVA Substack Blog (opens in new tab)">
+            <span class="text-4xl font-extrabold text-navy cta-text">
+                Visit the Substack Blog
+            </span>
+            <span class="sr-only">(opens in new tab)</span>
+        </a>
+        <p class="text-center text-sm text-gray-600 mt-3">Click the gold button above to read our full blog.</p>
+    </div>
+
+    <section class="w-full max-w-4xl bg-white p-6 rounded-lg shadow-xl border border-gray-300">
+        <h3 class="text-2xl font-semibold text-navy mb-4 border-b pb-2">Latest Preview</h3>
+        <iframe src="https://amusva.substack.com/embed"
+                width="100%"
+                height="450"
+                style="border:none; background:white;"
+                frameborder="0"
+                title="AMU SVA Chapter Substack Blog Preview"
+                scrolling="yes" 
+                >
+        </iframe>
+        <p class="text-center text-sm text-gray-600 mt-4">You can browse the latest posts here, but for the best experience, click the link above to visit the full site.</p>
+    </section>
+
+</main>
+
+
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+            
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-navy focus:outline-none transition duration-200"
+                    aria-label="Close Resources and Links dialog" data-autofocus>
+                <span class="text-3xl font-bold text-navy">&times;</span>
+            </button>
+
+            <h3 id="modalTitle" class="text-2xl font-bold text-navy border-b pb-2 mb-4">Resources and Links</h3>
+
+            <ul class="space-y-3 text-lg">
+                <li><a href="index.html" class="text-link-blue hover:text-navy transition">Home</a></li>
+                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-link-blue hover:text-navy transition" target="_blank">Mental Health Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="history.html" class="text-link-blue hover:text-navy transition">History</a></li>
+                <li><a href="board.html" class="text-link-blue hover:text-navy transition">Board</a></li>
+                <li><a href="legacy.html" class="text-link-blue hover:text-navy transition">Legacy</a></li>
+                <li><a href="careers.html" class="text-link-blue hover:text-navy transition">Careers</a></li>
+                <li><a href="news.html" class="text-link-blue hover:text-navy transition">News</a></li>
+                <li><a href="events.html" class="text-link-blue hover:text-navy transition">Events</a></li>
+                <li><a href="contactus.html" class="text-link-blue hover:text-navy transition">Contact Us</a></li>
+                <li><a href="honors.html" class="text-link-blue hover:text-navy transition">Honors</a></li>
+                <li><a href="https://studentveterans.my.site.com/login" class="text-link-blue hover:text-navy transition" target="_blank">Join SVA <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-link-blue hover:text-navy transition" target="_blank">Join Our Facebook <span class="sr-only">(opens in new tab)</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-navy text-gold py-6 mt-12">
     <div class="max-w-screen-xl mx-auto text-center">
-      <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
+        <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
     </div>
-  </footer>
+</footer>
 
-  <!-- Modal Script -->
-  <script>
-    const openBtn = document.getElementById('openModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const modal = document.getElementById('resourcesModal');
+<button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0"
+    onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
+<button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0"
+    onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
 
-    openBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
+<div id="scrollUpBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way up.</div>
+<div id="scrollDownBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way down.</div>
+
+<div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-600 opacity-80" id="a11yStatus">
+    High-contrast mode: OFF
+</div>
+
+<script>
+    const resourcesModal = document.getElementById('resourcesModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const firstFocusableElement = closeModalBtn; 
+    let lastFocusableElement;
+    let previousActiveElement = null;
+    let scrollInterval; 
+    let hideBubbleTimeout; 
+
+    // --- Tooltip Bubble Functions ---
+    function showBubble(id, duration = 0) {
+        clearTimeout(hideBubbleTimeout);
+        document.getElementById(id).style.opacity = '1';
+        if (duration > 0) {
+            hideBubbleTimeout = setTimeout(() => {
+                hideBubble(id);
+            }, duration);
+        }
+    }
+    function hideBubble(id) {
+        document.getElementById(id).style.opacity = '0';
+    }
+
+    // --- WCAG Modal Focus Management (Traps focus, closes on Escape) ---
+    function trapFocus(e) {
+        if (resourcesModal.classList.contains('hidden')) return;
+        
+        const focusableElements = resourcesModal.querySelectorAll('a, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === 'Tab') {
+            if (e.shiftKey) { 
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else { 
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        previousActiveElement = document.activeElement; 
+        modal.classList.remove('hidden');
+        
+        const firstFocus = modal.querySelector('[data-autofocus]') || modal.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
+        if (firstFocus) {
+            firstFocus.focus();
+        }
+        document.addEventListener('keydown', trapFocus);
+    }
+
+    function closeModal() {
+        resourcesModal.classList.add('hidden');
+        document.removeEventListener('keydown', trapFocus);
+        if (previousActiveElement) {
+            previousActiveElement.focus();
+        }
+    }
+
+    // Modal Triggers
+    openModalBtn.addEventListener('click', () => openModal('resourcesModal'));
+    closeModalBtn.addEventListener('click', closeModal);
+
+    resourcesModal.addEventListener('click', function(e) {
+        if (e.target === resourcesModal) {
+            closeModal();
+        }
     });
 
-    closeBtn.addEventListener('click', () => {
-      modal.classList.add('hidden');
-    });
+    // --- WCAG High Contrast & Motion Reduction ---
+    const a11yToggle = document.getElementById('a11yToggle');
+    const a11yStatus = document.getElementById('a11yStatus');
 
-    // Optional: close on outside click
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-      }
-    });
-  </script>
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        a11yStatus.textContent = isHighContrast ? 'High-contrast mode: ON' : 'High-contrast mode: OFF';
+        localStorage.setItem('high-contrast', isHighContrast);
+        // Automatically add motion-reduced class in high contrast mode to meet WCAG 2.3.3
+        document.body.classList.toggle('motion-reduced', isHighContrast); 
+    }
+    
+    a11yToggle.addEventListener('click', toggleHighContrast);
 
+    // Initial check for stored preference or system preference
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+        a11yStatus.textContent = 'High-contrast mode: ON';
+    } else if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Only apply motion-reduced if no high-contrast preference is set
+        document.body.classList.add('motion-reduced');
+    }
+
+    // --- WCAG Custom Scroll Buttons (for users without scroll wheels/trackpads) ---
+    function startScroll(direction) {
+        stopScroll(); 
+        const scrollAmount = direction === 'up' ? -50 : 50;
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, scrollAmount);
+        }, 50); 
+    }
+    function stopScroll() {
+        clearInterval(scrollInterval);
+    }
+
+    const scrollUpBtn = document.getElementById('scrollUp');
+    const scrollDownBtn = document.getElementById('scrollDown');
+
+    // Mouse events for continuous scroll (hold function)
+    scrollUpBtn.addEventListener('mousedown', () => startScroll('up'));
+    scrollUpBtn.addEventListener('mouseup', stopScroll);
+    scrollUpBtn.addEventListener('mouseleave', stopScroll);
+
+    scrollDownBtn.addEventListener('mousedown', () => startScroll('down'));
+    scrollDownBtn.addEventListener('mouseup', stopScroll);
+    scrollDownBtn.addEventListener('mouseleave', stopScroll);
+    
+    // Keyboard events for single-step scroll (Enter/Space) and bubble visibility (Focus/Blur)
+    document.querySelectorAll('.access-scroll-btn').forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault(); // Prevent default action (like form submission)
+                const direction = btn.id === 'scrollUp' ? 'up' : 'down';
+                window.scrollBy(0, direction === 'up' ? -200 : 200); // Quick step scroll
+            }
+        });
+        // Show bubbles on focus for keyboard users (permanent until blur)
+        btn.addEventListener('focus', () => showBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble', 0));
+        btn.addEventListener('blur', () => hideBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble'));
+    });
+</script>
 </body>
 </html>

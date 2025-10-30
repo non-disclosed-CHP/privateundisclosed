@@ -1,102 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Scrollable Links Box -->
-<div class="relative mt-6 p-4 bg-white rounded-lg max-h-60 overflow-y-scroll space-y-4">
-    <!-- Links Inside Scrollable Box -->
-    <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-        <li><a href="https://www.veteranscrisisline.net/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Crisis Line</a></li>
-        <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-blue-600 hover:text-blue-700" target="_blank">Veteran and Military Suicide Prevention Resources</a></li>
-        <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-blue-600 hover:text-blue-700" target="_blank">VA Suicide Prevention</a></li>
-        <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Tuition Assistance</a></li>
-        <li><a href="https://www.va.gov/benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Benefits</a></li>
-        <li><a href="https://www.va.gov/education/" class="text-blue-600 hover:text-blue-700" target="_blank">Education Resources</a></li>
-        <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-blue-600 hover:text-blue-700" target="_blank">Career Services</a></li>
-        <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Counseling and Support</a></li>
-        <!-- New Links -->
-        <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-        <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-        <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-        <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-        <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-        <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-        <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-        <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-        <li><a href="blog.html" class="text-blue-600 hover:text-blue-700">Blog</a></li>
-        <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700">Join SVA</a></li>
-        <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700">Join Our Facebook</a></li>
-
-
-
-        
-        <!-- PMI Training Tabs for Each Branch -->
-        <li><a href="https://www.pmi.org/military/pmi-certifications-military" class="text-blue-600 hover:text-blue-700" target="_blank">PMI Training Scholarship Information</a></li>
-    </ul>
-</div>
-    </div>
-</section>
-
-    </div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMU SVA Chapter Events</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>AMU SVA Chapter Events & Calendar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Basic Styles */
+        /* ---------------------------------------------------------------------- */
+        /* 1. CURRENT COLOR SCHEME DEFINITION & WCAG STYLES */
+        /* ---------------------------------------------------------------------- */
+        :root {
+            /* Keep original Blue and White theme */
+            --primary-blue: #3B82F6; /* Tailwind Blue-500/600 */
+            --dark-blue: #1D4ED8;    /* Tailwind Blue-700/800 */
+            --text-gray: #4B5563;    /* Tailwind Gray-600 */
+            --bg-white: rgba(255, 255, 255, 0.95);
+        }
+
+        /* WCAG IMPROVEMENT: Custom Focus Outline for Keyboard Users (2.4.7 Focus Visible) */
+        a:focus, button:focus, [tabindex="0"]:focus, .access-scroll-btn:focus {
+            outline: 3px solid var(--primary-blue); 
+            outline-offset: 4px;
+            border-radius: 4px; 
+        }
+
+        /* Skip Link Styling (2.4.1 Bypass Blocks) */
+        .sr-only:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
+            z-index: 1000;
+        }
+
+        /* THEME & BASE STYLES */
         body {
-            background-image: url('flag2.png');
+            /* Enhanced Background: Darker overlay for better contrast (WCAG 1.4.3) */
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.5)), url('flag2.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            overflow-x: hidden;
-            position: relative;
+            color: #1F2937; /* Dark text */
+            min-height: 150vh;
         }
+        body::before { content: none; } /* Remove redundant opacity overlay from original CSS */
 
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.25);
-            z-index: -1;
-        }
-
+        /* HEADER & FOOTER */
         header, footer {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: var(--bg-white);
             backdrop-filter: blur(5px);
-            padding: 16px 0;
-            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        header { 
+            background-color: var(--dark-blue);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        header a { color: white; transition: color 0.3s; }
+        header a:hover { color: var(--primary-blue); background-color: white; padding: 2px 5px; border-radius: 4px; }
 
+
+        /* SECTION STYLES (Enhanced Appearance) */
         section {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 60px 0;
-            text-align: center;
-            margin: 40px 0;
-            border-radius: 8px;
+            background-color: var(--bg-white);
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            margin: 40px auto;
+            border-radius: 12px;
+            max-width: 1000px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+            border-top: 8px solid var(--primary-blue); 
+            text-align: left; /* Adjust to better fit event listing */
         }
+        section h2 {
+            color: var(--dark-blue); 
+            font-size: 2.25rem;
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-align: center;
+        }
+        section p { text-align: center; }
 
+        /* Expandable Box Styles */
         .expandable-box {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: #F9FAFB; /* Light gray background for content */
             border-radius: 8px;
-            padding: 16px;
+            padding: 0; /* Remove initial padding */
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            margin-top: 25px;
+            border: 1px solid #E5E7EB;
         }
-
         .expandable-box.active {
-            max-height: 500px; /* Expandable max height */
-            overflow-y: auto;
+            max-height: 2000px; /* Large enough for many events */
+            padding: 25px;
         }
 
         .expandable-button {
-            background-color: rgba(59, 130, 246, 0.9);
+            background-color: var(--primary-blue);
             color: white;
             padding: 14px 24px;
             border-radius: 8px;
@@ -104,162 +111,400 @@
             width: 100%;
             text-align: center;
             transition: background-color 0.3s ease;
-            margin-top: 16px;
+            margin-top: 25px;
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+        .expandable-button:hover {
+            background-color: var(--dark-blue);
         }
 
-        .expandable-button:hover {
-            background-color: rgba(59, 130, 246, 1);
+        /* Event Card Styling */
+        .event-card {
+            border-bottom: 1px solid #D1D5DB;
+            padding-bottom: 20px;
+        }
+        .event-card:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .event-card h3 {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+        .event-card strong {
+            color: var(--dark-blue);
+        }
+        
+        /* ---------------------------------------------------------------------- */
+        /* 2. ACCESSIBILITY BUTTONS (Scroll & Contrast) */
+        /* ---------------------------------------------------------------------- */
+        .access-scroll-btn {
+            position: fixed; right: 1rem; width: 50px; height: 50px;
+            background-color: rgba(29, 78, 216, 0.8); /* Dark Blue */
+            color: white;
+            border-radius: 50%; font-size: 1.5rem; text-align: center;
+            line-height: 50px; cursor: pointer; z-index: 1000; user-select: none;
+            border: 2px solid white; 
+            transition: background-color 0.2s, color 0.2s;
+        }
+        #scrollUp { top: 40%; }
+        #scrollDown { top: 50%; }
+        
+        /* Tooltip Bubbles Styles */
+        .a11y-bubble, .scroll-bubble {
+            position: fixed; background: var(--primary-blue); color: white;
+            padding: 8px 12px; border-radius: 8px; font-size: 0.875rem;
+            z-index: 1050; opacity: 0; transition: opacity 0.5s;
+            pointer-events: none; 
+            white-space: nowrap;
+        }
+        
+        /* Accessibility Button position (Top Right) */
+        #a11yToggle {
+            position: fixed; 
+            top: 13rem; 
+            right: 1.5rem; 
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+        }
+        #a11yBubble { top: 13rem; right: 12rem; } 
+        #scrollUpBubble { top: 41%; right: 4.5rem; } 
+        #scrollDownBubble { top: 51%; right: 4.5rem; }
+
+        /* Resources Button (Repositioned for the new modal style) */
+        #openModalBtn {
+            position: fixed; 
+            top: 4rem; 
+            right: 4rem; 
+            z-index: 50;
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ---------------------------------------------------------------------- */
+        /* 3. HIGH CONTRAST MODE (WCAG 1.4.3 Contrast) */
+        /* ---------------------------------------------------------------------- */
+        body.high-contrast {
+            background: #000 !important;
+            background-image: none !important;
+            color: #FFF !important; 
+        }
+        body.high-contrast section, body.high-contrast header, body.high-contrast footer, body.high-contrast .expandable-box {
+            background-color: #111 !important; 
+            border-color: #00FFFF !important;
+            color: #FFF !important;
+        }
+        body.high-contrast h2, body.high-contrast h3, body.high-contrast strong { 
+            color: #00FFFF !important; 
+            border-color: #00FFFF !important;
+        }
+        body.high-contrast a, body.high-contrast .expandable-button, body.high-contrast #openModalBtn, body.high-contrast #a11yToggle, body.high-contrast .access-scroll-btn {
+            background-color: #000 !important;
+            border: 2px solid #00FFFF !important;
+            color: #00FFFF !important;
+            box-shadow: none !important;
         }
     </style>
 </head>
-<body>
+<body id="top-of-page">
 
-    <!-- Events Section with Expandable Box -->
-    <section id="events">
-        <h2 class="text-3xl font-bold text-blue-700">Upcoming AMU SVA Chapter Events</h2>
-        <p class="text-lg text-gray-600 mt-4">Stay up-to-date with the latest events, workshops, and social gatherings hosted by the AMU SVA Chapter. Check back regularly for updates!</p>
-        
-<!-- Expandable Scroll Down Box -->
-<div class="expandable-box mt-8">
-    <div class="p-4 space-y-8">
-        <!-- Event 1 with image placeholder -->
-        <div class="flex flex-col md:flex-row items-center">
-            <img src="https://via.placeholder.com/150" alt="Event 1 Image" class="w-40 h-40 object-cover rounded-lg mr-6 mb-4 md:mb-0">
-            <div class="text-left">
-                <h3 class="text-2xl font-bold text-blue-700">Event Name Placeholder</h3>
-                <p class="text-gray-600 mt-2">Event description placeholder text.</p>
-                <p class="mt-1"><strong>Date:</strong> Placeholder Date</p>
-                <p><strong>Time:</strong> Placeholder Time</p>
-            </div>
-        </div>
+<a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-dark-blue text-white font-bold rounded fixed top-0 left-0 z-50">
+    Skip to Main Content
+</a>
 
-        <!-- Event 2 with image placeholder -->
-        <div class="flex flex-col md:flex-row items-center">
-            <img src="https://via.placeholder.com/150" alt="Event 2 Image" class="w-40 h-40 object-cover rounded-lg mr-6 mb-4 md:mb-0">
-            <div class="text-left">
-                <h3 class="text-2xl font-bold text-blue-700">Event Name Placeholder</h3>
-                <p class="text-gray-600 mt-2">Event description placeholder text.</p>
-                <p class="mt-1"><strong>Date:</strong> Placeholder Date</p>
-                <p><strong>Time:</strong> Placeholder Time</p>
-            </div>
-        </div>
-
-        <!-- Event 3 with image placeholder -->
-        <div class="flex flex-col md:flex-row items-center">
-            <img src="https://via.placeholder.com/150" alt="Event 3 Image" class="w-40 h-40 object-cover rounded-lg mr-6 mb-4 md:mb-0">
-            <div class="text-left">
-                <h3 class="text-2xl font-bold text-blue-700">Event Name Placeholder</h3>
-                <p class="text-gray-600 mt-2">Event description placeholder text.</p>
-                <p class="mt-1"><strong>Date:</strong> Placeholder Date</p>
-                <p><strong>Time:</strong> Placeholder Time</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-        <!-- Expandable Button -->
-        <button class="expandable-button" onclick="toggleExpandableBox()">Show Events</button>
-    </section>
-
-    <footer class="bg-gray-800 text-white py-4 mt-8">
-        <div class="max-w-screen-xl mx-auto text-center">
-            <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
-        </div>
-    </footer>
-
-    <script>
-        function toggleExpandableBox() {
-            const box = document.querySelector('.expandable-box');
-            const button = document.querySelector('.expandable-button');
-            box.classList.toggle('active');
-            button.textContent = box.classList.contains('active') ? 'Show Less Events' : 'Show More Events';
-        }
-    </script>
-
-
-<script>
-// JavaScript to toggle the visibility of resources tab
-function toggleResourcesTab() {
-const resourcesTab = document.getElementById('resources-tab');
-const button = document.getElementById('toggle-resources');
-if (resourcesTab.style.display === 'none' || resourcesTab.style.display === '') {
-    resourcesTab.style.display = 'block';
-    button.textContent = '−'; // Change button to close symbol
-} else {
-    resourcesTab.style.display = 'none';
-    button.textContent = '+'; // Change button to open symbol
-}
-}
-
-// JavaScript to toggle the subgroups within the resources tab
-function toggleGroup(groupId, buttonId) {
-const group = document.getElementById(groupId);
-const button = document.getElementById(buttonId);
-if (group.style.display === 'none' || group.style.display === '') {
-    group.style.display = 'block';
-    button.textContent = '−'; // Change button to close symbol
-} else {
-    group.style.display = 'none';
-    button.textContent = '+'; // Change button to open symbol
-}
-}
-</script>
-
-  <!-- Toggle Button at Top of Page -->
-  <button id="openModalBtn" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
-    View Resources
+<button id="openModalBtn" 
+    class="shadow-xl hover:bg-blue-600 transition focus:outline-none focus:ring-4 focus:ring-white"
+    aria-label="Open full Resources and Links menu">
+    Resources & Links
 </button>
 
-<!-- Modal Popup Content -->
-<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-    <div class="flex justify-center items-start mt-20 md:mt-32">
-        <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
-            <!-- Close Button -->
-            <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
-                <span class="text-2xl font-bold">&times;</span>
+<button id="a11yToggle"
+    aria-label="Toggle high contrast mode"
+    class="shadow-xl hover:bg-blue-600 transition focus:outline-none focus:ring-4 focus:ring-white"
+    onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
+    ♿ Accessibility
+</button>
+<div id="a11yBubble" class="a11y-bubble">Click here to toggle high-contrast mode!</div>
+
+<header>
+    <div class="max-w-screen-xl mx-auto px-6 flex justify-between items-center">
+        <h1 class="text-2xl font-extrabold tracking-tight">AMU SVA Events</h1>
+        <nav class="space-x-4">
+            <a href="index.html" class="px-3 py-2 text-sm rounded">Home</a>
+            <a href="committees.html" class="px-3 py-2 text-sm rounded">Committees</a>
+            <a href="contactus.html" class="px-3 py-2 text-sm rounded">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+    <section id="events" class="max-w-screen-xl mx-auto">
+        <h2 class="text-center">Upcoming AMU SVA Chapter Events</h2>
+        <p class="text-lg text-gray-600 mt-4">Stay up-to-date with the latest events, workshops, and social gatherings hosted by the AMU SVA Chapter. Check back regularly for updates!</p>
+        
+        <div class="expandable-box" id="expandableBox" role="region" aria-live="polite">
+            <div class="p-4 space-y-8">
+                
+                <div class="event-card flex flex-col md:flex-row items-start">
+                    <img src="https://via.placeholder.com/150" alt="Image of a Veterans Day parade" class="w-full md:w-40 h-40 object-cover rounded-lg mr-6 mb-4 md:mb-0" aria-hidden="true">
+                    <div class="text-left flex-1">
+                        <h3 class="text-2xl font-bold">Veterans Career Workshop: Resume and Interviewing</h3>
+                        <p class="text-gray-700 mt-2">A focused workshop to help transitioning service members tailor their resumes and practice interview skills with industry professionals.</p>
+                        <p class="mt-2"><strong>Date:</strong> November 10, 2025</p>
+                        <p><strong>Time:</strong> 7:00 PM EST</p>
+                        <a href="#" class="text-primary-blue hover:text-dark-blue font-semibold mt-2 inline-block">RSVP Now</a>
+                    </div>
+                </div>
+
+                <div class="event-card flex flex-col md:flex-row items-start">
+                    <img src="https://via.placeholder.com/150" alt="Image of people socializing at a coffee shop" class="w-full md:w-40 h-40 object-cover rounded-lg mr-6 mb-4 md:mb-0" aria-hidden="true">
+                    <div class="text-left flex-1">
+                        <h3 class="text-2xl font-bold">Monthly SVA Virtual Coffee Social</h3>
+                        <p class="text-gray-700 mt-2">Join us for a relaxed virtual coffee hour. A great chance to network, share experiences, and build camaraderie with fellow student veterans.</p>
+                        <p class="mt-2"><strong>Date:</strong> November 25, 2025</p>
+                        <p><strong>Time:</strong> 8:00 PM EST</p>
+                        <a href="#" class="text-primary-blue hover:text-dark-blue font-semibold mt-2 inline-block">Join Link</a>
+                    </div>
+                </div>
+
+                <div class="event-card flex flex-col md:flex-row items-start">
+                    <img src="https://via.placeholder.com/150" alt="Image of books and students studying" class="w-full md:w-40 h-40 object-cover rounded-lg mr-6 mb-4 md:mb-0" aria-hidden="true">
+                    <div class="text-left flex-1">
+                        <h3 class="text-2xl font-bold">End-of-Semester Study Session</h3>
+                        <p class="text-gray-700 mt-2">A collaborative study session open to all SVA members preparing for final exams. Peer tutors will be available for common subjects.</p>
+                        <p class="mt-2"><strong>Date:</strong> December 8, 2025</p>
+                        <p><strong>Time:</strong> 6:00 PM EST</p>
+                        <a href="#" class="text-primary-blue hover:text-dark-blue font-semibold mt-2 inline-block">View Agenda</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="expandable-button" onclick="toggleExpandableBox(this)" aria-expanded="false" id="expandToggleBtn">
+            Show Events
+        </button>
+    </section>
+</main>
+
+
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+            
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-black focus:outline-none transition duration-200"
+                    aria-label="Close Resources and Links dialog" data-autofocus>
+                <span class="text-3xl font-bold text-black">&times;</span>
             </button>
 
-            <!-- Modal Title -->
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
+            <h3 id="modalTitle" class="text-2xl font-bold text-dark-blue border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
 
-            <!-- Links Section -->
-            <ul class="space-y-2 text-sm">
-                <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
-                <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-                <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-                <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-                <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-                <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-                <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-                <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-                <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-                <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
-                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
+            <ul class="space-y-3 text-lg">
+                <li><a href="index.html" class="text-primary-blue hover:text-dark-blue transition">Home</a></li>
+                <li class="font-bold text-dark-blue mt-4">CRITICAL SUPPORT:</li>
+                <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-primary-blue hover:text-dark-blue transition" target="_blank">Suicide Prevention Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-primary-blue hover:text-dark-blue transition" target="_blank">VA Suicide Prevention <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-primary-blue hover:text-dark-blue transition" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+                
+                <li class="font-bold text-dark-blue mt-4">BENEFITS & EDUCATION:</li>
+                <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-primary-blue hover:text-dark-blue transition" target="_blank">Tuition Assistance / GI Bill <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.va.gov/benefits/" class="text-primary-blue hover:text-dark-blue transition" target="_blank">Veterans Benefits <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.va.gov/education/" class="text-primary-blue hover:text-dark-blue transition" target="_blank">Education Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-primary-blue hover:text-dark-blue transition" target="_blank">Career Services <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.pmi.org/military/pmi-certifications-military" class="text-primary-blue hover:text-dark-blue transition" target="_blank">PMI Training Scholarship <span class="sr-only">(opens in new tab)</span></a></li>
+
+                <li class="font-bold text-dark-blue mt-4">CHAPTER PAGES:</li>
+                <li><a href="history.html" class="text-primary-blue hover:text-dark-blue transition">History</a></li>
+                <li><a href="board.html" class="text-primary-blue hover:text-dark-blue transition">Board</a></li>
+                <li><a href="legacy.html" class="text-primary-blue hover:text-dark-blue transition">Legacy</a></li>
+                <li><a href="careers.html" class="text-primary-blue hover:text-dark-blue transition">Careers</a></li>
+                <li><a href="news.html" class="text-primary-blue hover:text-dark-blue transition">News</a></li>
+                <li><a href="contactus.html" class="text-primary-blue hover:text-dark-blue transition">Contact Us</a></li>
+                <li><a href="honors.html" class="text-primary-blue hover:text-dark-blue transition">Honors</a></li>
+                <li><a href="blog.html" class="text-primary-blue hover:text-dark-blue transition">Blog</a></li>
+                <li><a href="https://studentveterans.my.site.com/login" class="text-primary-blue hover:text-dark-blue transition" target="_blank">Join SVA (External) <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-primary-blue hover:text-dark-blue transition" target="_blank">Join Our Facebook (External) <span class="sr-only">(opens in new tab)</span></a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<!-- Modal Script -->
+<footer class="py-4 mt-8">
+    <div class="max-w-screen-xl mx-auto text-center">
+        <p class="text-sm font-medium text-gray-200">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
+    </div>
+</footer>
+
+<button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0"
+    onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
+<button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0"
+    onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
+
+<div id="scrollUpBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way up.</div>
+<div id="scrollDownBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way down.</div>
+
+<div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-300 opacity-80" id="a11yStatus">
+    High-contrast mode: OFF
+</div>
+
 <script>
-    const openBtn = document.getElementById('openModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const modal = document.getElementById('resourcesModal');
+    const resourcesModal = document.getElementById('resourcesModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    let lastFocusableElement;
+    let previousActiveElement = null;
+    let scrollInterval; 
+    let hideBubbleTimeout; 
 
-    openBtn.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-    });
-
-    closeBtn.addEventListener('click', () => {
-        modal.classList.add('hidden');
-    });
-
-    // Optional: close on outside click
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.add('hidden');
+    // --- Tooltip Bubble Functions ---
+    function showBubble(id, duration = 0) {
+        clearTimeout(hideBubbleTimeout);
+        document.getElementById(id).style.opacity = '1';
+        if (duration > 0) {
+            hideBubbleTimeout = setTimeout(() => {
+                hideBubble(id);
+            }, duration);
         }
+    }
+    function hideBubble(id) {
+        document.getElementById(id).style.opacity = '0';
+    }
+
+    // --- Events Expandable Box Toggle (WCAG: manages aria-expanded) ---
+    function toggleExpandableBox(button) {
+        const box = document.getElementById('expandableBox');
+        const isExpanded = box.classList.toggle('active');
+        
+        button.setAttribute('aria-expanded', isExpanded);
+        button.textContent = isExpanded ? 'Show Less Events' : 'Show Events';
+    }
+
+    // --- WCAG Modal Focus Management (Traps focus, closes on Escape) ---
+    function trapFocus(e) {
+        if (resourcesModal.classList.contains('hidden')) return;
+        
+        const focusableElements = resourcesModal.querySelectorAll('a, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length === 0) return;
+
+        const firstFocusableElement = closeModalBtn; 
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === 'Tab') {
+            if (e.shiftKey) { 
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else { 
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        previousActiveElement = document.activeElement; 
+        modal.classList.remove('hidden');
+        
+        const firstFocus = modal.querySelector('[data-autofocus]') || modal.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
+        if (firstFocus) {
+            firstFocus.focus();
+        }
+        document.addEventListener('keydown', trapFocus);
+    }
+
+    function closeModal() {
+        resourcesModal.classList.add("hidden");
+        
+        document.removeEventListener('keydown', trapFocus);
+        if (previousActiveElement) {
+            previousActiveElement.focus();
+        }
+    }
+
+    // Modal Triggers
+    openModalBtn.addEventListener('click', () => openModal('resourcesModal'));
+    closeModalBtn.addEventListener('click', closeModal);
+
+    resourcesModal.addEventListener('click', function(e) {
+        if (e.target === resourcesModal) {
+            closeModal();
+        }
+    });
+
+    // --- WCAG High Contrast & Motion Reduction ---
+    const a11yToggle = document.getElementById('a11yToggle');
+    const a11yStatus = document.getElementById('a11yStatus');
+
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        a11yStatus.textContent = isHighContrast ? 'High-contrast mode: ON' : 'High-contrast mode: OFF';
+        localStorage.setItem('high-contrast', isHighContrast);
+        document.body.classList.toggle('motion-reduced', isHighContrast); 
+    }
+    
+    a11yToggle.addEventListener('click', toggleHighContrast);
+
+    // Initial check for stored preference
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+        a11yStatus.textContent = 'High-contrast mode: ON';
+    } 
+
+    // --- WCAG Custom Scroll Buttons ---
+    function startScroll(direction) {
+        stopScroll(); 
+        const scrollAmount = direction === 'up' ? -50 : 50;
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, scrollAmount);
+        }, 50); 
+    }
+    function stopScroll() {
+        clearInterval(scrollInterval);
+    }
+
+    const scrollUpBtn = document.getElementById('scrollUp');
+    const scrollDownBtn = document.getElementById('scrollDown');
+
+    // Mouse events for continuous scroll (hold function)
+    scrollUpBtn.addEventListener('mousedown', () => startScroll('up'));
+    scrollUpBtn.addEventListener('mouseup', stopScroll);
+    scrollUpBtn.addEventListener('mouseleave', stopScroll);
+
+    scrollDownBtn.addEventListener('mousedown', () => startScroll('down'));
+    scrollDownBtn.addEventListener('mouseup', stopScroll);
+    scrollDownBtn.addEventListener('mouseleave', stopScroll);
+    
+    // Keyboard events for single-step scroll (Enter/Space) and bubble visibility (Focus/Blur)
+    document.querySelectorAll('.access-scroll-btn').forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault(); 
+                const direction = btn.id === 'scrollUp' ? 'up' : 'down';
+                window.scrollBy(0, direction === 'up' ? -200 : 200); 
+            }
+        });
+        // Show bubbles on focus for keyboard users 
+        btn.addEventListener('focus', () => showBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble', 0));
+        btn.addEventListener('blur', () => hideBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble'));
     });
 </script>
 </body>

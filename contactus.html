@@ -1,296 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Scrollable Links Box -->
-<div class="relative mt-6 p-4 bg-white rounded-lg max-h-60 overflow-y-scroll space-y-4">
-    <!-- Links Inside Scrollable Box -->
-    <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-        <li><a href="https://www.veteranscrisisline.net/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Crisis Line</a></li>
-        <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-blue-600 hover:text-blue-700" target="_blank">Veteran and Military Suicide Prevention Resources</a></li>
-        <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-blue-600 hover:text-blue-700" target="_blank">VA Suicide Prevention</a></li>
-        <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Tuition Assistance</a></li>
-        <li><a href="https://www.va.gov/benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Benefits</a></li>
-        <li><a href="https://www.va.gov/education/" class="text-blue-600 hover:text-blue-700" target="_blank">Education Resources</a></li>
-        <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-blue-600 hover:text-blue-700" target="_blank">Career Services</a></li>
-        <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Counseling and Support</a></li>
-        <!-- New Links -->
-        <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-        <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-        <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-        <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-        <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-        <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-        <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-        <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-        <li><a href="blog.html" class="text-blue-600 hover:text-blue-700">Blog</a></li>
-        <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700">Join SVA</a></li>
-        <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700">Join Our Facebook</a></li>
-
-
-
-        
-        <!-- PMI Training Tabs for Each Branch -->
-        <li><a href="https://www.pmi.org/military/pmi-certifications-military" class="text-blue-600 hover:text-blue-700" target="_blank">PMI Training Scholarship Information</a></li>
-    </ul>
-</div>
-    </div>
-</section>
-    </div>
-</section>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-scale, initial-scale=1.0">
-    <title>Contact Us</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVA Chapter - Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Gradient background: Ruby Red to Dark Navy Blue Purple */
-        .gradient-background {
-            background: linear-gradient(135deg, rgba(185, 28, 28, 0.8), rgba(30, 58, 138, 0.8));
+        /* ---------------------------------------------------------------------- */
+        /* 1. CURRENT COLOR SCHEME DEFINITION & WCAG STYLES */
+        /* ---------------------------------------------------------------------- */
+        :root {
+            /* Ruby Red */
+            --primary-red: #B91C1C; 
+            /* Dark Navy Blue Purple (from gradient) */
+            --secondary-blue: #1E3A8A; 
+            /* Lighter Red for hover/accents */
+            --accent-red-hover: #9B1C1C; 
+            /* Gradient Background */
+            --gradient-bg: linear-gradient(135deg, rgba(185, 28, 28, 0.9), rgba(30, 58, 138, 0.9));
         }
 
+        /* WCAG IMPROVEMENT: Custom Focus Outline for Keyboard Users (2.4.7 Focus Visible) */
+        a:focus, button:focus, [tabindex="0"]:focus, .access-scroll-btn:focus {
+            outline: 3px solid var(--primary-red); 
+            outline-offset: 4px;
+            border-radius: 4px; 
+        }
+
+        /* Skip Link Styling (2.4.1 Bypass Blocks) */
+        .sr-only:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
+            z-index: 1000;
+        }
+
+        /* THEME & BASE STYLES */
+        body {
+            /* Keep original gradient but increase opacity for better contrast */
+            background: linear-gradient(135deg, rgba(185, 28, 28, 0.9), rgba(30, 58, 138, 0.9));
+            background-attachment: fixed;
+            background-size: cover;
+            min-height: 100vh; 
+            color: #333;
+        }
+
+        /* Form Card */
         .center-section {
             padding: 40px;
-            background-color: #ffffff; /* White background for the form */
+            background-color: #ffffff; 
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Stronger Shadow */
             max-width: 600px;
-            margin: 0 auto;
-            margin-top: 60px;
+            margin: 80px auto 40px; /* Better vertical spacing */
+            border-left: 8px solid var(--primary-red);
         }
 
         h2 {
-            font-size: 2rem;
-            color: #B91C1C; /* Ruby Red */
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            focus:outline-none;
+            font-size: 2.25rem;
+            color: var(--primary-red);
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
 
         input:focus, textarea:focus {
-            border-color: #B91C1C;
-            box-shadow: 0 0 5px rgba(185, 28, 28, 0.3);
+            border-color: var(--primary-red) !important;
+            box-shadow: 0 0 5px rgba(185, 28, 28, 0.5) !important;
         }
 
-        button {
+        /* Submit Button */
+        button[type="submit"] {
             width: 100%;
-            padding: 12px;
-            background-color: #B91C1C; /* Ruby Red */
+            padding: 14px;
+            background-color: var(--primary-red);
             color: white;
-            font-size: 1rem;
+            font-size: 1.125rem;
+            font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #9B1C1C;
+        button[type="submit"]:hover {
+            background-color: var(--accent-red-hover);
         }
 
         .email-info {
             text-align: center;
             margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
         }
 
-        .email-info p {
-            font-size: 1rem;
-            color: #333;
-        }
-
-        /* Home Button */
+        /* Home Button (Replaced by Accessibility Button Placement) */
         .home-button {
             position: fixed;
             bottom: 30px;
             left: 30px;
             padding: 12px 24px;
-            background-color: rgba(185, 28, 28, 0.8); /* Ruby Red */
+            background-color: rgba(185, 28, 28, 0.9); 
             color: white;
             border-radius: 8px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s, box-shadow 0.3s;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            font-size: 1rem;
+            z-index: 40;
+        }
+        .home-button:hover { background-color: var(--primary-red); }
+        .home-button img { width: 30px; height: 30px; margin-right: 10px; }
+
+        /* Resources Button (Repositioned to Top Right) */
+        #openModalBtn {
+            position: fixed; 
+            top: 4rem; 
+            right: 4rem; 
+            z-index: 50;
+            background-color: var(--primary-red);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .home-button:hover {
-            background-color: rgba(185, 28, 28, 1);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        /* ---------------------------------------------------------------------- */
+        /* 2. ACCESSIBILITY BUTTONS (Scroll & Contrast) */
+        /* ---------------------------------------------------------------------- */
+        .access-scroll-btn {
+            position: fixed; right: 1rem; width: 50px; height: 50px;
+            background-color: rgba(30, 58, 138, 0.8); /* Dark Blue from gradient */
+            color: white;
+            border-radius: 50%; font-size: 1.5rem; text-align: center;
+            line-height: 50px; cursor: pointer; z-index: 1000; user-select: none;
+            border: 2px solid var(--primary-red); 
+            transition: background-color 0.2s, color 0.2s;
         }
-
-        /* Home Button Eagle Image */
-        .home-button img {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 8px;
-            transition: transform 0.3s;
+        #scrollUp { top: 40%; }
+        #scrollDown { top: 50%; }
+        
+        /* Tooltip Bubbles Styles */
+        .a11y-bubble, .scroll-bubble {
+            position: fixed; background: var(--primary-red); color: white;
+            padding: 8px 12px; border-radius: 8px; font-size: 0.875rem;
+            z-index: 1050; opacity: 0; transition: opacity 0.5s;
+            pointer-events: none; 
+            white-space: nowrap;
         }
+        
+        /* Accessibility Button position (Top Right) */
+        #a11yToggle {
+            position: fixed; 
+            top: 13rem; 
+            right: 1.5rem; 
+            background-color: var(--primary-red);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+        }
+        #a11yBubble { top: 13rem; right: 12rem; } 
+        #scrollUpBubble { top: 41%; right: 4.5rem; } 
+        #scrollDownBubble { top: 51%; right: 4.5rem; }
 
-        .home-button:hover img {
-            transform: rotate(10deg);
+        /* ---------------------------------------------------------------------- */
+        /* 3. HIGH CONTRAST MODE (WCAG 1.4.3 Contrast) */
+        /* ---------------------------------------------------------------------- */
+        body.high-contrast {
+            background: #000 !important;
+            background-image: none !important;
+            color: #FFF !important; 
+        }
+        body.high-contrast .center-section {
+            background-color: #111 !important; 
+            border: 2px solid #00FFFF !important;
+            color: #FFF !important;
+        }
+        body.high-contrast h2 { 
+            color: #00FFFF !important; 
+            border-color: #00FFFF !important;
+        }
+        body.high-contrast input, body.high-contrast textarea {
+            background-color: #000 !important;
+            border: 2px solid #00FFFF !important;
+            color: #FFF !important;
+        }
+        body.high-contrast button, body.high-contrast .home-button, body.high-contrast #openModalBtn, body.high-contrast #a11yToggle, body.high-contrast .access-scroll-btn {
+            background-color: #000 !important;
+            border: 2px solid #00FFFF !important;
+            color: #00FFFF !important;
+            box-shadow: none !important;
         }
     </style>
 </head>
-<body class="gradient-background">
+<body id="top-of-page">
 
-<!-- Contact Us Form -->
-<div class="center-section">
-    <h2>Contact Us</h2>
-    <p class="text-center text-gray-700 mb-8">We would love to hear from you! Please contact us with any questions, comments, or concerns.</p>
+<a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-red-800 text-white font-bold rounded fixed top-0 left-0 z-50">
+    Skip to Main Content
+</a>
 
-    <!-- Contact Form -->
-    <form action="mailto:apussva@gmail.com" method="POST" enctype="text/plain">
-        <div>
-            <label for="name">Name (required)</label>
-            <input type="text" id="name" name="name" required placeholder="Enter your name" class="border-2 border-gray-300 rounded-lg w-full p-3 mt-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+<button id="openModalBtn" 
+    class="shadow-xl hover:bg-red-700 transition focus:outline-none focus:ring-4 focus:ring-white"
+    aria-label="Open full Resources and Links menu">
+    Resources & Links
+</button>
+
+<button id="a11yToggle"
+    aria-label="Toggle high contrast mode"
+    class="shadow-xl hover:bg-red-700 transition focus:outline-none focus:ring-4 focus:ring-white"
+    onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
+    ♿ Accessibility
+</button>
+<div id="a11yBubble" class="a11y-bubble">Click here to toggle high-contrast mode!</div>
+
+<main id="main-content" tabindex="-1">
+    <div class="center-section">
+        <h2>Contact Us</h2>
+        <p class="text-center text-gray-700 mb-8">We would love to hear from you! Please contact us with any questions, comments, or concerns.</p>
+    
+        <form action="mailto:apussva@gmail.com" method="POST" enctype="text/plain" novalidate>
+            <div class="mb-4">
+                <label for="name">Name <span class="text-red-600 font-bold">(required)</span></label>
+                <input type="text" id="name" name="name" required 
+                       placeholder="Enter your name" 
+                       class="border-2 border-gray-300 rounded-lg w-full p-3 mt-2 focus:ring-red-500" 
+                       aria-required="true">
+            </div>
+    
+            <div class="mb-4">
+                <label for="email">Email <span class="text-red-600 font-bold">(required)</span></label>
+                <input type="email" id="email" name="email" required 
+                       placeholder="Enter your email" 
+                       class="border-2 border-gray-300 rounded-lg w-full p-3 mt-2 focus:ring-red-500"
+                       aria-required="true">
+            </div>
+    
+            <div class="mb-6">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" 
+                          placeholder="Enter your message" 
+                          class="border-2 border-gray-300 rounded-lg w-full p-3 mt-2 focus:ring-red-500"></textarea>
+            </div>
+    
+            <div>
+                <button type="submit">SEND MESSAGE</button>
+            </div>
+        </form>
+    
+        <div class="email-info">
+            <p>Contact us by mail:</p>
+            <h3 class="font-semibold text-lg text-gray-800">ATTN: AMU APU SVA Chapter</h3>
+            <address class="mt-2 text-gray-600 not-italic">
+                111 W. Congress Street<br>
+                Charles Town, WV 25414
+            </address>
         </div>
+    </div>
+</main>
 
-        <div>
-            <label for="email">Email (required)</label>
-            <input type="email" id="email" name="email" required placeholder="Enter your email" class="border-2 border-gray-300 rounded-lg w-full p-3 mt-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+<a href="index.html" class="home-button">
+    <img src="eagle.png" alt="SVA Eagle Logo" aria-hidden="true" />
+    <span class="font-bold">Home Page</span>
+</a>
+
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+            
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-black focus:outline-none transition duration-200"
+                    aria-label="Close Resources and Links dialog" data-autofocus>
+                <span class="text-3xl font-bold text-black">&times;</span>
+            </button>
+
+            <h3 id="modalTitle" class="text-2xl font-bold text-red-700 border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
+
+            <ul class="space-y-3 text-lg">
+                <li><a href="index.html" class="text-blue-600 hover:text-blue-800 transition">Home</a></li>
+                <li class="font-bold text-red-700 mt-4">CRITICAL SUPPORT:</li>
+                <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-blue-600 hover:text-blue-800 transition" target="_blank">Suicide Prevention Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-blue-600 hover:text-blue-800 transition" target="_blank">VA Suicide Prevention <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-800 transition" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+                
+                <li class="font-bold text-red-700 mt-4">BENEFITS & EDUCATION:</li>
+                <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-blue-600 hover:text-blue-800 transition" target="_blank">Tuition Assistance <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.va.gov/benefits/" class="text-blue-600 hover:text-blue-800 transition" target="_blank">Veterans Benefits <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.va.gov/education/" class="text-blue-600 hover:text-blue-800 transition" target="_blank">Education Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-blue-600 hover:text-blue-800 transition" target="_blank">Career Services <span class="sr-only">(opens in new tab)</span></a></li>
+                
+                <li class="font-bold text-red-700 mt-4">CHAPTER PAGES:</li>
+                <li><a href="history.html" class="text-blue-600 hover:text-blue-800 transition">History</a></li>
+                <li><a href="board.html" class="text-blue-600 hover:text-blue-800 transition">Board</a></li>
+                <li><a href="legacy.html" class="text-blue-600 hover:text-blue-800 transition">Legacy</a></li>
+                <li><a href="careers.html" class="text-blue-600 hover:text-blue-800 transition">Careers</a></li>
+                <li><a href="news.html" class="text-blue-600 hover:text-blue-800 transition">News</a></li>
+                <li><a href="events.html" class="text-blue-600 hover:text-blue-800 transition">Events</a></li>
+                <li><a href="honors.html" class="text-blue-600 hover:text-blue-800 transition">Honors</a></li>
+                <li><a href="blog.html" class="text-blue-600 hover:text-blue-800 transition">Blog</a></li>
+
+                <li class="font-bold text-red-700 mt-4">CONNECT:</li>
+                <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-800 transition" target="_blank">Join SVA <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-800 transition" target="_blank">Join Our Facebook <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.pmi.org/military/pmi-certifications-military" class="text-blue-600 hover:text-blue-800 transition" target="_blank">PMI Training Scholarship <span class="sr-only">(opens in new tab)</span></a></li>
+            </ul>
         </div>
-
-        <div>
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Enter your message" class="border-2 border-gray-300 rounded-lg w-full p-3 mt-2 focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
-        </div>
-
-        <div>
-            <button type="submit">SEND</button>
-        </div>
-    </form>
-
-    <div class="email-info">
-        <p>Contact us by mail:</p>
-        <h3 class="font-semibold">ATTN: AMU APU SVA Chapter</h3>
-        <address class="mt-2 text-gray-600">
-            111 W. Congress Street<br>
-            Charles Town, WV 25414
-        </address>
     </div>
 </div>
 
-<!-- Home Button -->
-<a href="index.html" class="home-button">
-    <img src="eagle.png" alt="Eagle" />
-    Home
-</a>
+<footer class="text-center py-4 text-sm text-gray-100 bg-opacity-70 bg-black absolute bottom-0 w-full">
+    &copy; 2025 AMU APU SVA Chapter | Designed by <a href="#" class="text-white hover:text-gray-300 transition" style="text-decoration: none;">William C.</a>
+</footer>
 
-  <!-- Modal Popup Content -->
-  <div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-    <div class="flex justify-center items-start mt-20 md:mt-32">
-      <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
-        
-        <!-- Close Button -->
-        <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
-          <span class="text-2xl font-bold">&times;</span>
-        </button>
-  
-        <!-- Modal Title -->
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
-  
-        <!-- Your resources go here -->
-  
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal Toggle Script -->
-  <script>
-    const openModalBtn = document.getElementById("openModalBtn");
-    const closeModalBtn = document.getElementById("closeModalBtn");
-    const resourcesModal = document.getElementById("resourcesModal");
-  
-    openModalBtn.addEventListener("click", () => {
-      resourcesModal.classList.remove("hidden");
-    });
-  
-    closeModalBtn.addEventListener("click", () => {
-      resourcesModal.classList.add("hidden");
-    });
-  
-    // Optional: Close modal when clicking outside
-    window.addEventListener("click", (e) => {
-      if (e.target === resourcesModal) {
-        resourcesModal.classList.add("hidden");
-      }
-    });
-  </script>
 
-  
-  <!-- Modal Popup Content -->
-  <div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-    <div class="flex justify-center items-start mt-20 md:mt-32">
-      <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
+<button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0"
+    onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
+<button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0"
+    onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
+
+<div id="scrollUpBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way up.</div>
+<div id="scrollDownBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way down.</div>
+
+<div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-300 opacity-80" id="a11yStatus">
+    High-contrast mode: OFF
+</div>
+
+<script>
+    const resourcesModal = document.getElementById('resourcesModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    let lastFocusableElement;
+    let previousActiveElement = null;
+    let scrollInterval; 
+    let hideBubbleTimeout; 
+
+    // --- Tooltip Bubble Functions ---
+    function showBubble(id, duration = 0) {
+        clearTimeout(hideBubbleTimeout);
+        document.getElementById(id).style.opacity = '1';
+        if (duration > 0) {
+            hideBubbleTimeout = setTimeout(() => {
+                hideBubble(id);
+            }, duration);
+        }
+    }
+    function hideBubble(id) {
+        document.getElementById(id).style.opacity = '0';
+    }
+
+    // --- WCAG Modal Focus Management (Traps focus, closes on Escape) ---
+    function trapFocus(e) {
+        if (resourcesModal.classList.contains('hidden')) return;
         
-        <!-- Close Button -->
-        <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
-          <span class="text-2xl font-bold">&times;</span>
-        </button>
-  
-        <!-- Modal Title -->
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
-  
-        <!-- Links Section -->
-        <ul class="space-y-2 text-sm">
-          <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-          <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
-          <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-          <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-          <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-          <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-          <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-          <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-          <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-          <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-          <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
-          <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
-        </ul>
-  
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal Toggle Script -->
-  <script>
-    const openModalBtn = document.getElementById("openModalBtn");
-    const closeModalBtn = document.getElementById("closeModalBtn");
-    const resourcesModal = document.getElementById("resourcesModal");
-  
-    openModalBtn.addEventListener("click", () => {
-      resourcesModal.classList.remove("hidden");
-    });
-  
-    closeModalBtn.addEventListener("click", () => {
-      resourcesModal.classList.add("hidden");
-    });
-  
-    // Close on outside click
-    window.addEventListener("click", (e) => {
-      if (e.target === resourcesModal) {
+        const focusableElements = resourcesModal.querySelectorAll('a, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length === 0) return;
+
+        const firstFocusableElement = closeModalBtn; // Close button is a good initial focus point
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === 'Tab') {
+            if (e.shiftKey) { 
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else { 
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        previousActiveElement = document.activeElement; 
+        modal.classList.remove('hidden');
+        
+        // Use CSS transitions for smooth entry (If used, need a slight delay to ensure smooth transition)
+        // setTimeout(() => {
+        //     modal.classList.remove("opacity-0", "scale-95");
+        //     modal.classList.add("opacity-100", "scale-100");
+        // }, 10);
+        
+        const firstFocus = modal.querySelector('[data-autofocus]') || modal.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
+        if (firstFocus) {
+            firstFocus.focus();
+        }
+        document.addEventListener('keydown', trapFocus);
+    }
+
+    function closeModal() {
+        // If CSS transitions are used, re-implement the transition classes
+        // resourcesModal.classList.remove("opacity-100", "scale-100");
+        // resourcesModal.classList.add("opacity-0", "scale-95");
+        // setTimeout(() => resourcesModal.classList.add("hidden"), 300); // Wait for transition
+        
         resourcesModal.classList.add("hidden");
-      }
+        
+        document.removeEventListener('keydown', trapFocus);
+        if (previousActiveElement) {
+            previousActiveElement.focus();
+        }
+    }
+
+    // Modal Triggers
+    openModalBtn.addEventListener('click', () => openModal('resourcesModal'));
+    closeModalBtn.addEventListener('click', closeModal);
+
+    resourcesModal.addEventListener('click', function(e) {
+        if (e.target === resourcesModal) {
+            closeModal();
+        }
     });
-  </script>
-  <footer style="text-align: center; padding: 1rem 0; font-size: 0.9rem; color: #888; background-color: #f8f9fa;">
-    © 2025 AMU APU SVA Chapter | Designed by <a href="https://yourwebsite.com" target="_blank" style="color: #555; text-decoration: none;">William C.</a>
-  </footer>
+
+    // --- WCAG High Contrast & Motion Reduction ---
+    const a11yToggle = document.getElementById('a11yToggle');
+    const a11yStatus = document.getElementById('a11yStatus');
+
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        a11yStatus.textContent = isHighContrast ? 'High-contrast mode: ON' : 'High-contrast mode: OFF';
+        localStorage.setItem('high-contrast', isHighContrast);
+        document.body.classList.toggle('motion-reduced', isHighContrast); 
+    }
+    
+    a11yToggle.addEventListener('click', toggleHighContrast);
+
+    // Initial check for stored preference
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+        a11yStatus.textContent = 'High-contrast mode: ON';
+    } 
+
+    // --- WCAG Custom Scroll Buttons ---
+    function startScroll(direction) {
+        stopScroll(); 
+        const scrollAmount = direction === 'up' ? -50 : 50;
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, scrollAmount);
+        }, 50); 
+    }
+    function stopScroll() {
+        clearInterval(scrollInterval);
+    }
+
+    const scrollUpBtn = document.getElementById('scrollUp');
+    const scrollDownBtn = document.getElementById('scrollDown');
+
+    // Mouse events for continuous scroll (hold function)
+    scrollUpBtn.addEventListener('mousedown', () => startScroll('up'));
+    scrollUpBtn.addEventListener('mouseup', stopScroll);
+    scrollUpBtn.addEventListener('mouseleave', stopScroll);
+
+    scrollDownBtn.addEventListener('mousedown', () => startScroll('down'));
+    scrollDownBtn.addEventListener('mouseup', stopScroll);
+    scrollDownBtn.addEventListener('mouseleave', stopScroll);
+    
+    // Keyboard events for single-step scroll (Enter/Space) and bubble visibility (Focus/Blur)
+    document.querySelectorAll('.access-scroll-btn').forEach(btn => {
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault(); 
+                const direction = btn.id === 'scrollUp' ? 'up' : 'down';
+                window.scrollBy(0, direction === 'up' ? -200 : 200); 
+            }
+        });
+        // Show bubbles on focus for keyboard users 
+        btn.addEventListener('focus', () => showBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble', 0));
+        btn.addEventListener('blur', () => hideBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble'));
+    });
+</script>
 </body>
 </html>
