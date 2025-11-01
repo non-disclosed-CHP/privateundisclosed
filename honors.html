@@ -1,432 +1,703 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Honor Wall</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Honor Wall - Clean Flow & Accessibility</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Honor Wall Styling */
-        .honor-card {
-            background-color: #1e293b; /* Dark navy background */
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Darker shadow */
-            margin-bottom: 24px;
-            transition: all 0.3s ease-in-out;
+        /* ---------------------------------------------------------------------- */
+        /* 1. CORE UTILITIES & FOCUS */
+        /* ---------------------------------------------------------------------- */
+        :root {
+            --bg-card: #0d1a2b; 
+            --color-primary: #ffcc00; /* Gold for accents */
+            --color-secondary: #00FFFF; /* Neon for contrast mode */
+            --color-home-btn: #3B82F6; /* Blue for Home button */
+            --color-bubble: #FFC300; /* Yellow for helper bubble */
         }
 
-        .honor-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgb(0, 0, 0); /* No transparency */
+        /* WCAG Focus Styles */
+        a:focus, button:focus, [tabindex="0"]:focus, .honor-name:focus {
+            outline: 3px solid var(--color-primary); 
+            outline-offset: 4px;
+            border-radius: 4px; 
+        }
+        
+        /* Screen Reader Only (Skip Link) */
+        .sr-only:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
+            z-index: 1001; 
+        }
+        
+        /* ---------------------------------------------------------------------- */
+        /* 2. NON-FIXED HEADER AREA (Unchanged) */
+        /* ---------------------------------------------------------------------- */
+        
+        #main-title-banner {
+            background-color: #000;
+            color: white;
+            padding: 2rem 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 5px solid var(--color-primary);
         }
 
-        .honor-name {
-            color: #e5e7eb; /* Light gray for name text */
-            font-size: 1.75rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .honor-name:hover {
-            color: #cbd5e1; /* Slightly lighter gray on hover */
-        }
-
-        .honor-description {
-            color: #cbd5e1; /* Medium gray for description */
-            padding-top: 12px;
-            font-size: 1.125rem;
-            line-height: 1.6;
-        }
-
-        /* Date Styling */
-        .honor-date {
-            color: #94a3b8; /* Muted gray for dates */
-            font-size: 0.875rem;
-            margin-bottom: 10px;
-        }
-
-        /* Flexbox adjustments for Honor Wall title and text */
-        .honor-wall-header {
+        #a11y-bar {
+            background-color: #1a202c; 
+            padding: 1rem 2rem;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            background-color: rgba(0, 0, 0, 0.7); /* Slight background color for readability */
-            padding: 20px 0;
+            justify-content: flex-end; 
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
-        /* Ensure the section doesn't overlap content */
+        .a11y-btn {
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s;
+        }
+
+        /* ---------------------------------------------------------------------- */
+        /* 3. CARD STYLING & LAYOUT (Unchanged) */
+        /* ---------------------------------------------------------------------- */
+        
         .honor-wall-section {
-            padding-top: 120px; /* Adjust padding to accommodate the header */
+            padding-top: 40px; 
+            padding-bottom: 40px;
+            min-height: 100vh;
+        }
+
+        .honor-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); 
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            transition: all 0.3s ease-in-out;
+            color: white;
+        }
+        
+        .honor-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+        .grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+        }
+
+        /* ---------------------------------------------------------------------- */
+        /* 4. SCROLL ARROW BUBBLES & HOME BUTTON (FINAL CORRECTED STATE) */
+        /* ---------------------------------------------------------------------- */
+        .scroll-button {
+            position: fixed; 
+            right: 20px; 
+            z-index: 90;
+            width: 50px; 
+            height: 50px;
+            border-radius: 50%; 
+            background-color: rgba(60, 60, 60, 0.8);
+            color: white;
+            font-size: 1.8rem; 
+            font-weight: bold;
+            line-height: 1; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid var(--color-primary); 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            opacity: 0.9;
+            transition: opacity 0.3s, background-color 0.3s, transform 0.2s;
+        }
+        #scrollToTop { bottom: 80px; } 
+        #scrollToBottom { bottom: 25px; }
+
+        /* Home Button (Static at page bottom) */
+        #homeButtonWrapper {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        #homeButton {
+            position: static; 
+            display: inline-block;
+            transform: none;
+            z-index: 90;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background-color: var(--color-home-btn);
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        /* Helper Bubbles (Left of the button, unchanged) */
+        .tutorial-bubble {
+            position: absolute;
+            background-color: var(--color-bubble); 
+            color: black;
+            font-size: 0.8rem; 
+            font-weight: bold;
+            padding: 5px 8px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            pointer-events: none; 
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            
+            right: 100%; 
+            top: 50%;
+            transform: translateY(-50%) translateX(-10px);
+            white-space: nowrap;
+            z-index: 100;
+        }
+        .tutorial-visible { opacity: 1; }
+
+        /* ---------------------------------------------------------------------- */
+        /* 5. HIGH CONTRAST MODE (Unchanged) */
+        /* ---------------------------------------------------------------------- */
+        body.high-contrast { background: #000 !important; color: #FFF !important; }
+        body.high-contrast #a11y-bar, 
+        body.high-contrast .honor-card, 
+        body.high-contrast .scroll-button, 
+        body.high-contrast #main-title-banner {
+            background-color: #111 !important; border-color: var(--color-secondary) !important; color: #FFF !important;
+        }
+        body.high-contrast h1, body.high-contrast h2, body.high-contrast .honor-name { color: var(--color-secondary) !important; }
+        body.high-contrast a, body.high-contrast button, body.high-contrast .a11y-btn {
+            border: 2px solid var(--color-secondary) !important; color: var(--color-secondary) !important; background-color: #000 !important; box-shadow: none !important;
+        }
+        body.high-contrast #a11yToggle { background-color: #ff00ff !important; color: black !important; border: none !important; }
+        body.high-contrast #openModalBtn { color: #FFF !important; }
+        body.high-contrast #homeButton { 
+            background-color: #000 !important; 
+            border: 2px solid var(--color-secondary) !important;
+            color: var(--color-secondary) !important;
+        }
+        body.high-contrast .tutorial-bubble {
+             background-color: var(--color-secondary) !important;
+             color: black !important;
         }
     </style>
 </head>
-<body class="bg-gray-900">
+<body class="bg-gray-900 min-h-screen">
 
-    <!-- Honor Wall Header (Fixed, centered) -->
-    <div class="honor-wall-header">
-        <h1 class="text-4xl font-bold text-white">Honor Wall</h1>
-        <p class="text-xl text-white">Check back daily for a new Honor Wall Spotlight:</p>
+<a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-blue-600 text-white font-bold rounded fixed top-0 left-0 z-50">
+    Skip to Main Content
+</a>
+
+<header id="main-title-banner">
+    <h1 class="text-4xl font-extrabold mb-1">Veteran Honor Wall</h1>
+    <p class="text-lg text-gray-300">Spotlighting those who served: Check back daily.</p>
+</header>
+
+<div id="a11y-bar" role="navigation" aria-label="Accessibility and Navigation">
+    <div class="a11y-buttons">
+        <button id="openModalBtn" 
+            class="a11y-btn bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-white"
+            aria-label="Open full Resources and Links menu">
+            Resources
+        </button>
+        <button id="a11yToggle"
+            aria-label="Toggle high contrast mode"
+            class="a11y-btn bg-yellow-500 text-black hover:bg-yellow-400 focus:outline-none focus:ring-4 focus:ring-white">
+            ♿ Contrast
+        </button>
     </div>
+</div>
 
-    <!-- Honor Wall Section -->
-    <section class="honor-wall-section px-6 py-16 max-w-7xl mx-auto bg-gradient-to-r from-blue-800 via-blue-900 to-black bg-no-repeat bg-cover bg-center star-pattern">
-
-    
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Honor Wall Honorees -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- General James N. Mattis -->
-        <div class="honor-card bg-gradient-to-r from-red-700 via-red-800 to-red-900 bg-opacity-80 text-white p-4 rounded-lg shadow-lg border border-white border-opacity-30">
+<main id="main-content" class="honor-wall-section px-6 py-16 max-w-7xl mx-auto bg-gradient-to-r from-blue-800 via-blue-900 to-black bg-no-repeat bg-cover bg-center" tabindex="-1">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="honor-card text-white">
             <div class="flex items-center">
-                <img src="mattis.png" alt="General James N. Mattis" class="w-20 h-20 rounded-full mr-4">
+                <img src="mattis.png" alt="General James N. Mattis" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
                 <div class="flex-1">
-                    <h2 class="text-2xl font-semibold cursor-pointer" onclick="toggleDescription('bio1')">General James N. Mattis</h2>
-                    <p class="text-sm mb-4">November 10, 2023</p>
-                    <div id="bio1" class="max-h-0 overflow-hidden transition-all duration-300 hidden">
-                        <div class="bio-content max-h-60 overflow-y-auto">
-                            <p>United States Marine Corps Veteran & 26th US Secretary of Defense. Honoring General James N. Mattis as we celebrate the USMC birthday, recognizing his exceptional leadership and strategic mind.</p>
-                            <p>General Mattis’ remarkable journey in the U.S. Marine Corps began at Central Washington University through ROTC, leading to his commission as a Second Lieutenant in 1972. His career trajectory set him on a path to some of the highest leadership positions within the military.</p>
-                            <p>Throughout his storied career, General Mattis commanded with distinction at every level. From overseeing marine recruiting in Portland to earning a Bronze Star as the leader of the 1st Battalion, 7th Marines, in the Gulf War, his ascent was marked by strategic foresight and unshakeable resolve.</p>
-                            <p>As a Major General, his leadership in the Iraq War, particularly during the battle of Fallujah, showcased his strategic mastery.</p>
-                            <p>General Mattis is renowned for his candid commentary, always emphasizing the importance of ethical conduct and the broader implications of military actions.</p>
-                            <p>A testament to his dedication to continuous learning, General Mattis is a distinguished alumnus of the Marine Corps Amphibious Warfare School, Marine Corps Command and Staff College, and the National War College. He holds a Bachelor of Arts degree in History.</p>
-                            <p>Nominated by President-elect Donald Trump, Mattis served as Secretary of Defense from 2017 to 2018, bringing his extensive experience to the role.</p>
-                            <p>General Mattis’ character shines through in an anecdote from Christmas Day 1998. When Marine General Charles C. Krulak was delivering holiday cookies to Marines, he discovered that Mattis had stepped in for a young major, allowing him to spend the holiday with his family. This act reflected Mattis’ respect and care for his fellow service members.</p>
-                            <p>General Mattis is a beacon of military excellence, ethical leadership, and selfless service. His career is a testament to tactical brilliance and the deep humanity that underpins true leadership.</p>
-                            <p>Join us in saluting General Mattis, a true American hero whose life and service continue to inspire.</p>
-                            <p>#VeteransDay #HonorOurVeterans #GeneralJamesMattis #USMC #Leadership #Dedication #Service</p>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <button class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" onclick="toggleDescription('bio1')">Learn More</button>
-                        <button class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio1')">Minimize</button>
-                    </div>
+                    <h2 class="honor-name" role="button" tabindex="0" onclick="toggleDescription('bio1')" onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleDescription('bio1')">General James N. Mattis</h2>
+                    <p class="honor-date text-gray-400 text-sm">United States Marine Corps Veteran</p>
                 </div>
             </div>
-        </div>
-    <!-- Major General Lorna Mahlock -->
-<div class="honor-card bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 bg-opacity-90 text-white p-4 rounded-lg shadow-lg border border-white border-opacity-30">
-    <div class="flex items-center">
-        <img src="lorna.png" alt="Major General Lorna Mahlock" class="w-20 h-20 rounded-full mr-4">
-        <div class="flex-1">
-            <h2 class="text-2xl font-semibold" onclick="toggleDescription('bio2')">Major General Lorna Mahlock</h2>
-            <p class="text-sm mb-4">November 9, 2023</p>
-            <div id="bio2" class="overflow-auto max-h-48 transition-all duration-300 hidden">
-                <p>🌟 Celebrating Major General Lorna Mahlock’s Leadership 🌟 From Jamaica to history-making General, she became the first Black woman nominated for Brigadier General in 2018. Her career is an inspiration.</p>
-                <p>🎖️ Celebrating Major General Lorna Mahlock’s Barrier-Breaking Leadership 🎖️</p>
-                <p>Today, we spotlight a figure of resilience, determination, and groundbreaking achievement: Major General Lorna Mahlock of the United States Marine Corps.</p>
-                <p>🌟 From Jamaica to History-Making General: Arriving in the U.S. from Jamaica at just 17, Lorna Mahlock’s journey in the Marines began shortly after, inspired partly by the challenge her brother declined. Her relentless drive led her from the enlisted ranks to becoming the first Black woman to be nominated to rank of Brigadier General in 2018.</p>
-                <p>🎓 Education and Leadership: Maj. Gen. Mahlock is not only a Marine through and through but also an avid learner and leader. She holds several degrees, including a Master’s in National Security and Strategic Studies from the Naval War College and a Master’s Certificate in Information Operations from the Naval Postgraduate School.</p>
-                <p>💡 Empowering Change and Embracing Diversity: Throughout her service, Maj. Gen. Mahlock has witnessed the lifting of combat restrictions for women and has been a fierce advocate for diversity. “We’re just trying to figure out how to build the best fighting force,” she says, celebrating the inclusion of women across all spectrums of military service.</p>
-                <p>🛡️ At the Helm of Marine Corps IT and Communications: Today, she serves as the deputy director for Combat Support for the National Security Agency’s Cybersecurity Directorate. She previously led the Information, Command, Control, Communications, and Computers Division.</p>
-                <p>🏅 A Decorated Career: Her commendable service is marked by numerous awards, including the Legion of Merit and the Defense Meritorious Service Medal.</p>
-                <p>As we honor our veterans, let’s draw inspiration from Major General Mahlock’s unwavering commitment to excellence and her belief in the power of teamwork. Her story reminds us that, indeed, “Ordinary people can do extraordinary things.”</p>
-            </div>
-            <button class="mt-4 px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="toggleDescription('bio2')">Learn More</button>
-            <button class="mt-2 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio2')">Minimize</button>
-        </div>
-    </div>
-</div>
-
-<!-- Medgar Evers -->
-<div class="honor-card bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 bg-opacity-80 text-white p-4 rounded-lg shadow-lg border border-white border-opacity-30">
-    <div class="flex items-center">
-        <img src="medgar.png" alt="Medgar Evers" class="w-20 h-20 rounded-full mr-4">
-        <div class="flex-1">
-            <h2 class="text-2xl font-semibold" onclick="toggleDescription('bio3')">Medgar Evers</h2>
-            <p class="text-sm mb-4">November 8, 2023</p>
-            <div id="bio3" class="overflow-auto max-h-0 transition-all duration-300 hidden">
-                <p>
-                    United States Army Veteran 🎖️ Remembering Medgar Evers: A life of courage, justice, and resilience. 
-                    His legacy continues to inspire all who seek equality.
-                    🎖️ 2023 Veterans Day Honor Wall: Remembering Medgar Evers
-
-                    Today, we are called to remember the bravery and enduring spirit of Medgar Wiley Evers, a veteran whose battle did not end upon leaving the theater of war but carried on in the pursuit of justice and equality within his own nation.
-
-                    🌟 Born in the clutches of segregation, Medgar Evers was a witness to the stark injustices of his time. It was his service to our country during World War II, in a segregated African American battalion, that honed his courage and commitment to fight for a more equitable America.
-
-                    🗳️ His transition from a soldier to a civil rights activist was seamless, as he put his life on the line to secure voting rights for African Americans in his home state of Mississippi.
-
-                    Evers' relentless pursuit of civil liberties included the poignant reminder that “you can kill a man, but you can’t kill an idea.” His tragic assassination reverberated across the nation, galvanizing support for the Civil Rights Act of 1964.
-
-                    🕊️ Medgar Evers’ commitment and ultimate sacrifice were not in vain. The passage of the Civil Rights Act stands as a testament to his vision of a fairer world, a vision that continues to inspire the fight for civil rights to this day.
-                </p>
-            </div>
-            <button class="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio3')">Learn More</button>
-            <button class="mt-2 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio3')">Minimize</button>
-        </div>
-    </div>
-</div>
-
- <!-- Dr. Mike Haynie -->
-<div class="honor-card bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 bg-opacity-90 text-white p-4 rounded-lg shadow-lg border border-white border-opacity-30">
-    <div class="flex items-center">
-        <img src="haynie.png" alt="Dr. Mike Haynie" class="w-20 h-20 rounded-full mr-4">
-        <div class="flex-1">
-            <h2 class="text-2xl font-semibold" onclick="toggleDescription('bio4')">Dr. Mike Haynie</h2>
-            <p class="text-sm mb-4">November 7, 2023</p>
-            <div id="bio4" class="overflow-auto max-h-0 transition-all duration-300 hidden">
-                <p>
-                    United States Air Force Veteran 🌟 Veterans Day Honor Wall Spotlight 🌟
-
-                    Today, we extend our deepest gratitude to Dr. Mike Haynie, a Veteran who continues to serve beyond the call of duty. As a Vice Chancellor and the Barnes Professor of Entrepreneurship at Syracuse University, Dr. Haynie has brought honor to his titles through unwavering commitment and service.
-
-                    A former officer in the United States Air Force, Dr. Haynie carried the discipline and leadership learned in uniform into the academic realm, dedicating his post-service career to empowering fellow Veterans and their families. In 2011, he founded the D’Aniello Institute for Veterans & Military Families (IVMF) at Syracuse University, which has now served over 25,000 veterans annually and stands as the leading academic voice for Veterans and military-connected families.
-
-                    His strategic initiatives have not only advanced academic offerings but have also paved new paths for entrepreneurship and innovation. As a testament to his influence and expertise, Dr. Haynie has been entrusted with guiding national Veteran employment and training policy and was appointed to prestigious roles by the White House to reform Veteran affairs.
-
-                    Beyond his administrative and advocacy work, Dr. Haynie is a beacon in the scholarly world, widely regarded for his research in entrepreneurial decision-making. His counsel is sought by leaders in both the public and private sectors, and his academic work continues to garner substantial funding and recognition.
-
-                    For his outstanding contribution to Veterans’ welfare and education, Dr. Haynie has received numerous awards and was named one of Time magazine’s champions for a more equal America. His insights shape not only the narrative of today’s entrepreneurship but also the future of Veteran integration into society.
-
-                    As we honor our nation’s Veterans, we also honor one of their greatest champions. Thank you, Dr. Haynie, for your continued service and for ensuring that the sacrifice of our veterans is met with equal measures of respect and opportunity. 🎓
-
-                    To learn more about Dr. Haynie and Syracuse University’s D’Aniello Institute for Veterans & Military Families, visit their website.
-
-                    #HonorOurVeterans #VeteransDay2023 #IVMF #VeteranAdvocacy #Leadership #Innovation #MilitaryFamilies #VeteranResearch #DrHaynie
-                </p>
-            </div>
-            <button class="mt-4 px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="toggleDescription('bio4')">Learn More</button>
-            <button class="mt-2 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio4')">Minimize</button>
-        </div>
-    </div>
-</div>
-<!-- John McCain -->
-<div class="honor-card bg-gradient-to-r from-red-800 via-red-900 to-red-1000 bg-opacity-90 text-white p-4 rounded-lg shadow-lg border border-white border-opacity-30">
-    <div class="flex items-center">
-        <img src="mccain.png" alt="John McCain" class="w-20 h-20 rounded-full mr-4">
-        <div class="flex-1">
-            <h2 class="text-2xl font-semibold" onclick="toggleDescription('bio5')">John McCain</h2>
-            <p class="text-sm mb-4">November 11, 2023</p>
-            <div id="bio5" class="overflow-auto max-h-0 transition-all duration-300 hidden">
-                <p>
-                    Celebrating the Educational Legacy of Senator John McCain
-
-                    This Veterans Day, we pause to honor the extraordinary life of Senator John McCain, a dedicated public servant, and a respected naval officer whose commitment to education and service left a lasting impact on the nation.
-
-                    🎖️ From Naval Beginnings to National Leadership: Born to a family with a storied naval tradition, Senator McCain’s journey began at the U.S. Naval Academy, where he cultivated the leadership qualities that would define his career. His service in the Navy, particularly during the Vietnam War, was marked by remarkable bravery and sacrifice, enduring over five years as a prisoner of war with unyielding resilience.
-
-                    🏛️ A Commitment to Public Service and Education: Following his valiant naval service, Senator McCain transitioned to a notable career in politics, serving as a U.S. Senator from Arizona from 1987 until his death in 2018. Known for his maverick spirit and bipartisan approach, McCain was deeply involved in key issues including campaign finance reform, veterans’ rights, and restoring diplomatic relations with Vietnam.
-
-                    🌐 The McCain Institute: Fostering Leadership and Global Understanding: Continuing his legacy, the McCain Institute, part of Arizona State University, plays a pivotal role in fostering leadership, integrity, and global understanding. The Institute’s mission, deeply influenced by McCain’s values, focuses on developing character-driven leaders and addressing global challenges through innovative programs and initiatives.
-
-                    📚 Impact on Veterans and Education: Senator McCain’s commitment to education, particularly for veterans, was a cornerstone of his work. He consistently advocated for policies that supported veterans in their pursuit of higher education and successful reintegration into civilian life.
-
-                    🌍 A Lasting Legacy: Senator McCain’s life exemplifies the power of resilience, dedication to public service, and the importance of education as a tool for empowerment and leadership. His impact, both as a military leader and as a statesman, continues to inspire and shape the future of America.
-
-                    As we commemorate Veterans Day, we celebrate the enduring legacy of Senator John McCain – a testament to the transformative power of education and service in shaping our nation’s future.
-
-                    #VeteransDay #HonorWall #JohnMcCain #EducationLegacy #ServiceAboveSelf #McCainInstitute
-                </p>
-            </div>
-            <button class="mt-4 px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="toggleDescription('bio5')">Learn More</button>
-            <button class="mt-2 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio5')">Minimize</button>
-        </div>
-    </div>
-</div>
-
-
-<!-- ** Missing 6th Card in the Second Row Added ** -->
-<div class="honor-card bg-gradient-to-r from-green-700 via-green-800 to-green-900 bg-opacity-80 text-white p-4 rounded-lg shadow-lg border border-white border-opacity-30">
-    <div class="flex items-center">
-        <!-- First Image -->
-        <img src="david.png" alt="CMSgt Jason A. David, USAF (ret.) Image" class="w-20 h-20 rounded-full mr-4">
-        <!-- Second Image -->
-        <img src="david2.png" alt="CMSgt Jason A. David, USAF (ret.) Image - Second" class="w-20 h-20 rounded-full mr-4">
-
-        <div class="flex-1">
-            <!-- Honoree's Full Name and Rank -->
-            <h2 class="text-2xl font-semibold cursor-pointer" onclick="toggleDescription('bio6')">CMSgt Jason A. David, USAF (ret.)</h2>
-            <p class="text-sm mb-4">November 12, 2023</p>
-            <div id="bio6" class="overflow-hidden max-h-0 transition-all duration-300 hidden">
-                <div class="bio-content max-h-60 overflow-y-auto">
-                    <p>
-                        Honoring an incredible Veteran! Their legacy of service, resilience, and leadership continues to inspire others.
-                    </p>
-                    <p>
-                        I served as a Combat Correspondent in Iraq, Afghanistan, Kuwait, Qatar, in Bosnia & Herzegovina, and with peacekeeping missions in Georgia, Rwanda, and Sudan.
-                    </p>
-                    <p>
-                        Completing higher education is not just for getting a job, or receiving an edge once you've completed your studies. It's your opportunity to network and grow into who you want to be. It's about YOU. Prospective employers see degrees as your ability to commit to goals. However, where YOU gain value is gaining lived experiences through the journey. Never pass up an opportunity to help someone, meet new friends with different hobbies, or face challenges. They all build your character. Reset your mindset while in academia. See the opportunities in each challenge. Who knows, you might end up as a Vice President of a company or better. I'm rooting for you.
-                    </p>
-                    <p>
-                        Jason<br>
-                        SVP, GovCom Solutions<br>
-                        CMSgt, USAF (ret.)
-                    </p>
+            <div id="bio1" class="max-h-0 overflow-hidden transition-all duration-300 hidden" aria-hidden="true">
+                <div class="bio-content max-h-60 overflow-y-auto text-gray-200">
+                    <p class="font-bold mb-2">United States Marine Corps Veteran & 26th US Secretary of Defense. Honoring General James N. Mattis as we celebrate the USMC birthday, recognizing his exceptional leadership and strategic mind.</p>
+                    <p class="mt-2">General Mattis’ remarkable journey in the U.S. Marine Corps began at Central Washington University through ROTC, leading to his commission as a Second Lieutenant in 1972. His career trajectory set him on a path to some of the highest leadership positions within the military.</p>
+                    <p class="mt-2">Throughout his storied career, General Mattis commanded with distinction at every level. From overseeing marine recruiting in Portland to earning a Bronze Star as the leader of the 1st Battalion, 7th Marines, in the Gulf War, his ascent was marked by strategic foresight and unshakeable resolve.</p>
+                    <p class="mt-2">As a Major General, his leadership in the Iraq War, particularly during the battle of Fallujah, showcased his strategic mastery. General Mattis is renowned for his candid commentary, always emphasizing the importance of ethical conduct and the broader implications of military actions.</p>
+                    <p class="mt-2">A testament to his dedication to continuous learning, General Mattis is a distinguished alumnus of the Marine Corps Amphibious Warfare School, Marine Corps Command and Staff College, and the National War College. He holds a Bachelor of Arts degree in History.</p>
+                    <p class="mt-2">Nominated by President-elect Donald Trump, Mattis served as Secretary of Defense from 2017 to 2018, bringing his extensive experience to the role.</p>
+                    <p class="mt-2">General Mattis’ character shines through in an anecdote from Christmas Day 1998. When Marine General Charles C. Krulak was delivering holiday cookies to Marines, he discovered that Mattis had stepped in for a young major, allowing him to spend the holiday with his family. This act reflected Mattis’ respect and care for his fellow service members.</p>
+                    <p class="mt-2 font-bold">General Mattis is a beacon of military excellence, ethical leadership, and selfless service. His career is a testament to tactical brilliance and the deep humanity that underpins true leadership.</p>
+                </div>
+                <div class="mt-4 read-less-container">
+                    <button class="read-less-btn px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" 
+                            onclick="toggleDescription('bio1')" aria-controls="bio1" aria-expanded="true">Read Less</button>
                 </div>
             </div>
-            <div class="mt-4">
-                <button class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" onclick="toggleDescription('bio6')">Learn More</button>
-                <button class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio6')">Minimize</button>
-            </div>
+            <button class="learn-more-btn mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" 
+                    onclick="toggleDescription('bio1')" aria-controls="bio1" aria-expanded="false">Learn More</button>
         </div>
-    </div>
-</div>
 
-
-<!-- ** Missing 6th Card in the Second Row Added ** -->
-<div class="honor-card bg-gradient-to-r from-blue-800 via-blue-900 to-blue-950 bg-opacity-80 text-white p-4 rounded-lg shadow-lg border border-white border-opacity-30">
-    <div class="flex items-center">
-        <!-- First Image -->
-        <img src="Caine.png" alt="General Dan Caine Image" class="w-20 h-20 rounded-full mr-4">
-        <div class="flex-1">
-            <!-- Content here -->
-
-            <!-- Honoree's Full Name and Rank -->
-            <h2 class="text-2xl font-semibold cursor-pointer" onclick="toggleDescription('bio7')">General Dan Caine, USAF</h2>
-            <p class="text-sm mb-4">Congratulations on becoming the 22nd Chairman of the Joint Chiefs of Staff!</p>
-          
-            <!-- Updated ID to match the toggle function -->
-            <div id="bio7" class="overflow-hidden max-h-0 transition-all duration-300 hidden">
-                <div class="bio-content max-h-60 overflow-y-auto">
-                    <p>Congratulations to United States Air Force General Dan Caine on his promotion and appointment to become the 22nd Chairman of the Joint Chiefs of Staff — the highest-ranking military officer in the United States. 👏</p>
-                    <p>General Caine is an alumnus of American Military University, where he earned his Master of Arts degree in Air Warfare in 2005.</p>
-                    <p>#APUSproud to see our graduates rise to positions of national significance and we wish General Caine continued success as he steps into this vitally important new role — for the nation, and for the world.</p>
-                    <p>*The appearance of U.S. Department of Defense (DoD) visual information does not imply or constitute DoD endorsement.</p>
+        
+        <div class="honor-card text-white">
+            <div class="flex items-center">
+                <img src="lorna.png" alt="Major General Lorna Mahlock" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
+                <div class="flex-1">
+                    <h2 class="honor-name" role="button" tabindex="0" onclick="toggleDescription('bio2')" onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleDescription('bio2')">Major General Lorna Mahlock</h2>
+                    <p class="honor-date text-gray-400 text-sm">US Marine Corps General & Barrier-Breaking Leader</p>
                 </div>
             </div>
-          
-            <!-- Buttons -->
-            <div class="mt-4">
-                <button class="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" onclick="toggleDescription('bio7')">Learn More</button>
-                <button class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio7')">Minimize</button>
+            <div id="bio2" class="max-h-0 overflow-hidden transition-all duration-300 hidden" aria-hidden="true">
+                <div class="bio-content max-h-60 overflow-y-auto text-gray-200">
+                    <p class="font-bold mb-2">🌟 Celebrating Major General Lorna Mahlock’s Barrier-Breaking Leadership 🌟</p>
+                    <p>Today, we spotlight a figure of resilience, determination, and groundbreaking achievement: Major General Lorna Mahlock of the United States Marine Corps.</p>
+                    <p class="mt-2"><span class="font-semibold">From Jamaica to History-Making General:</span> Arriving in the U.S. from Jamaica at just 17, Lorna Mahlock’s journey in the Marines began shortly after, inspired partly by the challenge her brother declined. Her relentless drive led her from the enlisted ranks to becoming the <span class="font-bold">first Black woman to be nominated to the rank of Brigadier General in 2018.</span></p>
+                    <p class="mt-2"><span class="font-semibold">Education and Leadership:</span> Maj. Gen. Mahlock is not only a Marine through and through but also an avid learner and leader. She holds several degrees, including a Master’s in National Security and Strategic Studies from the Naval War College and a Master’s Certificate in Information Operations from the Naval Postgraduate School.</p>
+                    <p class="mt-2"><span class="font-semibold">Empowering Change and Embracing Diversity:</span> Throughout her service, Maj. Gen. Mahlock has witnessed the lifting of combat restrictions for women and has been a fierce advocate for diversity. “We’re just trying to figure out how to build the best fighting force,” she says, celebrating the inclusion of women across all spectrums of military service.</p>
+                    <p class="mt-2"><span class="font-semibold">At the Helm of Marine Corps IT and Communications:</span> Today, she serves as the deputy director for Combat Support for the National Security Agency’s Cybersecurity Directorate. She previously led the Information, Command, Control, Communications, and Computers Division.</p>
+                    <p class="mt-2"><span class="font-semibold">A Decorated Career:</span> Her commendable service is marked by numerous awards, including the Legion of Merit and the Defense Meritorious Service Medal.</p>
+                    <p class="mt-2">As we honor our veterans, let’s draw inspiration from Major General Mahlock’s unwavering commitment to excellence and her belief in the power of teamwork. Her story reminds us that, indeed, “Ordinary people can do extraordinary things.”</p>
+                </div>
+                <div class="mt-4 read-less-container">
+                    <button class="read-less-btn px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" 
+                            onclick="toggleDescription('bio2')" aria-controls="bio2" aria-expanded="true">Read Less</button>
+                </div>
             </div>
+            <button class="learn-more-btn mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" 
+                    onclick="toggleDescription('bio2')" aria-controls="bio2" aria-expanded="false">Learn More</button>
         </div>
+
+
+        <div class="honor-card text-white">
+            <div class="flex items-center">
+                <img src="medgar.png" alt="Medgar Evers" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
+                <div class="flex-1">
+                    <h2 class="honor-name" role="button" tabindex="0" onclick="toggleDescription('bio3')" onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleDescription('bio3')">Medgar Evers</h2>
+                    <p class="honor-date text-gray-400 text-sm">Civil Rights Activist & U.S. Army Veteran</p>
+                </div>
+            </div>
+            <div id="bio3" class="max-h-0 overflow-hidden transition-all duration-300 hidden" aria-hidden="true">
+                <div class="bio-content max-h-60 overflow-y-auto text-gray-200">
+                    <p class="font-bold mb-2">🎖️ Remembering Medgar Evers: A life of courage, justice, and resilience. His legacy continues to inspire all who seek equality. 🎖️</p>
+                    <p class="font-semibold mt-2">2023 Veterans Day Honor Wall: Remembering Medgar Evers</p>
+                    <p>Today, we are called to remember the bravery and enduring spirit of Medgar Wiley Evers, a veteran whose battle did not end upon leaving the theater of war but carried on in the pursuit of justice and equality within his own nation.</p>
+                    <p class="mt-2"><span class="font-semibold">Born in the clutches of segregation</span>, Medgar Evers was a witness to the stark injustices of his time. It was his service to our country during World War II, in a segregated African American battalion, that honed his courage and commitment to fight for a more equitable America.</p>
+                    <p class="mt-2"><span class="font-semibold">His transition from a soldier to a civil rights activist was seamless</span>, as he put his life on the line to secure voting rights for African Americans in his home state of Mississippi. Evers' relentless pursuit of civil liberties included the poignant reminder that “you can kill a man, but you can’t kill an idea.” His tragic assassination reverberated across the nation, galvanizing support for the Civil Rights Act of 1964.</p>
+                    <p class="mt-2"><span class="font-semibold">Medgar Evers’ commitment and ultimate sacrifice were not in vain.</span> The passage of the Civil Rights Act stands as a testament to his vision of a fairer world, a vision that continues to inspire the fight for civil rights to this day.</p>
+                </div>
+                 <div class="mt-4 read-less-container">
+                    <button class="read-less-btn px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" 
+                            onclick="toggleDescription('bio3')" aria-controls="bio3" aria-expanded="true">Read Less</button>
+                </div>
+            </div>
+            <button class="learn-more-btn mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" 
+                    onclick="toggleDescription('bio3')" aria-controls="bio3" aria-expanded="false">Learn More</button>
+        </div>
+
+        
+        <div class="honor-card text-white">
+            <div class="flex items-center">
+                <img src="haynie.png" alt="Dr. Mike Haynie" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
+                <div class="flex-1">
+                    <h2 class="honor-name" role="button" tabindex="0" onclick="toggleDescription('bio4')" onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleDescription('bio4')">Dr. Mike Haynie</h2>
+                    <p class="honor-date text-gray-400 text-sm">USAF Veteran & Veteran Advocacy Leader</p>
+                </div>
+            </div>
+            <div id="bio4" class="max-h-0 overflow-hidden transition-all duration-300 hidden" aria-hidden="true">
+                <div class="bio-content max-h-60 overflow-y-auto text-gray-200">
+                    <p class="font-bold mb-2">🌟 Veterans Day Honor Wall Spotlight 🌟</p>
+                    <p>Today, we extend our deepest gratitude to Dr. Mike Haynie, a Veteran who continues to serve beyond the call of duty. As a Vice Chancellor and the Barnes Professor of Entrepreneurship at Syracuse University, Dr. Haynie has brought honor to his titles through unwavering commitment and service.</p>
+                    <p class="mt-2">A former officer in the United States Air Force, Dr. Haynie carried the discipline and leadership learned in uniform into the academic realm, dedicating his post-service career to empowering fellow Veterans and their families.</p>
+                    <p class="mt-2">In 2011, he founded the **D’Aniello Institute for Veterans & Military Families (IVMF)** at Syracuse University, which has now served over 25,000 veterans annually and stands as the leading academic voice for Veterans and military-connected families.</p>
+                    <p class="mt-2">His strategic initiatives have not only advanced academic offerings but have also paved new paths for entrepreneurship and innovation. As a testament to his influence and expertise, Dr. Haynie has been entrusted with guiding national Veteran employment and training policy and was appointed to prestigious roles by the White House to reform Veteran affairs.</p>
+                    <p class="mt-2">Beyond his administrative and advocacy work, Dr. Haynie is a beacon in the scholarly world, widely regarded for his research in entrepreneurial decision-making. His counsel is sought by leaders in both the public and private sectors, and his academic work continues to garner substantial funding and recognition.</p>
+                    <p class="mt-2">For his outstanding contribution to Veterans’ welfare and education, Dr. Haynie has received numerous awards and was named one of <span class="font-bold">Time magazine’s champions for a more equal America.</span> His insights shape not only the narrative of today’s entrepreneurship but also the future of Veteran integration into society.</p>
+                    <p class="mt-2 font-bold">As we honor our nation’s Veterans, we also honor one of their greatest champions. Thank you, Dr. Haynie, for your continued service and for ensuring that the sacrifice of our veterans is met with equal measures of respect and opportunity.</p>
+                </div>
+                <div class="mt-4 read-less-container">
+                    <button class="read-less-btn px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" 
+                            onclick="toggleDescription('bio4')" aria-controls="bio4" aria-expanded="true">Read Less</button>
+                </div>
+            </div>
+            <button class="learn-more-btn mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" 
+                    onclick="toggleDescription('bio4')" aria-controls="bio4" aria-expanded="false">Learn More</button>
+        </div>
+        
+        <div class="honor-card text-white">
+            <div class="flex items-center">
+                <img src="mccain.png" alt="John McCain" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
+                <div class="flex-1">
+                    <h2 class="honor-name" role="button" tabindex="0" onclick="toggleDescription('bio5')" onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleDescription('bio5')">John McCain</h2>
+                    <p class="honor-date text-gray-400 text-sm">US Navy Pilot & Statesman</p>
+                </div>
+            </div>
+            <div id="bio5" class="max-h-0 overflow-hidden transition-all duration-300 hidden" aria-hidden="true">
+                <div class="bio-content max-h-60 overflow-y-auto text-gray-200">
+                    <p class="font-bold mb-2">Celebrating the Educational Legacy of Senator John McCain</p>
+                    <p>This Veterans Day, we pause to honor the extraordinary life of Senator John McCain, a dedicated public servant, and a respected naval officer whose commitment to education and service left a lasting impact on the nation.</p>
+                    <p class="mt-2"><span class="font-semibold">From Naval Beginnings to National Leadership:</span> Born to a family with a storied naval tradition, Senator McCain’s journey began at the U.S. Naval Academy, where he cultivated the leadership qualities that would define his career. His service in the Navy, particularly during the Vietnam War, was marked by remarkable bravery and sacrifice, enduring over five years as a prisoner of war with unyielding resilience.</p>
+                    <p class="mt-2"><span class="font-semibold">A Commitment to Public Service and Education:</span> Following his valiant naval service, Senator McCain transitioned to a notable career in politics, serving as a U.S. Senator from Arizona from 1987 until his death in 2018. Known for his maverick spirit and bipartisan approach, McCain was deeply involved in key issues including campaign finance reform, veterans’ rights, and restoring diplomatic relations with Vietnam.</p>
+                    <p class="mt-2"><span class="font-semibold">The McCain Institute: Fostering Leadership and Global Understanding:</span> Continuing his legacy, the McCain Institute, part of Arizona State University, plays a pivotal role in fostering leadership, integrity, and global understanding. The Institute’s mission, deeply influenced by McCain’s values, focuses on developing character-driven leaders and addressing global challenges through innovative programs and initiatives.</p>
+                    <p class="mt-2"><span class="font-semibold">Impact on Veterans and Education:</span> Senator McCain’s commitment to education, particularly for veterans, was a cornerstone of his work. He consistently advocated for policies that supported veterans in their pursuit of higher education and successful reintegration into civilian life.</p>
+                    <p class="mt-2 font-bold">Senator McCain’s life exemplifies the power of resilience, dedication to public service, and the importance of education as a tool for empowerment and leadership. His impact, both as a military leader and as a statesman, continues to inspire and shape the future of America.</p>
+                </div>
+                <div class="mt-4 read-less-container">
+                    <button class="read-less-btn px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" 
+                            onclick="toggleDescription('bio5')" aria-controls="bio5" aria-expanded="true">Read Less</button>
+                </div>
+            </div>
+            <button class="learn-more-btn mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" 
+                    onclick="toggleDescription('bio5')" aria-controls="bio5" aria-expanded="false">Learn More</button>
+        </div>
+
+
+        <div class="honor-card text-white">
+            <div class="flex items-center">
+                <img src="david.png" alt="CMSgt Jason A. David, USAF (ret.) Image" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
+                <div class="flex-1">
+                    <h2 class="honor-name" role="button" tabindex="0" onclick="toggleDescription('bio6')" onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleDescription('bio6')">CMSgt Jason A. David</h2>
+                    <p class="honor-date text-gray-400 text-sm">USAF (ret.) Combat Correspondent</p>
+                </div>
+            </div>
+            <div id="bio6" class="max-h-0 overflow-hidden transition-all duration-300 hidden" aria-hidden="true">
+                <div class="bio-content max-h-60 overflow-y-auto text-gray-200">
+                    <p class="font-bold mb-2">Honoring an incredible Veteran! Their legacy of service, resilience, and leadership continues to inspire others.</p>
+                    <p class="mt-2">I served as a Combat Correspondent in Iraq, Afghanistan, Kuwait, Qatar, in Bosnia & Herzegovina, and with peacekeeping missions in Georgia, Rwanda, and Sudan.</p>
+                    <p class="mt-2 font-semibold">Completing higher education is not just for getting a job, or receiving an edge once you've completed your studies. It's your opportunity to network and grow into who you want to be. It's about YOU. Prospective employers see degrees as your ability to commit to goals. However, where YOU gain value is gaining lived experiences through the journey. Never pass up an opportunity to help someone, meet new friends with different hobbies, or face challenges. They all build your character. Reset your mindset while in academia. See the opportunities in each challenge. Who knows, you might end up as a Vice President of a company or better. I'm rooting for you.</p>
+                    <p class="mt-4 font-bold">Jason</p>
+                    <p>SVP, GovCom Solutions</p>
+                    <p>CMSgt, USAF (ret.)</p>
+                </div>
+                <div class="mt-4 read-less-container">
+                    <button class="read-less-btn px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" 
+                            onclick="toggleDescription('bio6')" aria-controls="bio6" aria-expanded="true">Read Less</button>
+                </div>
+            </div>
+            <button class="learn-more-btn mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" 
+                    onclick="toggleDescription('bio6')" aria-controls="bio6" aria-expanded="false">Learn More</button>
+        </div>
+
+
+        <div class="honor-card text-white">
+            <div class="flex items-center">
+                <img src="Caine.png" alt="General Dan Caine Image" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
+                <div class="flex-1">
+                    <h2 class="honor-name" role="button" tabindex="0" onclick="toggleDescription('bio7')" onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleDescription('bio7')">General Dan Caine, USAF</h2>
+                    <p class="honor-date text-gray-400 text-sm">22nd Chairman of the Joint Chiefs of Staff</p>
+                </div>
+            </div>
+            <div id="bio7" class="max-h-0 overflow-hidden transition-all duration-300 hidden" aria-hidden="true">
+                <div class="bio-content max-h-60 overflow-y-auto text-gray-200">
+                    <p class="font-bold mb-2">Congratulations on becoming the 22nd Chairman of the Joint Chiefs of Staff!</p>
+                    <p class="mt-2">Congratulations to United States Air Force General Dan Caine on his promotion and appointment to become the 22nd Chairman of the Joint Chiefs of Staff — the highest-ranking military officer in the United States. 👏</p>
+                    <p class="mt-2">General Caine is an alumnus of American Military University, where he earned his Master of Arts degree in Air Warfare in 2005.</p>
+                    <p class="mt-2 font-bold">#APUSproud to see our graduates rise to positions of national significance and we wish General Caine continued success as he steps into this vitally important new role — for the nation, and for the world.</p>
+                    <p class="mt-4 text-xs italic">*The appearance of U.S. Department of Defense (DoD) visual information does not imply or constitute DoD endorsement.</p>
+                </div>
+                <div class="mt-4 read-less-container">
+                    <button class="read-less-btn px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" 
+                            onclick="toggleDescription('bio7')" aria-controls="bio7" aria-expanded="true">Read Less</button>
+                </div>
+            </div>
+            <button class="learn-more-btn mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" 
+                    onclick="toggleDescription('bio7')" aria-controls="bio7" aria-expanded="false">Learn More</button>
+        </div>
+
+        <div class="honor-card text-white">
+            <div class="flex items-center">
+                <img src="jose.png" alt="Jose R. Quinones Image" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
+                <div class="flex-1">
+                    <h2 class="honor-name" role="button" tabindex="0" onclick="toggleDescription('bio8')" onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleDescription('bio8')">Jose R. Quinones</h2>
+                    <p class="honor-date text-gray-400 text-sm">Professor, CEO, Leadership Architect</p>
+                </div>
+            </div>
+            <div id="bio8" class="max-h-0 overflow-hidden transition-all duration-300 hidden" aria-hidden="true">
+                <div class="bio-content max-h-60 overflow-y-auto text-gray-200">
+                    <p class="font-bold mb-2">Professor of Leadership | CEO of Impulse Leadership | Bestselling Author | Veteran Advocate | Leadership Architect</p>
+                    <p class="mt-2">Jose R. Quinones is a transformative force in leadership development, blending over two decades of military service, academic insight, and real-world business acumen into actionable leadership strategies. A native of Rio Grande, Puerto Rico, and a proud U.S. Army veteran with 21 years of distinguished service as a Healthcare Specialist (68W), Jose has become a sought-after authority on how leaders think, decide, and evolve.</p>
+                    <p class="mt-2">Currently serving as a Professor of Leadership at Troy University, Jose teaches the next generation of leaders how to think critically, lead ethically, and drive meaningful results. As the CEO and Founder of Impulse Leadership, he delivers experiential learning solutions that help professionals navigate complexity with confidence.</p>
+                    <p class="mt-2">His flagship offerings include the Mindsonar Executive Coaching Program, “Don’t Sink the Ship” Team Building Workshop, and the Leaders at Development Stage (LADS) program—each designed to develop leaders who are clear-thinking, emotionally intelligent, and strategically driven.</p>
+                    <p class="mt-2">Jose is also the architect of the **Expectation Intelligence (ExQ) framework**, a pioneering leadership discipline that empowers individuals to manage their expectations, enhance emotional resilience, and respond effectively to feedback and conflict.</p>
+                    <p class="mt-2">A two-time author, his books—“Stepping Into Leadership” (English) and “De Camino al Liderazgo” (Spanish)—are essential reads for emerging and seasoned leaders seeking clarity, purpose, and strategic influence.</p>
+                    <p class="mt-2">His community impact includes co-founding the Mind Your Business Workshops, a bi-annual platform offering free access to business expertise for minority entrepreneurs, and leading a 5-Day Leadership Challenge.</p>
+                    <p class="mt-2">Jose’s honors include being named Military Service Member of the Year by The Greater Virginia and Hampton Roads Hispanic Chamber of Commerce.</p>
+                    <p class="mt-2">With degrees in Marketing and Management, and multiple graduate certificates in Life Coaching, Leadership & Logistics, and Neuroleadership, Jose is redefining leadership.</p>
+                    <p class="mt-2 text-sm">🔗 www.impulseleadership.us</p>
+                </div>
+                <div class="mt-4 read-less-container">
+                    <button class="read-less-btn px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" 
+                            onclick="toggleDescription('bio8')" aria-controls="bio8" aria-expanded="true">Read Less</button>
+                </div>
+            </div>
+            <button class="learn-more-btn mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500" 
+                    onclick="toggleDescription('bio8')" aria-controls="bio8" aria-expanded="false">Learn More</button>
+        </div>
+
+
+        <div class="honor-card text-white">
+            <div class="flex items-center">
+                <img src="placeholder.png" alt="Placeholder Image" class="w-24 h-24 rounded-full mr-6 border-2 border-white object-cover">
+                <div class="flex-1">
+                    <h2 class="honor-name">Upcoming Spotlight</h2>
+                    <p class="honor-date text-gray-400 text-sm">Veteran to be Honored Soon</p>
+                </div>
+            </div>
+            <p class="mt-4 text-gray-200">Check back tomorrow for a new profile celebrating another incredible story of service and sacrifice.</p>
+        </div>
+        
     </div>
+</main>
+
+
+<div id="homeButtonWrapper">
+    <a href="index.html" id="homeButton" role="button" aria-label="Go to Home Page">
+        🏠 Home
+    </a>
 </div>
 
-<!-- ** Missing 7th Card in the Second Row Added ** -->
-<div class="honor-card bg-gradient-to-r from-red-800 via-red-900 to-red-950 bg-opacity-80 text-white p-6 rounded-lg shadow-lg border border-white border-opacity-40">
-    <div class="flex items-center">
-        <!-- Image for Jose R. Quinones -->
-        <img src="jose.png" alt="Jose R. Quinones Image" class="w-24 h-24 rounded-full mr-6">
-        <div class="flex-1">
-            <!-- Honoree's Full Name and Title -->
-            <h2 class="text-2xl font-semibold cursor-pointer">Jose R. Quinones</h2>
-            <p class="text-sm mb-4">Professor of Leadership | CEO of Impulse Leadership | Bestselling Author | Veteran Advocate | Leadership Architect</p>
+
+<button id="scrollToTop" class="scroll-button" aria-label="Scroll to the top of the page">
+    &uarr;
+    <span id="topBubble" class="tutorial-bubble">Hold for fast scroll</span>
+</button>
+<button id="scrollToBottom" class="scroll-button" aria-label="Scroll to the bottom of the page">
+    &darr;
+    <span id="bottomBubble" class="tutorial-bubble">Hold for fast scroll</span>
+</button>
+
+
+<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="flex justify-center items-center h-full">
+        <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
             
-            <!-- Bio Section -->
-            <div id="bio8" class="overflow-hidden max-h-0 transition-all duration-300 hidden">
-                <div class="bio-content max-h-60 overflow-y-auto">
-                    <p>Jose R. Quinones is a transformative force in leadership development, blending over two decades of military service, academic insight, and real-world business acumen into actionable leadership strategies. A native of Rio Grande, Puerto Rico, and a proud U.S. Army veteran with 21 years of distinguished service as a Healthcare Specialist (68W), Jose has become a sought-after authority on how leaders think, decide, and evolve.</p>
-                    <p>Currently serving as a Professor of Leadership at Troy University, Jose teaches the next generation of leaders how to think critically, lead ethically, and drive meaningful results. As the CEO and Founder of Impulse Leadership, he delivers experiential learning solutions that help professionals navigate complexity with confidence.</p>
-                    <p>His flagship offerings include the Mindsonar Executive Coaching Program, “Don’t Sink the Ship” Team Building Workshop, and the Leaders at Development Stage (LADS) program—each designed to develop leaders who are clear-thinking, emotionally intelligent, and strategically driven.</p>
-                    <p>Jose is also the architect of the Expectation Intelligence (ExQ) framework, a pioneering leadership discipline that empowers individuals to manage their expectations, enhance emotional resilience, and respond effectively to feedback and conflict.</p>
-                    <p>A two-time author, his books—“Stepping Into Leadership” (English) and “De Camino al Liderazgo” (Spanish)—are essential reads for emerging and seasoned leaders seeking clarity, purpose, and strategic influence.</p>
-                    <p>His community impact includes co-founding the Mind Your Business Workshops, a bi-annual platform offering free access to business expertise for minority entrepreneurs, and leading a 5-Day Leadership Challenge.</p>
-                    <p>Jose’s honors include being named Military Service Member of the Year by The Greater Virginia and Hampton Roads Hispanic Chamber of Commerce.</p>
-                    <p>With degrees in Marketing and Management, and multiple graduate certificates in Life Coaching, Leadership & Logistics, and Neuroleadership, Jose is redefining leadership.</p>
-                    <p>🔗 www.impulseleadership.us</p>
-                    <p>📚 #TheHumbleLeader #MindsetMechanic #LeadershipArchitect</p>
-                </div>
-            </div>
-            
-            <!-- Buttons -->
-            <div class="mt-4">
-                <button class="px-6 py-2 bg-blue-700 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2" onclick="toggleDescription('bio8')">Learn More</button>
-                <button class="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500" onclick="toggleDescription('bio8')">Minimize</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function toggleDescription(id) {
-        const element = document.getElementById(id);
-        if (element.classList.contains('hidden')) {
-            element.classList.remove('hidden');
-            element.style.maxHeight = '300px'; // Adjust this value based on content
-        } else {
-            element.classList.add('hidden');
-            element.style.maxHeight = '0'; // Collapse the bio
-        }
-    }
-</script>
-<body class="min-h-screen flex flex-col justify-between">
-    <!-- Main content -->
-    <main class="flex-grow">
-        <!-- Your main content here -->
-    </main>
-
-    
-
-<!-- Top-left button that scrolls with the page -->
-<button id="openModalBtn" class="absolute top-4 left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
-    View Resources
-  </button>
-
-<!-- Modal Popup Content -->
-<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-    <div class="flex justify-center items-start mt-20 md:mt-32">
-        <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
-            <!-- Close Button -->
-            <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
-                <span class="text-2xl font-bold">&times;</span>
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-black focus:outline-none transition duration-200"
+                    aria-label="Close Resources and Links dialog" data-autofocus>
+                <span class="text-3xl font-bold text-black">&times;</span>
             </button>
 
-            <!-- Modal Title -->
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
+            <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
 
-            <!-- Links Section -->
-            <ul class="space-y-2 text-sm">
-                <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
+            <ul class="space-y-3 text-lg">
+                <li><a href="index.html" class="text-blue-600 hover:text-blue-700 transition">Home</a></li>
+                <li class="font-bold text-gray-800 mt-4">CRITICAL SUPPORT:</li>
+                <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700 transition" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+                
+                <li class="font-bold text-gray-800 mt-4">BENEFITS & EDUCATION:</li>
+                <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-blue-600 hover:text-blue-700 transition" target="_blank">Tuition Assistance / GI Bill <span class="sr-only">(opens in new tab)</span></a></li>
 
-                <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-                <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-                <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-                <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-                <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-                <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-                <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-                <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-                <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
-                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
+                <li class="font-bold text-gray-800 mt-4">CHAPTER PAGES:</li>
+                <li><a href="history.html" class="text-blue-600 hover:text-blue-700 transition">History</a></li>
+                <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700 transition">Contact Us</a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<!-- Modal Script -->
 <script>
-    const openBtn = document.getElementById('openModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const modal = document.getElementById('resourcesModal');
+    // --- 1. SCROLL BUTTON LOGIC & FAST SCROLL (No visibility checks) ---
+    const topBtn = document.getElementById('scrollToTop');
+    const bottomBtn = document.getElementById('scrollToBottom');
+    let scrollInterval = null;
+    const SCROLL_SPEED = 20; 
+    const INTERVAL_TIME = 10; 
+    
+    function startFastScroll(direction) {
+        stopFastScroll(); 
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, direction === 'top' ? -SCROLL_SPEED : SCROLL_SPEED);
+        }, INTERVAL_TIME);
+    }
+    
+    function stopFastScroll() {
+        if (scrollInterval) {
+            clearInterval(scrollInterval);
+            scrollInterval = null;
+        }
+    }
 
-    openBtn.addEventListener('click', () => {
-        modal.classList.remove('hidden');
+    // Attach event listeners for fast scrolling
+    topBtn.addEventListener('mousedown', (e) => { 
+        if (e.button === 0) startFastScroll('top'); 
+    });
+    topBtn.addEventListener('mouseup', stopFastScroll);
+    topBtn.addEventListener('mouseleave', stopFastScroll);
+    topBtn.addEventListener('touchstart', () => startFastScroll('top'), {passive: true});
+    topBtn.addEventListener('touchend', stopFastScroll);
+
+
+    bottomBtn.addEventListener('mousedown', (e) => { 
+        if (e.button === 0) startFastScroll('bottom'); 
+    });
+    bottomBtn.addEventListener('mouseup', stopFastScroll);
+    bottomBtn.addEventListener('mouseleave', stopFastScroll);
+    bottomBtn.addEventListener('touchstart', () => startFastScroll('bottom'), {passive: true});
+    bottomBtn.addEventListener('touchend', stopFastScroll);
+
+
+    // Smooth scroll (click only)
+    function smoothScroll(target) {
+        window.scrollTo({
+            top: target === 'top' ? 0 : document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+
+    topBtn.addEventListener('click', (e) => { if (!scrollInterval) smoothScroll('top'); e.preventDefault(); });
+    bottomBtn.addEventListener('click', (e) => { if (!scrollInterval) smoothScroll('bottom'); e.preventDefault(); });
+    
+    // --- 2. TUTORIAL BUBBLE LOGIC (Unchanged functionality) ---
+    function showTutorialBubbles() {
+        const topBubble = document.getElementById('topBubble');
+        const bottomBubble = document.getElementById('bottomBubble');
+        
+        topBubble.classList.add('tutorial-visible');
+        bottomBubble.classList.add('tutorial-visible');
+        
+        setTimeout(() => {
+            topBubble.classList.remove('tutorial-visible');
+            bottomBubble.classList.remove('tutorial-visible');
+        }, 4000); 
+    }
+    
+    document.addEventListener('DOMContentLoaded', showTutorialBubbles);
+
+    // --- 3. EXPAND/COLLAPSE FUNCTIONALITY (Fixed logic) ---
+    function toggleDescription(id) {
+        const expandedContent = document.getElementById(id);
+        const card = expandedContent.closest('.honor-card');
+
+        // Locate the two key elements for display toggle
+        const learnMoreBtn = card.querySelector('.learn-more-btn');
+        const readLessContainer = expandedContent.querySelector('.read-less-container');
+        
+        const isHidden = expandedContent.classList.contains('hidden');
+        
+        if (isHidden) {
+            // EXPAND: Show content and hide the 'Learn More' button
+            expandedContent.classList.remove('hidden');
+            expandedContent.style.maxHeight = '300px'; 
+            expandedContent.setAttribute('aria-hidden', 'false');
+
+            if (learnMoreBtn) learnMoreBtn.style.display = 'none';
+            if (readLessContainer) readLessContainer.style.display = 'block';
+
+        } else {
+            // COLLAPSE: Hide content and show the 'Learn More' button
+            expandedContent.classList.add('hidden');
+            expandedContent.style.maxHeight = '0'; 
+            expandedContent.setAttribute('aria-hidden', 'true');
+
+            if (learnMoreBtn) learnMoreBtn.style.display = 'block';
+            if (readLessContainer) readLessContainer.style.display = 'none';
+        }
+
+        // Update ARIA for all buttons (Learn More, Read Less inside)
+        const allToggleButtons = card.querySelectorAll(`[aria-controls="${id}"]`);
+        allToggleButtons.forEach(btn => {
+            btn.setAttribute('aria-expanded', !isHidden);
+        });
+    }
+
+    // Initialize: Hide the Read Less buttons container on load for all cards
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.read-less-container').forEach(container => {
+            container.style.display = 'none';
+        });
     });
 
-    closeBtn.addEventListener('click', () => {
-        modal.classList.add('hidden');
-    });
 
-    // Optional: close on outside click
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.add('hidden');
+    // --- 4. MODAL & FOCUS TRAPPING LOGIC (Unchanged) ---
+    const resourcesModal = document.getElementById('resourcesModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    let previousActiveElement = null;
+
+    function trapFocus(e) {
+        if (resourcesModal.classList.contains('hidden')) return;
+        
+        const focusableElements = resourcesModal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length === 0) return;
+
+        const firstFocusableElement = focusableElements[0]; 
+        const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === 'Tab') {
+            if (e.shiftKey) { 
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else { 
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    function openModal() {
+        previousActiveElement = document.activeElement; 
+        resourcesModal.classList.remove('hidden');
+        closeModalBtn.focus();
+        document.addEventListener('keydown', trapFocus);
+    }
+
+    function closeModal() {
+        resourcesModal.classList.add("hidden");
+        document.removeEventListener('keydown', trapFocus);
+        if (previousActiveElement) {
+            previousActiveElement.focus();
+        }
+    }
+
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+
+    resourcesModal.addEventListener('click', function(e) {
+        if (e.target === resourcesModal) {
+            closeModal();
         }
     });
+
+    // --- 5. HIGH CONTRAST TOGGLE (Unchanged) ---
+    const a11yToggle = document.getElementById('a11yToggle');
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        a11yToggle.textContent = isHighContrast ? '❌ Contrast' : '♿ Contrast';
+        localStorage.setItem('high-contrast', isHighContrast);
+    }
+    
+    a11yToggle.addEventListener('click', toggleHighContrast);
+
+    // Initial check for stored preference
+    if (localStorage.getItem('high-contrast') === 'true') {
+        document.body.classList.add('high-contrast');
+        a11yToggle.textContent = '❌ Contrast';
+    } else {
+         a11yToggle.textContent = '♿ Contrast'; 
+    }
 </script>
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4 mt-8">
-        <div class="max-w-screen-xl mx-auto text-center">
-            <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
-        </div>
-    </footer>
 </body>
 </html>

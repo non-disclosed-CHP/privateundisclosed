@@ -1,107 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Scrollable Links Box -->
-<div class="relative mt-6 p-4 bg-white rounded-lg max-h-60 overflow-y-scroll space-y-4">
-    <!-- Links Inside Scrollable Box -->
-    <ul class="space-y-2 text-sm">
-        <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-        <li><a href="https://www.veteranscrisisline.net/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Crisis Line</a></li>
-        <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-blue-600 hover:text-blue-700" target="_blank">Veteran and Military Suicide Prevention Resources</a></li>
-        <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-blue-600 hover:text-blue-700" target="_blank">VA Suicide Prevention</a></li>
-        <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Tuition Assistance</a></li>
-        <li><a href="https://www.va.gov/benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Benefits</a></li>
-        <li><a href="https://www.va.gov/education/" class="text-blue-600 hover:text-blue-700" target="_blank">Education Resources</a></li>
-        <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-blue-600 hover:text-blue-700" target="_blank">Career Services</a></li>
-        <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Counseling and Support</a></li>
-        <!-- New Links -->
-        <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-        <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-        <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-        <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-        <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-        <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-        <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-        <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-        <li><a href="blog.html" class="text-blue-600 hover:text-blue-700">Blog</a></li>
-        <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700">Join SVA</a></li>
-        <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700">Join Our Facebook</a></li>
-
-
-
-        
-        <!-- PMI Training Tabs for Each Branch -->
-        <li><a href="https://www.pmi.org/military/pmi-certifications-military" class="text-blue-600 hover:text-blue-700" target="_blank">PMI Training Scholarship Information</a></li>
-    </ul>
-</div>
-    </div>
-</section>
-    </div>
-</section>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMU SVA News - Contribution to O.U.R.</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
+    <title>AMU SVA News - Monthly Update</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* ---------------------------------------------------------------------- */
+        /* 1. NEW WARM & PROFESSIONAL THEME COLORS */
+        /* ---------------------------------------------------------------------- */
+        :root {
+            --bg-page: #f9f9f9; /* Soft Off-White */
+            --bg-header: #002D62; /* Rich Navy Blue */
+            --color-primary: #FFC300; /* Subtle Gold/Amber for accents */
+            --color-secondary: #C0C0C0; /* Silver/Gray for secondary text */
+            --color-cta: #D4AF37; /* Gold for CTA button */
+            --color-link: #007bff; /* Blue for Links */
+            --color-home-btn: #007bff; /* Explicit Home Button Color */
+            --color-a11y: #17A2B8; /* Teal for A11y Toggle */
+            --color-bubble: #FFC300; /* Yellow for helper bubble */
+        }
         body {
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            background-image: url('flag2.png');
-            background-attachment: fixed;
-            overflow-x: hidden;
+            background-color: var(--bg-page); 
+            color: #333; 
+            min-height: 100vh; /* Ensure full page height for scrolling */
+        }
+        
+        /* Ensure content boxes use a lighter, transparent background for readability */
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid #ddd;
         }
 
-        body::before {
-            content: "";
+        /* ---------------------------------------------------------------------- */
+        /* 2. WCAG FOCUS STYLES & SKIP LINK */
+        /* ---------------------------------------------------------------------- */
+        a:focus, button:focus, [tabindex="0"]:focus {
+            outline: 4px solid var(--color-cta); 
+            outline-offset: 4px;
+            border-radius: 4px; 
+        }
+
+        /* Screen Reader Only (Skip Link) */
+        .sr-only:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.25);
-            z-index: -1;
+            white-space: nowrap;
+            width: 1px;
+            z-index: 1001; 
         }
 
-        /* Header, Footer, and Content Box */
-        header, footer, .content-box {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-        }
-
-        /* Header Links */
-        header a, footer a {
-            color: rgba(59, 130, 246, 0.9);
-            transition: color 0.3s ease;
-        }
-
-        header a:hover, footer a:hover {
+        /* ---------------------------------------------------------------------- */
+        /* 3. SCROLL & HOME BUTTON STYLES */
+        /* ---------------------------------------------------------------------- */
+        .scroll-button {
+            position: fixed; 
+            right: 20px; 
+            z-index: 90;
+            width: 50px; 
+            height: 50px;
+            border-radius: 50%; 
+            background-color: var(--bg-header); 
             color: white;
-            background-color: rgba(59, 130, 246, 0.7);
+            font-size: 1.8rem; 
+            font-weight: bold;
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid var(--color-primary); 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            opacity: 0.9;
+            transition: all 0.3s;
+        }
+        #scrollToTop { bottom: 80px; } 
+        #scrollToBottom { bottom: 25px; }
+
+        /* STATIC HOME BUTTON */
+        #homeButton {
+            position: fixed;
+            bottom: 25px;
+            /* FIX APPLIED HERE: Center horizontally */
+            left: 50%;
+            transform: translateX(-50%); 
+            /* END FIX */
+            z-index: 95;
+            background-color: var(--color-home-btn);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s;
         }
 
-        /* Section Styling */
-        .content-box h1 {
-            color: rgba(59, 130, 246, 0.9);
-            font-size: 2.5rem;
+        .tutorial-bubble {
+            position: absolute;
+            background-color: var(--color-bubble); 
+            color: black;
+            font-size: 0.8rem; 
             font-weight: bold;
+            padding: 5px 8px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            pointer-events: none; 
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            right: 100%; 
+            top: 50%;
+            transform: translateY(-50%) translateX(-10px);
+            white-space: nowrap;
+            z-index: 100;
+        }
+        .tutorial-visible { opacity: 1; }
+
+        /* ---------------------------------------------------------------------- */
+        /* 4. HIGH CONTRAST MODE (A11y Override) */
+        /* ---------------------------------------------------------------------- */
+        body.high-contrast { background: #000 !important; color: #FFF !important; }
+        body.high-contrast #a11y-bar, 
+        body.high-contrast header, 
+        body.high-contrast footer,
+        body.high-contrast .scroll-button,
+        body.high-contrast .content-box {
+            background-color: #111 !important; border-color: #00FFFF !important; color: #FFF !important;
+        }
+        body.high-contrast h1, body.high-contrast h2, body.high-contrast h3 { color: #00FFFF !important; }
+        body.high-contrast a, body.high-contrast button, body.high-contrast .join-button {
+            border: 2px solid #00FFFF !important; 
+            color: #00FFFF !important; 
+            background-color: #000 !important; 
+            box-shadow: none !important;
+        }
+        body.high-contrast #a11yToggle { background-color: #00FFFF !important; color: black !important; border: none !important; }
+        body.high-contrast #homeButton { background-color: #00FFFF !important; color: black !important; border: none !important; }
+        body.high-contrast .tutorial-bubble {
+             background-color: #00FFFF !important;
+             color: black !important;
+        }
+        body.high-contrast .modal-content { background-color: #000 !important; border: 2px solid #00FFFF !important; }
+
+        /* Custom Styles for News Page Content */
+        .content-box h1 {
+            color: var(--bg-header); /* Navy Blue for main heading */
+            font-size: 2.5rem;
+            font-weight: 700;
             text-align: center;
         }
-
         .content-box p {
-            color: rgba(107, 114, 128, 1);
+            color: #444; /* Darker gray for body text */
             font-size: 1.125rem;
             text-align: center;
         }
-
         .join-button {
-            background-color: rgba(59, 130, 246, 0.9);
+            background-color: var(--color-cta); /* Gold CTA */
             color: white;
             padding: 12px 24px;
             border-radius: 8px;
@@ -113,146 +169,265 @@
         }
 
         .join-button:hover {
-            background-color: rgba(59, 130, 246, 1);
-        }
-
-        /* SVA Logo Styles */
-        .sva-logo {
-            position: fixed;
-            right: 10px;
-            bottom: 10px;
-            opacity: 0.2;
-            z-index: 1000;
-            transition: transform 0.3s ease;
+            background-color: #C0A55D; /* Darker Gold on hover */
         }
     </style>
 </head>
 <body>
 
-<!-- News Section -->
-<section class="content-box">
-    <h1>Monthly News</h1>
-    <p>We are excited to share an important update with our community!</p>
-    <p>As we move forward, we remain dedicated to making a positive impact. Every effort counts, and together, we can contribute to meaningful change.</p>
-    <p>Stay tuned for more updates and ways to get involved. Let’s make a difference together!</p>
-    <a href="#" target="_blank" class="join-button">Learn More</a>
-    <p class="text-center mt-4">#Community #Support #MakingADifference</p>
-</section>
+    <a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-blue-600 text-white font-bold rounded fixed top-0 left-0 z-50">
+        Skip to Main Content
+    </a>
 
-
-<script>
-    // JavaScript to toggle the visibility of resources tab
-    function toggleResourcesTab() {
-        const resourcesTab = document.getElementById('resources-tab');
-        const button = document.getElementById('toggle-resources');
-        if (resourcesTab.style.display === 'none' || resourcesTab.style.display === '') {
-            resourcesTab.style.display = 'block';
-            button.textContent = '−'; // Change button to close symbol
-        } else {
-            resourcesTab.style.display = 'none';
-            button.textContent = '+'; // Change button to open symbol
-        }
-    }
-
-    // JavaScript to toggle the subgroups within the resources tab
-    function toggleGroup(groupId, buttonId) {
-        const group = document.getElementById(groupId);
-        const button = document.getElementById(buttonId);
-        if (group.style.display === 'none' || group.style.display === '') {
-            group.style.display = 'block';
-            button.textContent = '−'; // Change button to close symbol
-        } else {
-            group.style.display = 'none';
-            button.textContent = '+'; // Change button to open symbol
-        }
-    }
-</script>
-<!-- Modal Script -->
-<script>
-    const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const resourcesModal = document.getElementById('resourcesModal');
-
-    // Open modal when button is clicked
-    openModalBtn.addEventListener('click', () => {
-        resourcesModal.classList.remove('hidden');
-        resourcesModal.classList.add('flex');
-    });
-
-    // Close modal when close button is clicked
-    closeModalBtn.addEventListener('click', () => {
-        resourcesModal.classList.add('hidden');
-        resourcesModal.classList.remove('flex');
-    });
-
-    // Close modal if clicked outside modal content
-    window.addEventListener('click', (e) => {
-        if (e.target === resourcesModal) {
-            resourcesModal.classList.add('hidden');
-            resourcesModal.classList.remove('flex');
-        }
-    });
-</script>
-
-  <!-- Toggle Button at Top of Page -->
-<button id="openModalBtn" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition">
-    View Resources
-</button>
-
-<!-- Modal Popup Content -->
-<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-    <div class="flex justify-center items-start mt-20 md:mt-32">
-        <div class="relative bg-white rounded-lg w-11/12 md:w-2/3 p-6 shadow-xl max-h-[80vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
-            <!-- Close Button -->
-            <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none">
-                <span class="text-2xl font-bold">&times;</span>
+    <div id="a11y-bar" class="sticky top-0 z-40 flex justify-end p-3 shadow-md" style="background-color: var(--bg-header);">
+        <div class="a11y-buttons flex space-x-2">
+            <button id="openModalBtn" 
+                class="px-4 py-2 rounded-md font-bold text-white shadow-md transition"
+                style="background-color: var(--color-link); border: 2px solid var(--color-link);"
+                aria-label="Open full Resources and Links menu">
+                Resources
             </button>
-
-            <!-- Modal Title -->
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Resources and Links</h3>
-
-            <!-- Links Section -->
-            <ul class="space-y-2 text-sm">
-                <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
-                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700" target="_blank">Mental Health Resources</a></li>
-                <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
-                <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
-                <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
-                <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
-                <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
-                <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
-                <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
-                <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
-                <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA</a></li>
-                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook</a></li>
-            </ul>
+            <button id="a11yToggle"
+                aria-label="Toggle high contrast mode"
+                class="px-4 py-2 rounded-md text-black font-bold shadow-md transition"
+                style="background-color: var(--color-a11y); color: white;"
+                >
+                ♿ Contrast
+            </button>
         </div>
     </div>
-</div>
 
-<!-- Modal Script -->
+    <header id="main-content" class="text-center py-6 shadow-md" style="background-color: var(--bg-header); margin: 0;">
+        <h1 class="text-3xl font-bold" style="color: var(--color-primary);">AMU SVA Chapter News</h1>
+    </header>
+
+    <section class="content-box max-w-3xl mx-auto mt-8 mb-8 p-8" role="article" aria-labelledby="news-heading">
+        <h1 id="news-heading" class="text-4xl mb-4 font-extrabold" style="color: var(--bg-header);">Monthly News</h1>
+        <p class="text-lg text-gray-700 mb-4">We are excited to share an important update with our community!</p>
+        <p class="text-lg text-gray-700 mb-4">As we move forward, we remain dedicated to making a positive impact. Every effort counts, and together, we can contribute to meaningful change.</p>
+        <p class="text-lg text-gray-700 mb-6 font-semibold">Stay tuned for more updates and ways to get involved. Let’s make a difference together!</p>
+        
+        <a href="#" target="_blank" class="join-button font-bold text-white hover:shadow-lg transition">
+            Learn More
+        </a>
+        <p class="text-center mt-4 text-gray-600 font-medium">#Community #Support #MakingADifference</p>
+    </section>
+
+    <footer class="text-white py-4 mt-auto" style="background-color: var(--bg-header);">
+        <div class="max-w-screen-xl mx-auto text-center">
+            <p class="text-sm font-medium" style="color: var(--color-secondary);">© 2025 AMU APU SVA Chapter | Designed by <a href="#" target="_blank" class="text-sm" style="color: var(--color-secondary); text-decoration: underline;">William C.</a></p>
+        </div>
+    </footer>
+
+    <a href="index.html" id="homeButton" aria-label="Go to Home Page">
+        🏠 Home
+    </a>
+
+
+    <button id="scrollToTop" class="scroll-button" aria-label="Scroll to the top of the page">
+        &uarr;
+        <span id="topBubble" class="tutorial-bubble">Hold for fast scroll</span>
+    </button>
+    <button id="scrollToBottom" class="scroll-button" aria-label="Scroll to the bottom of the page">
+        &darr;
+        <span id="bottomBubble" class="tutorial-bubble">Hold for fast scroll</span>
+    </button>
+
+
+    <div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
+        role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+        <div class="flex justify-center items-center h-full">
+            <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out modal-content">
+                
+                <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-black focus:outline-none transition duration-200"
+                        aria-label="Close Resources and Links dialog" data-autofocus>
+                    <span class="text-3xl font-bold text-black">&times;</span>
+                </button>
+
+                <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
+
+                <ul class="space-y-3 text-lg">
+                    <li class="font-bold text-gray-800 mt-4">CRITICAL SUPPORT:</li>
+                    <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+                    <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-red-600 hover:text-red-700 transition" target="_blank">Veteran and Military Suicide Prevention Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                    <li><a href="https://www.mentalhealth.va.gov/suicide_prevention/" class="text-blue-600 hover:text-blue-700 transition" target="_blank">VA Suicide Prevention <span class="sr-only">(opens in new tab)</span></a></li>
+                    <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-blue-600 hover:text-blue-700 transition" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+                    
+                    <li class="font-bold text-gray-800 mt-4">BENEFITS & EDUCATION:</li>
+                    <li><a href="https://www.va.gov/education/about-gi-bill-benefits/" class="text-blue-600 hover:text-blue-700 transition" target="_blank">Tuition Assistance / GI Bill <span class="sr-only">(opens in new tab)</span></a></li>
+                    <li><a href="https://www.va.gov/benefits/" class="text-blue-600 hover:text-blue-700" target="_blank">Veterans Benefits <span class="sr-only">(opens in new tab)</span></a></li>
+                    <li><a href="https://www.va.gov/education/" class="text-blue-600 hover:text-blue-700" target="_blank">Education Resources <span class="sr-only">(opens in new tab)</span></a></li>
+                    <li><a href="https://www.pmi.org/military/pmi-certifications-military" class="text-blue-600 hover:text-blue-700" target="_blank">PMI Training Scholarship Information <span class="sr-only">(opens in new tab)</span></a></li>
+                    <li><a href="https://www.careeronestop.org/Veterans/default.aspx" class="text-blue-600 hover:text-blue-700" target="_blank">Career Services <span class="sr-only">(opens in new tab)</span></a></li>
+                    
+                    <li class="font-bold text-gray-800 mt-4">CHAPTER PAGES:</li>
+                    <li><a href="index.html" class="text-blue-600 hover:text-blue-700">Home</a></li>
+                    <li><a href="history.html" class="text-blue-600 hover:text-blue-700">History</a></li>
+                    <li><a href="board.html" class="text-blue-600 hover:text-blue-700">Board</a></li>
+                    <li><a href="legacy.html" class="text-blue-600 hover:text-blue-700">Legacy</a></li>
+                    <li><a href="careers.html" class="text-blue-600 hover:text-blue-700">Careers</a></li>
+                    <li><a href="news.html" class="text-blue-600 hover:text-blue-700">News</a></li>
+                    <li><a href="events.html" class="text-blue-600 hover:text-blue-700">Events</a></li>
+                    <li><a href="contactus.html" class="text-blue-600 hover:text-blue-700">Contact Us</a></li>
+                    <li><a href="honors.html" class="text-blue-600 hover:text-blue-700">Honors</a></li>
+                    <li><a href="blog.html" class="text-blue-600 hover:text-blue-700">Blog</a></li>
+
+                    <li class="font-bold text-gray-800 mt-4">SOCIAL / EXTERNAL:</li>
+                    <li><a href="https://studentveterans.my.site.com/login" class="text-blue-600 hover:text-blue-700" target="_blank">Join SVA <span class="sr-only">(opens in new tab)</span></a></li>
+                    <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-blue-600 hover:text-blue-700" target="_blank">Join Our Facebook <span class="sr-only">(opens in new tab)</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
 <script>
-    const openBtn = document.getElementById('openModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const modal = document.getElementById('resourcesModal');
+    // --- 1. SCROLL BUTTON LOGIC & FAST SCROLL ---
+    const topBtn = document.getElementById('scrollToTop');
+    const bottomBtn = document.getElementById('scrollToBottom');
+    let scrollInterval = null;
+    const SCROLL_SPEED = 20; 
+    const INTERVAL_TIME = 10; 
+    
+    function startFastScroll(direction) {
+        stopFastScroll(); 
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, direction === 'top' ? -SCROLL_SPEED : SCROLL_SPEED);
+        }, INTERVAL_TIME);
+    }
+    
+    function stopFastScroll() {
+        if (scrollInterval) {
+            clearInterval(scrollInterval);
+            scrollInterval = null;
+        }
+    }
 
-    openBtn.addEventListener('click', () => {
-        modal.classList.remove('hidden');
+    // Attach event listeners for fast scrolling
+    topBtn.addEventListener('mousedown', (e) => { 
+        if (e.button === 0) startFastScroll('top'); 
+    });
+    topBtn.addEventListener('mouseup', stopFastScroll);
+    topBtn.addEventListener('mouseleave', stopFastScroll);
+    topBtn.addEventListener('touchstart', () => startFastScroll('top'), {passive: true});
+    topBtn.addEventListener('touchend', stopFastScroll);
+
+
+    bottomBtn.addEventListener('mousedown', (e) => { 
+        if (e.button === 0) startFastScroll('bottom'); 
+    });
+    bottomBtn.addEventListener('mouseup', stopFastScroll);
+    bottomBtn.addEventListener('mouseleave', stopFastScroll);
+    bottomBtn.addEventListener('touchstart', () => startFastScroll('bottom'), {passive: true});
+    bottomBtn.addEventListener('touchend', stopFastScroll);
+
+
+    // Smooth scroll (click only)
+    function smoothScroll(target) {
+        window.scrollTo({
+            top: target === 'top' ? 0 : document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+
+    topBtn.addEventListener('click', (e) => { if (!scrollInterval) smoothScroll('top'); e.preventDefault(); });
+    bottomBtn.addEventListener('click', (e) => { if (!scrollInterval) smoothScroll('bottom'); e.preventDefault(); });
+    
+    
+    // --- 2. TUTORIAL BUBBLE LOGIC ---
+    function showTutorialBubbles() {
+        const topBubble = document.getElementById('topBubble');
+        const bottomBubble = document.getElementById('bottomBubble');
+        
+        if (topBubble) topBubble.classList.add('tutorial-visible');
+        if (bottomBubble) bottomBubble.classList.add('tutorial-visible');
+        
+        setTimeout(() => {
+            if (topBubble) topBubble.classList.remove('tutorial-visible');
+            if (bottomBubble) bottomBubble.classList.remove('tutorial-visible');
+        }, 4000); 
+    }
+    
+    document.addEventListener('DOMContentLoaded', showTutorialBubbles);
+
+    // --- 3. MODAL & FOCUS TRAPPING LOGIC (WCAG) ---
+    const resourcesModal = document.getElementById('resourcesModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    let previousActiveElement = null;
+
+    function trapFocus(e) {
+        if (resourcesModal.classList.contains('hidden')) return;
+        
+        const focusableElements = resourcesModal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length === 0) return;
+
+        const firstFocusableElement = focusableElements[0]; 
+        const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === 'Tab') {
+            if (e.shiftKey) { 
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus();
+                    e.preventDefault();
+                }
+            } else { 
+                if (document.activeElement === lastFocusableElement) {
+                    firstFocusableElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    function openModal() {
+        previousActiveElement = document.activeElement; 
+        resourcesModal.classList.remove('hidden');
+        closeModalBtn.focus();
+        document.addEventListener('keydown', trapFocus);
+    }
+
+    function closeModal() {
+        resourcesModal.classList.add("hidden");
+        document.removeEventListener('keydown', trapFocus);
+        if (previousActiveElement) {
+            previousActiveElement.focus();
+        }
+    }
+
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+
+    resourcesModal.addEventListener('click', function(e) {
+        if (e.target === resourcesModal) {
+            closeModal();
+        }
     });
 
-    closeBtn.addEventListener('click', () => {
-        modal.classList.add('hidden');
-    });
+    // --- 4. HIGH CONTRAST TOGGLE ---
+    const a11yToggle = document.getElementById('a11yToggle');
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+        const isHighContrast = document.body.classList.contains('high-contrast');
+        a11yToggle.textContent = isHighContrast ? '❌ Contrast' : '♿ Contrast';
+        localStorage.setItem('high-contrast', isHighContrast);
+    }
+    
+    a11yToggle.addEventListener('click', toggleHighContrast);
 
-    // Optional: close on outside click
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.add('hidden');
+    // Initial check for stored preference
+    document.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('high-contrast') === 'true') {
+            document.body.classList.add('high-contrast');
+            a11yToggle.textContent = '❌ Contrast';
+        } else {
+             a11yToggle.textContent = '♿ Contrast'; 
         }
     });
 </script>
-<footer style="text-align: center; padding: 1rem 0; font-size: 0.9rem; color: #888; background-color: #f8f9fa;">
-    © 2025 AMU APU SVA Chapter | Designed by <a href="https://yourwebsite.com" target="_blank" style="color: #555; text-decoration: none;">William C.</a>
-  </footer>
 </body>
 </html>
