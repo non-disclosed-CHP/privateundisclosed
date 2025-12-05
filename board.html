@@ -1,187 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVA Board Members and Leadership</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* ---------------------------------------------------------------------- */
-        /* 1. PROFESSIONAL THEME & WCAG STYLES (Navy Blue, Gold, White) */
-        /* ---------------------------------------------------------------------- */
-        :root {
-            --primary-blue: #0A1931; /* Deep Navy Blue (AMU/APUS dark) */
-            --secondary-gold: #FFC300; /* Bright Gold/Yellow (Accent) */
-            --accent-gray: #E0E0E0;   /* Light Gray for background */
-            --link-blue: #0077B6;     /* Accessible Blue for links */
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SVA Board Members and Leadership</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        /* WCAG IMPROVEMENT: Custom Focus Outline for Keyboard Users (2.4.7 Focus Visible) */
-        a:focus, button:focus, [tabindex="0"]:focus, .access-scroll-btn:focus {
-            outline: 3px solid var(--secondary-gold); 
-            outline-offset: 4px;
-            border-radius: 4px; 
-        }
+  <style>
+    /* ---------------------------
+       Theme variables & base
+       --------------------------- */
+    :root{
+      --primary-blue:#0A1931;
+      --secondary-gold:#FFC300;
+      --accent-gray:#E0E0E0;
+      --link-blue:#0077B6;
+    }
+    html,body{height:100%;margin:0;padding:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+    body{
+      background: var(--accent-gray);
+      color:var(--primary-blue);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      background-image: linear-gradient(to bottom, rgba(10,25,49,0.9), rgba(10,25,49,0.7)), url('flag2.png');
+      background-size:cover;
+      background-attachment:fixed;
+      background-repeat:no-repeat;
+    }
 
-        /* Skip Link Styling (2.4.1 Bypass Blocks) */
-        .sr-only:not(:focus) {
-            clip: rect(0 0 0 0);
-            clip-path: inset(50%);
-            height: 1px;
-            overflow: hidden;
-            position: absolute;
-            white-space: nowrap;
-            width: 1px;
-            z-index: 1000;
-        }
+    /* Focus visible (WCAG 2.4.7) */
+    a:focus, button:focus, [tabindex="0"]:focus, .access-scroll-btn:focus {
+      outline: 3px solid var(--secondary-gold);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
 
-        /* THEME & BASE STYLES */
-        body {
-            background: var(--accent-gray);
-            color: var(--primary-blue);
-            min-height: 150vh; 
-            /* Incorporate original gradient and flag, but enhance contrast */
-            background-image: linear-gradient(to bottom, rgba(10, 25, 49, 0.9), rgba(10, 25, 49, 0.7)), url('flag2.png');
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            position: relative;
-        }
+    /* Skip link */
+    .sr-only:not(:focus) {
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+      z-index: 1000;
+    }
 
-        .bg-navy { background-color: var(--primary-blue); }
-        .text-gold { color: var(--secondary-gold); }
-        .bg-gold { background-color: var(--secondary-gold); }
-        .hover\:bg-gold-dark:hover { background-color: #DAA520; }
-        .bg-card { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(2px); }
+    /* Cards */
+    .bg-card { background-color: rgba(255,255,255,0.95); backdrop-filter: blur(2px); }
+    header { background-color: var(--primary-blue); box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    .text-gold { color: var(--secondary-gold); }
+    .bg-gold { background-color: var(--secondary-gold); }
+    .text-link-blue { color: var(--link-blue); }
 
-        header {
-            background-color: var(--primary-blue); /* Simplified to Navy for contrast */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
+    .board-member h2{ color:var(--primary-blue); }
+    .board-member .title, .board-member .email{ color:var(--link-blue); }
 
-        /* Board Member Card Styles */
-        .board-member h2 {
-            color: var(--primary-blue); /* Navy for primary text */
-        }
-        .board-member .title, .board-member .email {
-            color: var(--link-blue); /* Accessible blue for titles */
-        }
+    .floating-logo { position: fixed; bottom:1rem; right:1rem; opacity:0.2; pointer-events:none; z-index:10; }
 
-        /* Floating Logo */
-        .floating-logo {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            opacity: 0.2; /* Reduced opacity for better WCAG 1.4.3 focus */
-            pointer-events: none;
-            z-index: 10;
-        }
-        
-        /* ---------------------------------------------------------------------- */
-        /* 2. ACCESSIBILITY BUTTONS (Scroll & Contrast) */
-        /* ---------------------------------------------------------------------- */
-        .access-scroll-btn {
-            position: fixed; right: 1rem; width: 50px; height: 50px;
-            background-color: rgba(10, 25, 49, 0.8); 
-            color: white;
-            border-radius: 50%; font-size: 1.5rem; text-align: center;
-            line-height: 50px; cursor: pointer; z-index: 1000; user-select: none;
-            border: 2px solid var(--secondary-gold); 
-            transition: background-color 0.2s, color 0.2s;
-        }
-        #scrollUp { top: 40%; }
-        #scrollDown { top: 50%; }
-        
-        /* Tooltip Bubbles Styles */
-        .a11y-bubble, .scroll-bubble {
-            position: fixed; background: var(--secondary-gold); color: var(--primary-blue);
-            padding: 8px 12px; border-radius: 8px; font-size: 0.875rem;
-            z-index: 1050; opacity: 0; transition: opacity 0.5s;
-            pointer-events: none; 
-            white-space: nowrap;
-        }
-        
-        /* Accessibility Button position (Top Right) */
-        #a11yToggle {
-            position: fixed; 
-            top: 13rem; 
-            right: 1.5rem; 
-            background-color: var(--secondary-gold);
-            color: var(--primary-blue);
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            z-index: 50;
-        }
-        #a11yBubble { top: 13rem; right: 12rem; } 
-        #scrollUpBubble { top: 41%; right: 4.5rem; } 
-        #scrollDownBubble { top: 51%; right: 4.5rem; }
+    .a11y-bubble, .scroll-bubble {
+      position: fixed;
+      background: var(--secondary-gold);
+      color: var(--primary-blue);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: .875rem;
+      z-index: 10000;
+      opacity:0;
+      transition: opacity .18s ease;
+      pointer-events:none;
+      white-space:nowrap;
+    }
 
-        /* ---------------------------------------------------------------------- */
-        /* 3. HIGH CONTRAST MODE (WCAG 1.4.3 Contrast, 2.3.3 Animation) */
-        /* ---------------------------------------------------------------------- */
-        body.high-contrast {
-            background-color: #000 !important;
-            background-image: none !important;
-            color: #FFD700 !important; /* Gold text */
-        }
-        body.high-contrast .bg-navy { background-color: #111 !important; }
-        body.high-contrast .text-gold, body.high-contrast .board-member h2 { color: #00FFFF !important; }
-        body.high-contrast a, body.high-contrast .title, body.high-contrast .email { color: #00FFFF !important; }
-        body.high-contrast .bg-card {
-            background-color: #111 !important; 
-            border-color: #00FFFF !important;
-        }
-        body.high-contrast .text-gray-700, body.high-contrast .text-gray-600 { color: #FFD700 !important; }
-        body.high-contrast .floating-logo { opacity: 0 !important; } /* Hide non-essential visual */
-        
-        /* Disable animation in high contrast or reduced motion mode (WCAG 2.3.3) */
-        body.motion-reduced * {
-            animation: none !important;
-            transition: none !important;
-        }
-    </style>
+    /* ---------------------------
+       Fixed top-right controls — FINAL
+       Buttons use position:fixed and NO code changes their top/right
+       --------------------------- */
+
+    #openModalBtn {
+      position: fixed !important;
+      top: 1rem !important;
+      right: 1.5rem !important;
+      z-index: 2147483647 !important; /* max safe z-index */
+      background: var(--secondary-gold);
+      color: var(--primary-blue);
+      padding: .6rem 1rem;
+      border-radius: .5rem;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(0,0,0,.18);
+      border: none;
+      cursor: pointer;
+    }
+
+    #a11yToggle {
+      position: fixed !important;
+      top: 4.5rem !important;
+      right: 1.5rem !important;
+      z-index: 2147483647 !important;
+      background: var(--secondary-gold);
+      color: var(--primary-blue);
+      padding: .45rem .9rem;
+      border-radius: .5rem;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(0,0,0,.16);
+      border: none;
+      cursor: pointer;
+    }
+
+    /* bubble sits to the left of the buttons */
+    #a11yBubble { top: 4.5rem !important; right: calc(1.5rem + 9.5rem) !important; }
+
+    /* Scroll buttons (separate, lower stack) */
+    .access-scroll-btn {
+      position: fixed !important;
+      right: 1rem !important;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(10, 25, 49, 0.8);
+      color: white;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      text-align:center;
+      line-height:50px;
+      cursor:pointer;
+      z-index: 2147483646 !important;
+      border: 2px solid var(--secondary-gold);
+    }
+    #scrollUp { top: 30% !important; }
+    #scrollDown { top: 40% !important; }
+    #scrollUpBubble { top: 30% !important; right: 4.5rem !important; }
+    #scrollDownBubble { top: 40% !important; right: 4.5rem !important; }
+
+    /* High contrast */
+    body.high-contrast {
+      background-color: #000 !important;
+      background-image: none !important;
+      color: #FFD700 !important;
+    }
+    body.high-contrast .bg-navy { background-color: #111 !important; }
+    body.high-contrast .text-gold, body.high-contrast .board-member h2 { color:#00FFFF !important; }
+    body.high-contrast a, body.high-contrast .title, body.high-contrast .email { color:#00FFFF !important; }
+    body.high-contrast .bg-card { background-color:#111 !important; border-color:#00FFFF !important; }
+    body.high-contrast .floating-logo { opacity: 0 !important; }
+
+    @media (prefers-reduced-motion: reduce){
+      * { transition: none !important; animation: none !important; }
+    }
+
+    @media (max-width:640px){
+      #openModalBtn { right: .75rem !important; top: .75rem !important; padding:.5rem .75rem; }
+      #a11yToggle { right: .75rem !important; top: 3.6rem !important; padding:.4rem .6rem; }
+      #a11yBubble { right: 6.25rem !important; }
+    }
+
+    .modal-inner a { color:var(--link-blue); text-decoration:underline; }
+    .modal-inner li { margin-bottom:.6rem; }
+  </style>
 </head>
+
 <body id="top-of-page">
 
-<a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-navy text-gold font-bold rounded fixed top-0 left-0 z-50">
+  <!-- Skip link -->
+  <a href="#main-content" class="sr-only focus:not-sr-only px-4 py-2 bg-navy text-gold font-bold rounded fixed top-0 left-0 z-50">
     Skip to Main Content
-</a>
+  </a>
 
-<button id="openModalBtn" 
-    class="fixed top-4 right-4 z-50 bg-gold text-navy px-5 py-2.5 rounded-lg shadow-xl font-semibold 
-           hover:bg-gold-dark transition focus:outline-none focus:ring-4 focus:ring-navy"
-    aria-label="Open full Resources and Links menu">
-    View Resources
-</button>
+  <!-- Fixed top-right buttons (will not move) -->
+  <button id="openModalBtn" aria-label="Open Resources and Links menu" type="button">View Resources</button>
 
-<button id="a11yToggle"
-    aria-label="Toggle high contrast mode"
-    class="bg-gold text-primary-blue px-6 py-2 rounded-lg font-bold shadow-xl hover:bg-gold-dark transition focus:outline-none focus:ring-4 focus:ring-primary-blue z-50"
-    onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
-    ♿ Accessibility
-</button>
-<div id="a11yBubble" class="a11y-bubble">Click here to toggle high-contrast mode!</div>
+  <button id="a11yToggle" aria-label="Toggle high contrast mode" type="button"
+          onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
+    ♿ Contrast
+  </button>
 
-<header class="bg-navy text-white py-12 shadow-2xl relative">
+  <div id="a11yBubble" class="a11y-bubble" role="status" aria-hidden="true">Click here to toggle high-contrast mode!</div>
+
+  <!-- Header -->
+  <header class="bg-navy text-white py-12 shadow-2xl relative">
     <div class="max-w-screen-xl mx-auto px-6">
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gold">
-            Meet Our Leadership Board
-        </h1>
-        </div>
-</header>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gold">Meet Our Leadership Board</h1>
+    </div>
+  </header>
 
-<main id="main-content" class="container mx-auto py-12 px-6" tabindex="-1">
+  <!-- Main content (full original members restored) -->
+  <main id="main-content" class="container mx-auto py-12 px-6" tabindex="-1">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="nick.png" alt="Nick Rinell, President" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center mb-1">Nick Rinell</h2>
-    <p class="title text-center text-gold font-medium">President</p>
-    <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
-        <p>
+
+      <!-- Nick Rinell -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="nick.png" alt="Nick Rinell, President" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Nick Rinell</h2>
+        <p class="title text-center text-gold font-medium">President</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>
             I enlisted in the Marine Corps in September 2003 as an Air Traffic Control Maintenance
             Radar Technician. Since my enlistment, I have spent eight years in Okinawa, Japan,
             and 13 months in Al-Taqqadum, Iraq. Over my career, I have attended multiple Enlisted
@@ -191,394 +205,392 @@
             Squadron 1. Finally, I completed a B.S. in Cybersecurity Management and Policy with a
             certificate in Project Management, and I am pursuing an MBA in Accounting with a diploma
             in Executive Coaching.
-        </p>
-        <p class="mt-2">
+          </p>
+          <p class="mt-2">
             I have been married for almost 13 years and have a seven-year-old daughter. We love
             to travel, cook, bake, and read together.
-        </p>
-        <p class="mt-2">
+          </p>
+          <p class="mt-2">
             I wish to volunteer with SVA at AMU to create a mutually supportive community for
             other military-associated students—a society where we all help each other. Additionally,
             I have always found pleasure in volunteer work, which has included volunteer
             firefighting, opening a coffee house at the MCAS Futenma Chapel, and serving as a
             Board Member for the Kinser Elementary School Parent Teacher Organization.
-        </p>
-    </div>
-</div>
-
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="TH.png" alt="Tommy Hendler, Vice President" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center mb-1">Tommy Hendler</h2>
-    <p class="title text-center text-gold font-medium">Vice President</p>
-    <p class="email text-center text-gray-600 text-sm mb-4">Thomas.Hendler@mycampus.apus.edu</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
-        <p>
-            Tommy Hendler is a dedicated and experienced AMU/APU Student Veterans of America (SVA) Chapter leader. He earned his MBA from American Military University and has served as Vice President of the SVA Chapter since August 2023, playing a pivotal role in supporting and advancing its mission. Before this, he was the chapter’s Secretary from June 2023 to August 2023, where he excelled in managing chapter records and communications.
-        </p>
-        <p class="mt-2">
-            In addition to his SVA leadership, Tommy brings extensive experience from his involvement in the Masonic community. He is the Chapter Operations Officer for the AMU/APU Dr. Wallace Boston Ancient Order of the Craft Chapter and holds several prominent positions in various Masonic lodges. Since June 2024, he has served as Worshipful Master (Lodge President) at Iowa Park Masonic Lodge #713 and as Lodge Secretary for the Burkburnett Masonic Lodge #1027. He is also active in the Scottish Rite, Shriners, and the American Legion and is a lifetime member of the VFW.
-        </p>
-        <p class="mt-2">
-            Tommy’s commitment to service extends to his military career. A Master Sergeant with 17 years of service in the Army Reserve, he serves as an AGR Reserve Component Career Counselor. In this role, he assists soldiers transitioning out of the Active Army to explore opportunities in the Army Reserve and Army National Guard.
-        </p>
-    </div>
-</div>
-
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="steven.png" alt="Sergeant First Class Steven Miller, Secretary" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center mb-1">Steven Miller</h2>
-    <p class="title text-center text-gold font-medium">Secretary</p>
-    <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
-        <p>
-            Steven D. Miller, a Sergeant First Class (SFC) in the U.S. Army Reserve, is applying for the Secretary of the 
-            Student Veterans of America chapter position. With 16 years of distinguished service, SFC Miller currently serves 
-            as an Army Reserve Career Counselor (ARCC), where he has honed invaluable administrative, organizational, and 
-            leadership skills. His role as an ARCC involves extensive administrative work, from managing soldier career transitions, 
-            reenlistments, and transfers to maintaining detailed records and preparing reports—all of which require high precision 
-            and organizational expertise. These responsibilities and his experience in various leadership positions during deployments 
-            to Iraq, Afghanistan, and Guantanamo Bay have equipped him with a strong foundation in operational management and 
-            administrative efficiency.
-        </p>
-        <p class="mt-2">
-            SFC Miller’s military accomplishments are further demonstrated by completing the Senior Leadership Course, Army Reserve 
-            Career Counselor Course, and other advanced military training programs. His civilian education includes a bachelor’s degree 
-            from Liberty University, and he is currently pursuing an MBA from American Military University, adding a strong academic 
-            background to his practical experience. His multiple awards, such as the Army Commendation Medal (2nd Award) and Army Achievement 
-            Medal (3rd Award), reflect his commitment to excellence.
-        </p>
-        <p class="mt-2">
-            SFC Miller’s extensive administrative experience as an Army Reserve Career Counselor, strong leadership skills, and attention 
-            to detail make him exceptionally well-qualified for the role of SVA Secretary. His leadership skills, honed during his various 
-            deployments to Iraq, Afghanistan, and Guantanamo Bay, will be an asset to the chapter's efficient operation and success.
-        </p>
-    </div>
-</div>
-
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="kelly.png" alt="Kelly-Anne Pitchers, Treasurer" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center mb-1">Kelly-Anne Pitchers</h2>
-    <p class="title text-center text-gold font-medium">Treasurer</p>
-    <p class="email text-center text-gray-600 text-sm mb-4">Email: apussva@gmail.com</p>
-    <div class="overflow-y-auto max-h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
-        <p>
-            Kelly-Anne Pitchers is a highly organized and detail-oriented individual with a strong background in customer service, operations, and leadership. She is currently pursuing a Bachelor’s degree in Business Administration at American Public University, maintaining an impressive GPA of 3.97.
-        </p>
-        <p class="mt-2">
-            Kelly's diverse work experience demonstrates her ability to manage financial and operational tasks efficiently. Most recently, she worked as a City Carrier Assistant for USPS in Wichita Falls, where she adhered to strict regulations and guidelines while providing excellent customer service. Prior to that, she worked as a Personal Shopper with Instacart, optimizing processes and resolving customer issues promptly.
-        </p>
-        <p class="mt-2">
-            With extensive experience as a Customer Service Agent at Harte Hanks, Kelly supported the Blue Cross and Blue Shield federal employee program, managing customer inquiries and utilizing CRM tools for case resolution. Her leadership experience includes serving as a Shift Supervisor at Empire Eats in Raleigh, NC, where she managed staff and ensured a positive work environment.
-        </p>
-        <p class="mt-2">
-            With her strong business acumen, leadership experience, and commitment to accuracy, Kelly is well-equipped to serve as Treasurer for the Student Veterans of America (SVA), managing financial records with the same attention to detail and professionalism she has demonstrated throughout her career.
-        </p>
-    </div>
-</div>
-
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="dpayne.png" alt="David Payne, Social Media Manager" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center mb-1">David Payne</h2>
-    <p class="title text-center text-gold font-medium">Social Media Manager / CIO</p>
-    <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
-    <div class="overflow-y-auto max-h-72 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
-        <p>
-            My name is David Payne, and I am honored to serve as the Chief Information Officer for AMU/APUS Student Veterans of America. As a veteran of the 82nd Airborne Division with two deployments to Iraq, I bring a deep passion for supporting student veterans and leveraging technology to enhance their educational and professional opportunities.
-        </p>
-        <p class="mt-2">
-            After my military service, I earned a Bachelor’s Degree in Business Management from American Military University, graduating in 2019. Currently, I work as an Operations Manager at Sutphen Corporation, where we manufacture custom fire trucks for fire departments across the nation. My professional experience has sharpened my leadership and organizational skills, which I now apply to advancing the mission of our chapter.
-        </p>
-        <p class="mt-2">
-            Beyond my career, I am committed to giving back to the community. I actively assist individuals overcoming substance abuse, guiding them toward recovery and sobriety. My involvement also includes supporting my church, participating in local initiatives like the VFW, and volunteering on political campaigns. I’ve managed websites and social media platforms for small businesses in Columbus, Ohio, emphasizing digital strategy and community engagement.
-        </p>
-        <p class="mt-2">
-            On a personal note, I am married with two wonderful children, and their future inspires my dedication to improving the lives of veterans and their families.
-        </p>
-        <p class="mt-2">
-            As CIO, I am committed to using my expertise to further SVA’s mission and create impactful opportunities for our student veteran community.
-        </p>
-    </div>
-</div>
-
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="william.png" alt="William C., Webmaster" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center">William C.</h2>
-    <p class="title text-center text-gold">Webmaster</p>
-    <p class="email text-center text-gray-600">
-        <a href="https://www.linkedin.com/in/wcjc/" target="_blank" class="text-link-blue hover:text-navy">LinkedIn Profile <span class="sr-only">(opens in new tab)</span></a>
-    </p>
-    <div class="overflow-y-auto h-64 p-2 text-sm text-gray-700 mt-4" tabindex="0">
-        <p>
-            As a US Air Force Veteran and US Coast Guard Auxiliary Search and Rescue (S&R) Volunteer, I bring a unique combination of technical expertise and humanitarian service. My involvement in *S&R operations* and providing *USMC DEP training support* has honed my leadership, adaptability, and critical-thinking skills—traits that I will use to contribute to the *AMU Student Veterans Association (SVA)*.
-        </p>
-        <p class="mt-2">
-            In addition to my technical experience, I volunteered at the Philadelphia VA Emergency Department (ED), where I specialized sourcing *mental health resources* and *job support services* for fellow veterans. This role has deepened my commitment to serving the veteran community, providing valuable support during times of need and assisting veterans in navigating their career transitions and mental health challenges.
-        </p>
-        <p class="mt-2">
-            With a Master of Public Health (MPH), I am passionate about applying technology and data science to improve public health systems, particularly in disaster management and crisis response. My ongoing focus on *Full-Stack Development* and *Machine Learning (ML)* empowers me to create accessible, AI-driven solutions to assist vulnerable populations—aligning with *AMU SVA*’s mission to support student veterans through innovative approaches.
-        </p>
-        <p class="mt-2">
-            I am also expanding my expertise in Google Project Management and gaining a deeper understanding of PM KSAs (Knowledge, Skills, and Abilities) to ensure successful project management. By leveraging my technical expertise and leadership skills, I aim to drive impactful projects—whether through machine learning initiatives or leading cross-functional teams. Through my involvement with *AMU SVA*, I hope to apply my diverse background to create meaningful, user-centered solutions that contribute to both the AMU and veteran's community and broader humanitarian goals.
-        </p>
-    </div>
-</div>
-
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="dterry.png" alt="David Terry, Chapter Ambassador" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center mb-1">David Terry</h2>
-    <p class="title text-center text-gold font-medium">Chapter Ambassador</p>
-    <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
-        <p>
-            My name is David Terry, and like my father, I am a Marine. I have been active duty for 15 years and am currently stationed at the 4th Marine Aircraft Wing in New Orleans, LA. My trade is aviation electrician, and I also serve as the 4th MAW class desk while awaiting the results of the Warrant Officer Board.
-        </p>
-        <p class="mt-2">
-            I have been married for 13 years and have two sons. We have relocated often, and we look forward to returning to Japan at some point. I am currently pursuing my bachelor’s degree in business management and plan to pursue my master’s degree afterward.
-        </p>
-        <p class="mt-2">
-            As a Regional Ambassador, I am excited to support our Chapter locally, fostering a strong community for student veterans and their families.
-        </p>
-    </div>
-</div>
-
-
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="lrovere.png" alt="Loren Rovere, Chapter Advisor" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center mb-1">Loren Rovere</h2>
-    <p class="title text-center text-gold font-medium">Chapter Advisor</p>
-    <p class="email text-center text-gray-600 text-sm mb-4">lrovere@apus.edu</p>
-    <div class="overflow-y-auto max-h-40 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
-        Loren Rovere has worked as a Military Education Senior Manager for American Military University since 2020. In September 2022, Loren relocated to Pensacola, FL, to continue working with AMU students. After Loren relocated to Pensacola, she became the Secretary for FL ACME in hopes of better connecting with the military community in Florida and serving military students.<br><br>
-        She is a student-centric leader with over 10 years of experience working in higher education and with the military. Loren has a passion for education and is doing what she can to help others and give back to the community.<br><br>
-        Loren earned her B.A. from Arizona State University in Business with a Concentration in Communications and her M.A. in Education with a Concentration in Higher Education from Ashford University.<br><br>
-        Outside of work, Loren enjoys spending time with her dog Gunnar, is an ASU Sun Devil football fan, and is exploring the south while living in Pensacola.
-    </div>
-</div>
-
-<div class="board-member bg-card border-2 border-gray-400 p-4">
-    <img src="chucka.png" alt="Chuck Alsleben, Chapter Advisor" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
-    <h2 class="text-xl font-bold text-center mb-1">Chuck Alsleben</h2>
-    <p class="title text-center text-gold font-medium">Chapter Advisor</p>
-    <p class="title text-center text-gold font-medium">Director, Team Central & International Military Outreach</p>
-    <p class="email text-center text-gray-600 text-sm mb-4">calsleben@apus.edu</p>
-    <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
-        <p>
-            Chuck Alsleben has been with the American Public University System (APUS) for over six years, holding various leadership roles focused on supporting military students. Since July 2024, he has served as the Director of Team Central & International Military Outreach, managing initiatives to enhance outreach and support for military students both within the United States and abroad.
-        </p>
-        <p class="mt-2">
-            Prior to this, Chuck held the position of Director of National Guard/Reserves & International Outreach, contributing to the expansion of APUS’s services for military members in the National Guard and Reserves, as well as international military personnel.
-        </p>
-        <p class="mt-2">
-            Chuck’s career at APUS began in 2018, when he started as a Senior Manager of Military Education, overseeing the educational needs of military students in South Texas and Louisiana. Throughout his tenure, he has played a crucial role in facilitating access to higher education for service members.
-        </p>
-        <p class="mt-2">
-            His extensive experience in military education and outreach has been instrumental in the continued growth and success of APUS’s military student programs.
-        </p>
-    </div>
-</div>
-    
-
-  </div>
-</main>
-
-
-<div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden"
-     role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
-    <div class="flex justify-center items-center h-full">
-        <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto transform transition-all duration-300 ease-in-out">
-            
-            <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-navy focus:outline-none transition duration-200"
-                    aria-label="Close Resources and Links dialog" data-autofocus>
-                <span class="text-3xl font-bold text-navy">&times;</span>
-            </button>
-
-            <h3 id="modalTitle" class="text-2xl font-bold text-navy border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
-
-            <ul class="space-y-3 text-lg">
-                <li><a href="index.html" class="text-link-blue hover:text-navy transition">Home</a></li>
-                <li class="font-bold text-navy mt-4">CRITICAL SUPPORT:</li>
-                <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
-                <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-link-blue hover:text-navy transition" target="_blank">Veteran/Military Suicide Prevention <span class="sr-only">(opens in new tab)</span></a></li>
-                <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-link-blue hover:text-navy transition" target="_blank">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
-                <li class="font-bold text-navy mt-4">CHAPTER LINKS:</li>
-                <li><a href="history.html" class="text-link-blue hover:text-navy transition">History</a></li>
-                <li><a href="board.html" class="text-link-blue hover:text-navy transition">Board</a></li>
-                <li><a href="legacy.html" class="text-link-blue hover:text-navy transition">Legacy</a></li>
-                <li><a href="careers.html" class="text-link-blue hover:text-navy transition">Careers</a></li>
-                <li><a href="news.html" class="text-link-blue hover:text-navy transition">News</a></li>
-                <li><a href="events.html" class="text-link-blue hover:text-navy transition">Events</a></li>
-                <li><a href="contactus.html" class="text-link-blue hover:text-navy transition">Contact Us</a></li>
-                <li><a href="honors.html" class="text-link-blue hover:text-navy transition">Honors</a></li>
-                <li><a href="https://studentveterans.my.site.com/login" class="text-link-blue hover:text-navy transition" target="_blank">Join SVA (External) <span class="sr-only">(opens in new tab)</span></a></li>
-                <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-link-blue hover:text-navy transition" target="_blank">Join Our Facebook (External) <span class="sr-only">(opens in new tab)</span></a></li>
-                </ul>
+          </p>
         </div>
-    </div>
-</div>
+      </div>
 
-<div class="floating-logo">
+      <!-- Tommy Hendler -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="TH.png" alt="Tommy Hendler, Vice President" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Tommy Hendler</h2>
+        <p class="title text-center text-gold font-medium">Vice President</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">Thomas.Hendler@mycampus.apus.edu</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>
+            Tommy Hendler is a dedicated and experienced AMU/APU Student Veterans of America (SVA) Chapter leader. He earned his MBA from American Military University and has served as Vice President of the SVA Chapter since August 2023, playing a pivotal role in supporting and advancing its mission. Before this, he was the chapter’s Secretary from June 2023 to August 2023, where he excelled in managing chapter records and communications.
+          </p>
+          <p class="mt-2">
+            In addition to his SVA leadership, Tommy brings extensive experience from his involvement in the Masonic community. He is the Chapter Operations Officer for the AMU/APU Dr. Wallace Boston Ancient Order of the Craft Chapter and holds several prominent positions in various Masonic lodges. Since June 2024, he has served as Worshipful Master (Lodge President) at Iowa Park Masonic Lodge #713 and as Lodge Secretary for the Burkburnett Masonic Lodge #1027. He is also active in the Scottish Rite, Shriners, and the American Legion and is a lifetime member of the VFW.
+          </p>
+          <p class="mt-2">
+            Tommy’s commitment to service extends to his military career. A Master Sergeant with 17 years of service in the Army Reserve, he serves as an AGR Reserve Component Career Counselor. In this role, he assists soldiers transitioning out of the Active Army to explore opportunities in the Army Reserve and Army National Guard.
+          </p>
+        </div>
+      </div>
+
+      <!-- Steven Miller -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="steven.png" alt="Sergeant First Class Steven Miller, Secretary" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Steven Miller</h2>
+        <p class="title text-center text-gold font-medium">Secretary</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>
+            Steven D. Miller, a Sergeant First Class (SFC) in the U.S. Army Reserve, is applying for the Secretary of the Student Veterans of America chapter position. With 16 years of distinguished service, SFC Miller currently serves as an Army Reserve Career Counselor (ARCC), where he has honed invaluable administrative, organizational, and leadership skills. His role as an ARCC involves extensive administrative work, from managing soldier career transitions, reenlistments, and transfers to maintaining detailed records and preparing reports—all of which require high precision and organizational expertise. These responsibilities and his experience in various leadership positions during deployments to Iraq, Afghanistan, and Guantanamo Bay have equipped him with a strong foundation in operational management and administrative efficiency.
+          </p>
+          <p class="mt-2">
+            SFC Miller’s military accomplishments are further demonstrated by completing the Senior Leadership Course, Army Reserve Career Counselor Course, and other advanced military training programs. His civilian education includes a bachelor’s degree from Liberty University, and he is currently pursuing an MBA from American Military University, adding a strong academic background to his practical experience. His multiple awards, such as the Army Commendation Medal (2nd Award) and Army Achievement Medal (3rd Award), reflect his commitment to excellence.
+          </p>
+          <p class="mt-2">
+            SFC Miller’s extensive administrative experience as an Army Reserve Career Counselor, strong leadership skills, and attention to detail make him exceptionally well-qualified for the role of SVA Secretary. His leadership skills, honed during his various deployments to Iraq, Afghanistan, and Guantanamo Bay, will be an asset to the chapter's efficient operation and success.
+          </p>
+        </div>
+      </div>
+
+      <!-- Kelly-Anne Pitchers -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="kelly.png" alt="Kelly-Anne Pitchers, Treasurer" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Kelly-Anne Pitchers</h2>
+        <p class="title text-center text-gold font-medium">Treasurer</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">Email: apussva@gmail.com</p>
+        <div class="overflow-y-auto max-h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>
+            Kelly-Anne Pitchers is a highly organized and detail-oriented individual with a strong background in customer service, operations, and leadership. She is currently pursuing a Bachelor’s degree in Business Administration at American Public University, maintaining an impressive GPA of 3.97.
+          </p>
+          <p class="mt-2">
+            Kelly's diverse work experience demonstrates her ability to manage financial and operational tasks efficiently. Most recently, she worked as a City Carrier Assistant for USPS in Wichita Falls, where she adhered to strict regulations and guidelines while providing excellent customer service. Prior to that, she worked as a Personal Shopper with Instacart, optimizing processes and resolving customer issues promptly.
+          </p>
+          <p class="mt-2">
+            With extensive experience as a Customer Service Agent at Harte Hanks, Kelly supported the Blue Cross and Blue Shield federal employee program, managing customer inquiries and utilizing CRM tools for case resolution. Her leadership experience includes serving as a Shift Supervisor at Empire Eats in Raleigh, NC, where she managed staff and ensured a positive work environment.
+          </p>
+        </div>
+      </div>
+
+      <!-- David Payne -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="dpayne.png" alt="David Payne, Social Media Manager" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">David Payne</h2>
+        <p class="title text-center text-gold font-medium">Social Media Manager / CIO</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto max-h-72 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>
+            My name is David Payne, and I am honored to serve as the Chief Information Officer for AMU/APUS Student Veterans of America. As a veteran of the 82nd Airborne Division with two deployments to Iraq, I bring a deep passion for supporting student veterans and leveraging technology to enhance their educational and professional opportunities.
+          </p>
+          <p class="mt-2">
+            After my military service, I earned a Bachelor’s Degree in Business Management from American Military University, graduating in 2019. Currently I work as an Operations Manager at Sutphen Corporation, where we manufacture custom fire trucks for fire departments across the nation. My professional experience has sharpened my leadership and organizational skills, which I now apply to advancing the mission of our chapter.
+          </p>
+          <p class="mt-2">
+            Beyond my career, I am committed to giving back to the community. I actively assist individuals overcoming substance abuse, guiding them toward recovery and sobriety. My involvement also includes supporting my church, participating in local initiatives like the VFW, and volunteering on political campaigns.
+          </p>
+        </div>
+      </div>
+
+      <!-- William C. -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="11william.png" alt="William C., Webmaster" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center">William C.</h2>
+        <p class="title text-center text-gold">Webmaster</p>
+        <p class="email text-center text-gray-600">
+          <a href="https://www.linkedin.com/in/wcjc/" target="_blank" class="text-link-blue hover:text-navy">LinkedIn Profile <span class="sr-only">(opens in new tab)</span></a>
+        </p>
+        <div class="overflow-y-auto h-64 p-2 text-sm text-gray-700 mt-4" tabindex="0">
+          <p>
+            As a US Air Force Veteran and US Coast Guard Auxiliary Search and Rescue (S&R) Volunteer, I bring a unique combination of technical expertise and humanitarian service. My involvement in S&R operations and providing USMC DEP training support has honed my leadership, adaptability, and critical-thinking skills—traits that I will use to contribute to the AMU Student Veterans Association (SVA).
+          </p>
+          <p class="mt-2">
+            In addition to my technical experience, I volunteered at the Philadelphia VA Emergency Department (ED), where I specialized sourcing mental health resources and job support services for fellow veterans. This role has deepened my commitment to serving the veteran community, providing valuable support during times of need and assisting veterans in navigating their career transitions and mental health challenges.
+          </p>
+          <p class="mt-2">
+            With a Master of Public Health (MPH), I am passionate about applying technology and data science to improve public health systems, particularly in disaster management and crisis response.
+          </p>
+        </div>
+      </div>
+
+      <!-- David Terry -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="dterry.png" alt="David Terry, Chapter Ambassador" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">David Terry</h2>
+        <p class="title text-center text-gold font-medium">Chapter Ambassador</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>
+            My name is David Terry, and like my father, I am a Marine. I have been active duty for 15 years and am currently stationed at the 4th Marine Aircraft Wing in New Orleans, LA. My trade is aviation electrician, and I also serve as the 4th MAW class desk while awaiting the results of the Warrant Officer Board.
+          </p>
+          <p class="mt-2">I have been married for 13 years and have two sons. We have relocated often, and we look forward to returning to Japan at some point. I am currently pursuing a bachelor’s degree in business management and plan to pursue my master’s degree afterward.</p>
+        </div>
+      </div>
+
+      <!-- Jose Bailey -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="1jose.png" alt="Jose Bailey" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Jose Bailey</h2>
+        <p class="title text-center text-gold font-medium">Veteran Benefit Advocate</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>This is placeholder biography text. Please replace this content, the name, title, and the image source (placeholder1.png) with the correct information for this board member.</p>
+        </div>
+      </div>
+
+      <!-- Cole Johnson -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="1cole.png" alt="Cole Johnson" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Cole Johnson</h2>
+        <p class="title text-center text-gold font-medium">Legacy Project Leader</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>This is placeholder biography text. Please replace this content, the name, title, and the image source (placeholder2.png) with the correct information for this board member.</p>
+        </div>
+      </div>
+
+      <!-- Jessica Girdler -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="1jessica.png" alt="Jessica Girdler" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Jessica Girdler</h2>
+        <p class="title text-center text-gold font-medium">Legacy Project Officer</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>This is placeholder biography text. Please replace this content with the correct information for this board member.</p>
+        </div>
+      </div>
+
+      <!-- Adrian Florez -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="1adrian.png" alt="Adrian Florez" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Adrian Florez</h2>
+        <p class="title text-center text-gold font-medium">Legacy Project Officer</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>This is placeholder biography text. Please replace this content with the correct information for this board member.</p>
+        </div>
+      </div>
+
+      <!-- Liz Lancaster -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="1liz.png" alt="Liz Lancaster" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Liz Lancaster</h2>
+        <p class="title text-center text-gold font-medium">Senior Manager</p>
+        <p class="title text-center text-gold font-medium">AMU Military Outreach</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>This is placeholder biography text. Please replace this content with the correct information for this board member.</p>
+        </div>
+      </div>
+
+      <!-- Michael Duval Jr. -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="1michael.png" alt="Michael Duval Jr." class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Michael Duval Jr.</h2>
+        <p class="title text-center text-gold font-medium">Regional Ambassador</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">apussva@gmail.com</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>This is placeholder biography text. Please replace this content with the correct information for this board member.</p>
+        </div>
+      </div>
+
+      <!-- Loren Rovere -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="lrovere.png" alt="Loren Rovere, Chapter Advisor" class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Loren Rovere</h2>
+        <p class="title text-center text-gold font-medium">Chapter Advisor</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">lrovere@apus.edu</p>
+        <div class="overflow-y-auto max-h-40 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          Loren Rovere has worked as a Military Education Senior Manager for American Military University since 2020. In September 2022, Loren relocated to Pensacola, FL, to continue working with AMU students. After Loren relocated to Pensacola, she became the Secretary for FL ACME in hopes of better connecting with the military community in Florida and serving military students.<br><br>
+          She is a student-centric leader with over 10 years of experience working in higher education and with the military. Loren has a passion for education and is doing what she can to help others and give back to the community.<br><br>
+          Loren earned her B.A. from Arizona State University in Business with a Concentration in Communications and her M.A. in Education with a Concentration in Higher Education from Ashford University.<br><br>
+          Outside of work, Loren enjoys spending time with her dog Gunnar, is an ASU Sun Devil football fan, and is exploring the south while living in Pensacola.
+        </div>
+      </div>
+
+      <!-- Chuck Alsleben -->
+      <div class="board-member bg-card border-2 border-gray-400 p-4">
+        <img src="chucka.png" alt="Chuck Alsleben, Chapter Advisor" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+        <h2 class="text-xl font-bold text-center mb-1">Chuck Alsleben</h2>
+        <p class="title text-center text-gold font-medium">Chapter Advisor</p>
+        <p class="title text-center text-gold font-medium">Director, Team Central & International Military Outreach</p>
+        <p class="email text-center text-gray-600 text-sm mb-4">calsleben@apus.edu</p>
+        <div class="overflow-y-auto h-48 p-2 text-gray-700 text-sm border-t border-gray-200" tabindex="0">
+          <p>
+            Chuck Alsleben has been with the American Public University System (APUS) for over six years, holding various leadership roles focused on supporting military students. Since July 2024, he has served as the Director of Team Central & International Military Outreach, managing initiatives to enhance outreach and support for military students both within the United States and abroad.
+          </p>
+          <p class="mt-2">
+            Prior to this, Chuck held the position of Director of National Guard/Reserves & International Outreach, contributing to the expansion of APUS’s services for military members in the National Guard and Reserves, as well as international military personnel.
+          </p>
+          <p class="mt-2">
+            Chuck’s career at APUS began in 2018, when he started as a Senior Manager of Military Education, overseeing the educational needs of military students in South Texas and Louisiana. Throughout his tenure, he has played a crucial role in facilitating access to higher education for service members.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Resources modal -->
+  <div id="resourcesModal" class="fixed inset-0 bg-gray-800 bg-opacity-70 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="flex justify-center items-start md:items-center min-h-screen py-10 md:py-0">
+      <div class="relative bg-white rounded-xl w-11/12 md:w-1/2 p-6 shadow-2xl max-h-[90vh] overflow-y-auto modal-inner">
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-gray-600 hover:text-navy focus:outline-none" aria-label="Close Resources and Links dialog">
+          <span class="text-3xl font-bold text-navy">&times;</span>
+        </button>
+
+        <h3 id="modalTitle" class="text-2xl font-bold text-navy border-b pb-2 mb-4">Comprehensive Resources and Links</h3>
+
+        <ul class="space-y-3 text-lg">
+          <li><a href="index.html" class="text-link-blue hover:text-navy transition">Home</a></li>
+          <li class="font-bold text-navy mt-4">CRITICAL SUPPORT:</li>
+          <li><a href="https://www.veteranscrisisline.net/" class="text-red-600 hover:text-red-700 transition" target="_blank" rel="noopener">Veterans Crisis Line <span class="sr-only">(opens in new tab)</span></a></li>
+          <li><a href="https://theactionalliance.org/veteran-and-military-suicide-prevention-resources" class="text-link-blue hover:text-navy transition" target="_blank" rel="noopener">Veteran/Military Suicide Prevention <span class="sr-only">(opens in new tab)</span></a></li>
+          <li><a href="https://www.cohenveteransnetwork.org/clinics-intro/" class="text-link-blue hover:text-navy transition" target="_blank" rel="noopener">Counseling and Support <span class="sr-only">(opens in new tab)</span></a></li>
+          <li class="font-bold text-navy mt-4">CHAPTER LINKS:</li>
+          <li><a href="history.html" class="text-link-blue hover:text-navy transition">History</a></li>
+          <li><a href="board.html" class="text-link-blue hover:text-navy transition">Board</a></li>
+          <li><a href="legacy.html" class="text-link-blue hover:text-navy transition">Legacy</a></li>
+          <li><a href="careers.html" class="text-link-blue hover:text-navy transition">Careers</a></li>
+          <li><a href="news.html" class="text-link-blue hover:text-navy transition">News</a></li>
+          <li><a href="events.html" class="text-link-blue hover:text-navy transition">Events</a></li>
+          <li><a href="contactus.html" class="text-link-blue hover:text-navy transition">Contact Us</a></li>
+          <li><a href="honors.html" class="text-link-blue hover:text-navy transition">Honors</a></li>
+          <li><a href="https://studentveterans.my.site.com/login" class="text-link-blue hover:text-navy transition" target="_blank" rel="noopener">Join SVA (External) <span class="sr-only">(opens in new tab)</span></a></li>
+          <li><a href="https://www.facebook.com/share/g/14qqEw5pDS/?mibextid=wwXIfr" class="text-link-blue hover:text-navy transition" target="_blank" rel="noopener">Join Our Facebook (External) <span class="sr-only">(opens in new tab)</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="floating-logo">
     <img src="svatry.png" alt="SVA Logo, Chapter Branding" class="w-40 h-auto">
-</div>
+  </div>
 
-
-<footer class="bg-navy text-gold py-6 mt-12">
+  <footer class="bg-navy text-gold py-6 mt-12">
     <div class="max-w-screen-xl mx-auto text-center">
-        <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
+      <p class="text-sm font-medium">© 2025 AMU APU SVA Chapter | Designed by William C.</p>
     </div>
-</footer>
+  </footer>
 
-<button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0"
-    onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
-<button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0"
-    onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
+  <!-- Scroll buttons -->
+  <button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0" onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
+  <button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0" onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
 
-<div id="scrollUpBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way up.</div>
-<div id="scrollDownBubble" class="scroll-bubble">Click for quick scroll, or **Hold** to move all the way down.</div>
+  <div id="scrollUpBubble" class="scroll-bubble" aria-hidden="true">Click scroll, or *Hold* to go up.</div>
+  <div id="scrollDownBubble" class="scroll-bubble" aria-hidden="true">Click scroll, or *Hold* to move down.</div>
 
-<div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-600 opacity-80" id="a11yStatus">
+  <div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-600 opacity-80" id="a11yStatus" aria-live="polite">
     High-contrast mode: OFF
-</div>
+  </div>
 
-<script>
+  <script>
+    /* Refs */
     const resourcesModal = document.getElementById('resourcesModal');
     const openModalBtn = document.getElementById('openModalBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
-    const firstFocusableElement = closeModalBtn; 
-    let lastFocusableElement;
-    let previousActiveElement = null;
-    let scrollInterval; 
-    let hideBubbleTimeout; 
-
-    // --- Tooltip Bubble Functions ---
-    function showBubble(id, duration = 0) {
-        clearTimeout(hideBubbleTimeout);
-        document.getElementById(id).style.opacity = '1';
-        if (duration > 0) {
-            hideBubbleTimeout = setTimeout(() => {
-                hideBubble(id);
-            }, duration);
-        }
-    }
-    function hideBubble(id) {
-        document.getElementById(id).style.opacity = '0';
-    }
-
-    // --- WCAG Modal Focus Management (Traps focus, closes on Escape) ---
-    function trapFocus(e) {
-        if (resourcesModal.classList.contains('hidden')) return;
-        
-        const focusableElements = resourcesModal.querySelectorAll('a, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        lastFocusableElement = focusableElements[focusableElements.length - 1];
-
-        if (e.key === 'Tab') {
-            if (e.shiftKey) { 
-                if (document.activeElement === firstFocusableElement) {
-                    lastFocusableElement.focus();
-                    e.preventDefault();
-                }
-            } else { 
-                if (document.activeElement === lastFocusableElement) {
-                    firstFocusableElement.focus();
-                    e.preventDefault();
-                }
-            }
-        }
-        if (e.key === 'Escape') {
-            closeModal();
-        }
-    }
-
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        previousActiveElement = document.activeElement; 
-        modal.classList.remove('hidden');
-        
-        const firstFocus = modal.querySelector('[data-autofocus]') || modal.querySelector('button, a, [tabindex]:not([tabindex="-1"])');
-        if (firstFocus) {
-            firstFocus.focus();
-        }
-        document.addEventListener('keydown', trapFocus);
-    }
-
-    function closeModal() {
-        resourcesModal.classList.add('hidden');
-        document.removeEventListener('keydown', trapFocus);
-        if (previousActiveElement) {
-            previousActiveElement.focus();
-        }
-    }
-
-    // Modal Triggers
-    openModalBtn.addEventListener('click', () => openModal('resourcesModal'));
-    closeModalBtn.addEventListener('click', closeModal);
-
-    resourcesModal.addEventListener('click', function(e) {
-        if (e.target === resourcesModal) {
-            closeModal();
-        }
-    });
-
-    // --- WCAG High Contrast & Motion Reduction ---
     const a11yToggle = document.getElementById('a11yToggle');
     const a11yStatus = document.getElementById('a11yStatus');
 
-    function toggleHighContrast() {
-        document.body.classList.toggle('high-contrast');
-        const isHighContrast = document.body.classList.contains('high-contrast');
-        a11yStatus.textContent = isHighContrast ? 'High-contrast mode: ON' : 'High-contrast mode: OFF';
-        localStorage.setItem('high-contrast', isHighContrast);
-        // Automatically add motion-reduced class in high contrast mode to meet WCAG 2.3.3
-        document.body.classList.toggle('motion-reduced', isHighContrast); 
+    /* Tooltip helpers */
+    let hideBubbleTimeout;
+    function showBubble(id, duration = 0){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.style.opacity = '1';
+      el.setAttribute('aria-hidden','false');
+      if(duration > 0){
+        clearTimeout(hideBubbleTimeout);
+        hideBubbleTimeout = setTimeout(()=> hideBubble(id), duration);
+      }
     }
-    
+    function hideBubble(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.style.opacity = '0';
+      el.setAttribute('aria-hidden','true');
+    }
+
+    /* Modal open/close with simple focus trap */
+    let previousActive = null;
+    function openModal(){
+      previousActive = document.activeElement;
+      resourcesModal.classList.remove('hidden');
+      resourcesModal.classList.add('block');
+      resourcesModal.querySelector('[aria-label], a, button')?.focus();
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', modalKeyHandler);
+    }
+    function closeModal(){
+      resourcesModal.classList.add('hidden');
+      resourcesModal.classList.remove('block');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', modalKeyHandler);
+      if(previousActive) previousActive.focus();
+    }
+    function modalKeyHandler(e){
+      if(e.key === 'Escape') closeModal();
+      if(e.key === 'Tab'){
+        const focusables = resourcesModal.querySelectorAll('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+        if(!focusables.length) return;
+        const first = focusables[0], last = focusables[focusables.length - 1];
+        if(e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+        else if(!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+      }
+    }
+
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    resourcesModal.addEventListener('click', (e) => { if(e.target === resourcesModal) closeModal(); });
+
+    /* High-contrast toggle */
+    function setContrast(on){
+      if(on) document.body.classList.add('high-contrast');
+      else document.body.classList.remove('high-contrast');
+      a11yStatus.textContent = `High-contrast mode: ${on ? 'ON' : 'OFF'}`;
+      localStorage.setItem('highContrast', on ? 'on' : 'off');
+    }
+    function toggleHighContrast(){
+      const enabled = document.body.classList.toggle('high-contrast');
+      a11yStatus.textContent = `High-contrast mode: ${enabled ? 'ON' : 'OFF'}`;
+      localStorage.setItem('highContrast', enabled ? 'on' : 'off');
+    }
     a11yToggle.addEventListener('click', toggleHighContrast);
+    if(localStorage.getItem('highContrast') === 'on') setContrast(true);
 
-    // Initial check for stored preference or system preference
-    if (localStorage.getItem('high-contrast') === 'true') {
-        document.body.classList.add('high-contrast');
-        a11yStatus.textContent = 'High-contrast mode: ON';
-    } else if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        // Only apply motion-reduced if no high-contrast preference is set
-        document.body.classList.add('motion-reduced');
+    /* Scroll buttons */
+    const scrollUp = document.getElementById('scrollUp');
+    const scrollDown = document.getElementById('scrollDown');
+    let scrollInterval = null;
+    function startScroll(direction){
+      if(scrollInterval) clearInterval(scrollInterval);
+      window.scrollBy(0, direction * 200);
+      scrollInterval = setInterval(()=> {
+        window.scrollBy(0, direction * 120);
+        if(direction < 0 && window.scrollY <= 0){ clearInterval(scrollInterval); scrollInterval = null; }
+        if(direction > 0 && (window.scrollY + window.innerHeight) >= document.body.offsetHeight){ clearInterval(scrollInterval); scrollInterval = null; }
+      }, 60);
     }
+    function stopScroll(){ if(scrollInterval){ clearInterval(scrollInterval); scrollInterval = null; } }
 
-    // --- WCAG Custom Scroll Buttons (for users without scroll wheels/trackpads) ---
-    function startScroll(direction) {
-        stopScroll(); 
-        const scrollAmount = direction === 'up' ? -50 : 50;
-        scrollInterval = setInterval(() => {
-            window.scrollBy(0, scrollAmount);
-        }, 50); 
-    }
-    function stopScroll() {
-        clearInterval(scrollInterval);
-    }
-
-    const scrollUpBtn = document.getElementById('scrollUp');
-    const scrollDownBtn = document.getElementById('scrollDown');
-
-    // Mouse events for continuous scroll (hold function)
-    scrollUpBtn.addEventListener('mousedown', () => startScroll('up'));
-    scrollUpBtn.addEventListener('mouseup', stopScroll);
-    scrollUpBtn.addEventListener('mouseleave', stopScroll);
-
-    scrollDownBtn.addEventListener('mousedown', () => startScroll('down'));
-    scrollDownBtn.addEventListener('mouseup', stopScroll);
-    scrollDownBtn.addEventListener('mouseleave', stopScroll);
-    
-    // Keyboard events for single-step scroll (Enter/Space) and bubble visibility (Focus/Blur)
-    document.querySelectorAll('.access-scroll-btn').forEach(btn => {
-        btn.addEventListener('keydown', (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault(); // Prevent default action (like form submission)
-                const direction = btn.id === 'scrollUp' ? 'up' : 'down';
-                window.scrollBy(0, direction === 'up' ? -200 : 200); // Quick step scroll
-            }
-        });
-        // Show bubbles on focus for keyboard users (permanent until blur)
-        btn.addEventListener('focus', () => showBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble', 0));
-        btn.addEventListener('blur', () => hideBubble(btn.id === 'scrollUp' ? 'scrollUpBubble' : 'scrollDownBubble'));
+    ['mousedown','touchstart'].forEach(evt => {
+      scrollUp.addEventListener(evt, () => startScroll(-1));
+      scrollDown.addEventListener(evt, () => startScroll(1));
     });
-</script>
+    ['mouseup','mouseleave','touchend','touchcancel'].forEach(evt => {
+      scrollUp.addEventListener(evt, stopScroll);
+      scrollDown.addEventListener(evt, stopScroll);
+    });
+    scrollUp.addEventListener('click', ()=> { if(!scrollInterval) window.scrollBy(0, -window.innerHeight/2); });
+    scrollDown.addEventListener('click', ()=> { if(!scrollInterval) window.scrollBy(0, window.innerHeight/2); });
+
+    /* Hover bubble for a11y */
+    document.getElementById('a11yToggle').addEventListener('mouseover', ()=> showBubble('a11yBubble', 2200));
+    document.getElementById('a11yToggle').addEventListener('mouseout', ()=> hideBubble('a11yBubble'));
+  </script>
 </body>
 </html>
