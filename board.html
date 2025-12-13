@@ -6,6 +6,8 @@
   <title>SVA Board Members and Leadership</title>
   <script src="https://cdn.tailwindcss.com"></script>
 
+  
+
   <style>
     /* ---------------------------
        Theme variables & base
@@ -48,6 +50,27 @@
       z-index: 1000;
     }
 
+    #homeButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+#homeButton {
+  background: #FFC300;
+  color: #0A1931;
+  padding: .6rem 1.2rem;
+  border-radius: .5rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 6px 14px rgba(0,0,0,.2);
+}
+
+#homeButton:hover {
+  background: #ffdb4d;
+}
     /* Cards */
     .bg-card { background-color: rgba(255,255,255,0.95); backdrop-filter: blur(2px); }
     header { background-color: var(--primary-blue); box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
@@ -79,6 +102,8 @@
        Buttons use position:fixed and NO code changes their top/right
        --------------------------- */
 
+
+
     #openModalBtn {
       position: fixed !important;
       top: 1rem !important;
@@ -108,6 +133,8 @@
       border: none;
       cursor: pointer;
     }
+
+
 
     /* bubble sits to the left of the buttons */
     #a11yBubble { top: 4.5rem !important; right: calc(1.5rem + 9.5rem) !important; }
@@ -168,7 +195,7 @@
   </a>
 
   <!-- Fixed top-right buttons (will not move) -->
-  <button id="openModalBtn" aria-label="Open Resources and Links menu" type="button">View Resources</button>
+  <button id="openModalBtn" aria-label="Open Resources and Links menu" type="button">Resources</button>
 
   <button id="a11yToggle" aria-label="Toggle high contrast mode" type="button"
           onmouseover="showBubble('a11yBubble')" onmouseout="hideBubble('a11yBubble')">
@@ -589,8 +616,8 @@ media, camaraderie, and team spirit.</p>
   <button id="scrollUp" class="access-scroll-btn" aria-label="Scroll Up" tabindex="0" onmouseover="showBubble('scrollUpBubble', 0)" onmouseout="hideBubble('scrollUpBubble')">&#9650;</button>
   <button id="scrollDown" class="access-scroll-btn" aria-label="Scroll Down" tabindex="0" onmouseover="showBubble('scrollDownBubble', 0)" onmouseout="hideBubble('scrollDownBubble')">&#9660;</button>
 
-  <div id="scrollUpBubble" class="scroll-bubble" aria-hidden="true">Click scroll, or *Hold* to go up.</div>
-  <div id="scrollDownBubble" class="scroll-bubble" aria-hidden="true">Click scroll, or *Hold* to move down.</div>
+  <div id="scrollUpBubble" class="scroll-bubble" aria-hidden="true">Hold Up</div>
+  <div id="scrollDownBubble" class="scroll-bubble" aria-hidden="true">Hold Down</div>
 
   <div class="fixed bottom-6 inset-x-0 text-center text-sm text-gray-600 opacity-80" id="a11yStatus" aria-live="polite">
     High-contrast mode: OFF
@@ -700,5 +727,14 @@ media, camaraderie, and team spirit.</p>
     document.getElementById('a11yToggle').addEventListener('mouseover', ()=> showBubble('a11yBubble', 2200));
     document.getElementById('a11yToggle').addEventListener('mouseout', ()=> hideBubble('a11yBubble'));
   </script>
+
+<div id="homeButtonWrapper">
+  <a href="index.html" id="homeButton" role="button" aria-label="Go to Home Page">
+    🏠 Home
+  </a>
+</div>
+
+
+  
 </body>
 </html>
